@@ -1,0 +1,42 @@
+{
+	"name": "@tom-weatherhead/common-utilities.js",
+	"shortName": "common-utilities",
+	"description": "Common JavaScript utility functions",
+	"private": false,
+	"version": "0.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tom-weatherhead/common-utilities.js.git"
+	},
+	"homepage": "https://github.com/tom-weatherhead/common-utilities.js#readme",
+	"bugs": {
+		"url": "https://github.com/tom-weatherhead/common-utilities.js/issues"
+	},
+	"main": "lib/common-utilities",
+	"scripts": {
+		"start": "grunt",
+		"test": "grunt test"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"babel-core": "^6.26.3",
+		"babel-minify": "^0.5.0",
+		"babel-preset-env": "^1.7.0",
+		"grunt": "^1.0.3",
+		"grunt-babel": "^8.0.0",
+		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-nodeunit": "^2.0.0",
+		"grunt-contrib-uglify": "^4.0.0",
+		"grunt-eslint": "^21.0.0"
+	},
+	"engineStrict": true,
+	"engines": {
+		"node": ">= 10.13"
+	},
+	"keywords": [
+		"JavaScript",
+		"utilities"
+	],
+	"author": "Tom Weatherhead <null@2hrd4u.org> (https://httpbin.org/status/418)",
+	"license": "MIT"
+}
