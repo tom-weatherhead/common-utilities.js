@@ -14,7 +14,7 @@ module.exports = grunt => {
 		pkg: gruntfile,
 		eslint: {
 			target: [
-				'Gruntfile.js',
+				'*.js',
 				'test/*.js',
 				'lib/<%= pkg.shortName %>.es6.js'
 			]

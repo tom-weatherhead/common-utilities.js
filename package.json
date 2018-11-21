@@ -1,5 +1,5 @@
 {
-	"name": "@tom-weatherhead/common-utilities.js",
+	"name": "thaw-common-utilities.js",
 	"shortName": "common-utilities",
 	"description": "Common JavaScript utility functions",
 	"private": false,
@@ -31,7 +31,7 @@
 	},
 	"engineStrict": true,
 	"engines": {
-		"node": ">= 10.13"
+		"node": ">= 8"
 	},
 	"keywords": [
 		"JavaScript",

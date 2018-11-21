@@ -3,7 +3,8 @@ const path = require('path');
 const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities.js'));
 // import * as commonUtilities from require(path.join(__dirname, '..', 'lib', 'common-utilities.es6.js'));
 
-exports.filesize = {
+// exports.commonUtilitiesJs = {
+module.exports = {
 	setUp: function (done) {
 		// this.kilobit = 500;
 		done();
@@ -51,6 +52,26 @@ exports.filesize = {
 	test7: function (test) {
 		test.expect(1);
 		test.deepEqual(commonUtilities.getDateTimeString(new Date(1971, 6, 13, 2, 3, 57)), '1971-07-13 02:03:57', 'Should be \'1971-07-13 02:03:57\'');
+		test.done();
+	},
+	test8a: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.insertNumberIntoArray(4, [1, 2, 3, 5, 6, 7]), [1, 2, 3, 4, 5, 6, 7], 'Should be [1, 2, 3, 4, 5, 6, 7]');
+		test.done();
+	},
+	test8b: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.insertNumberIntoArray(4, [5, 6, 7]), [4, 5, 6, 7], 'Should be [4, 5, 6, 7]');
+		test.done();
+	},
+	test8c: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.insertNumberIntoArray(4, [1, 2, 3]), [1, 2, 3, 4], 'Should be [1, 2, 3, 4]');
+		test.done();
+	},
+	test9: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.insertionSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
 		test.done();
 	}
 	// TODO: Test clone()
