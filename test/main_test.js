@@ -73,6 +73,11 @@ module.exports = {
 		test.expect(1);
 		test.deepEqual(commonUtilities.insertionSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
 		test.done();
+	},
+	test10: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.removeDuplicatesFromArray([1, 3, 1, 2, 4, 2, 3, 1, 1]), [1, 3, 2, 4], 'Should be [1, 3, 2, 4]');
+		test.done();
 	}
 	// TODO: Test clone()
 };

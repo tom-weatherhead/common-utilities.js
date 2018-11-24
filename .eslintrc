@@ -2,7 +2,8 @@
 	"globals": {
 		"__dirname": true,
 		"module": true,
-		"require": true
+		"require": true,
+		"Set": true
 	},
 	"parserOptions": {
 		"ecmaVersion": 2018,
