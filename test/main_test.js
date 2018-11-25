@@ -78,6 +78,43 @@ module.exports = {
 		test.expect(1);
 		test.deepEqual(commonUtilities.removeDuplicatesFromArray([1, 3, 1, 2, 4, 2, 3, 1, 1]), [1, 3, 2, 4], 'Should be [1, 3, 2, 4]');
 		test.done();
+	},
+	test11: test => {
+		const array = [1, 2, 3];
+
+		test.expect(3);
+		test.equal(commonUtilities.isDefined(array), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(array.length), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(array.leeength), false, 'Should be false');
+		test.done();
+	},
+	test12: test => {
+		const original = { a: 3, b: 'c' };
+		const clone = commonUtilities.clone(original);
+
+		test.expect(5);
+		test.deepEqual(clone, original, 'Should be deepEqual');
+		clone.a = 4;
+		test.equal(original.a, 3, 'Should be 3');
+		test.equal(original.b, 'c', 'Should be \'c\'');
+		test.equal(clone.a, 4, 'Should be 4');
+		test.equal(clone.b, 'c', 'Should be \'c\'');
+		test.done();
+	},
+	test13: test => {
+		const original = { a: 1, b: 2, c: 3 };
+		const partialClone = commonUtilities.copySpecifiedObjectProperties([ 'a', 'c', 'd' ], original);
+
+		test.expect(4);
+		test.equal(partialClone.a, original.a, 'Should be original.a');
+		test.equal(commonUtilities.isDefined(partialClone.b), false, 'Should be false');
+		test.equal(partialClone.c, original.c, 'Should be original.c');
+		test.equal(commonUtilities.isDefined(partialClone.d), false, 'Should be false');
+		test.done();
+	},
+	test14: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.getOwnProperties({ a: 1, c: 3, e: 5 }), [ 'a', 'c', 'e' ], 'Should be [ \'a\', \'c\', \'e\' ]');
+		test.done();
 	}
-	// TODO: Test clone()
 };
