@@ -17,14 +17,30 @@ Common JavaScript utility functions
 
 - getTypeString(obj) : string
 
+- histogram(any[]) : object[]
+
 - insertNumberIntoArray(n, array) : number[]
 
 - insertionSort(array) : number[]
 
+- isArray(obj) : boolean
+
+- isArrayOfNumbers(obj) : boolean
+
 - isDefined(obj) : boolean
+
+- mean(number[]) : number
+
+- median(number[]) : number
+
+- mode(any[]) : object
 
 - removeDuplicatesFromArray(array) : any[]
 
 - replicateString(str, n) : string
+
+- safeJsonParse(str) : object
+
+- sum(number[]) : number
 
 - zeroPadNumber(n, minLength) : string
