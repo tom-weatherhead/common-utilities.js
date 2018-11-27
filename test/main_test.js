@@ -17,10 +17,11 @@ module.exports = {
 	test2: function (test) {
 		const arrayOfNumbers = [2, 3, 5, 7];
 
-		test.expect(3);
+		test.expect(4);
 		test.deepEqual(commonUtilities.getTypeString(new Date()), '[object Date]', 'Should be \'[object Date]\'');
 		test.deepEqual(commonUtilities.getTypeString(arrayOfNumbers), '[object Array]', 'Should be \'[object Array]\'');
 		test.deepEqual(commonUtilities.getTypeString(arrayOfNumbers[0]), '[object Number]', 'Should be \'[object Number]\'');
+		test.deepEqual(commonUtilities.getTypeString((a, b) => a + b), '[object Function]', 'Should be \'[object Function]\'');
 		test.done();
 	},
 	test3a: function (test) {
@@ -121,7 +122,6 @@ module.exports = {
 		test.deepEqual(commonUtilities.getOwnProperties({ a: 1, c: 3, e: 5 }), [ 'a', 'c', 'e' ], 'Should be [ \'a\', \'c\', \'e\' ]');
 		test.done();
 	},
-	// TODO: Test safeJsonParse()
 	test15: test => {
 		const object1 = { a: 1, b: 'bee', c: [], d: true };
 		test.expect(1);
@@ -137,7 +137,6 @@ module.exports = {
 		test.equal(commonUtilities.uuid(), 0, 'Should be 0');
 		test.done();
 	}, */
-	// TODO: Test isArray()
 	test17: test => {
 		test.expect(9);
 		test.equal(commonUtilities.isArray([]), true, 'Should be true');
@@ -151,7 +150,6 @@ module.exports = {
 		test.equal(commonUtilities.isArray('abc'), false, 'Should be false');
 		test.done();
 	},
-	// TODO: Test isArrayOfNumbers()
 	test18: test => {
 		test.expect(4);
 		test.equal(commonUtilities.isArrayOfNumbers([]), true, 'Should be true');
@@ -160,7 +158,6 @@ module.exports = {
 		test.equal(commonUtilities.isArrayOfNumbers([1, 2, 3, false]), false, 'Should be false');
 		test.done();
 	},
-	// TODO: Test sum()
 	test19: test => {
 		test.expect(4);
 		test.equal(commonUtilities.sum('abc'), undefined, 'Should be undefined');
@@ -169,19 +166,16 @@ module.exports = {
 		test.equal(commonUtilities.sum([2, 3, 5, 7]), 17, 'Should be 17');
 		test.done();
 	},
-	// TODO: Test mean()
 	test20: test => {
 		test.expect(1);
 		test.equal(commonUtilities.mean([2, 3, 5, 7]), 4.25, 'Should be 4.25');
 		test.done();
 	},
-	// TODO: Test median()
 	test21: test => {
 		test.expect(1);
 		test.equal(commonUtilities.median([1, 9, 1, 4, 6, 3, 2, 7, 8]), 4, 'Should be 4');
 		test.done();
 	},
-	// TODO: Test histogram()
 	test22: test => {
 		test.expect(1);
 		test.deepEqual(
@@ -197,13 +191,30 @@ module.exports = {
 			'Should be { element: 5, count: 6 }');
 		test.done();
 	},
-	// TODO: Test mode()
 	test23: test => {
 		test.expect(1);
 		test.deepEqual(
 			commonUtilities.mode([5, 1, 2, 5, 6, 5, 5, 2, 1, 8, 5, 7, 5]),
 			{ element: 5, count: 6 },
 			'Should be { element: 5, count: 6 }');
+		test.done();
+	},
+	test24: test => {
+		test.expect(2);
+		test.deepEqual(
+			commonUtilities.getAllSubsets([1, 2, 3]),
+			[[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]],
+			'Should be [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]]');
+		test.deepEqual(
+			commonUtilities.getAllSubsets([1, 2, 3], true),
+			[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
+			'Should be [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]');
+		test.done();
+	},
+	test25: test => {
+		test.expect(1);
+		test.equal(
+			commonUtilities.areSetsEqual([1, 2, 3], [3, 1, 2]), true, 'Should be true');
 		test.done();
 	}
 };

@@ -1,6 +1,7 @@
 {
 	"globals": {
 		"__dirname": true,
+		"console": true,
 		"module": true,
 		"require": true,
 		"Set": true

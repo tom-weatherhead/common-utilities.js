@@ -11,6 +11,8 @@ Common JavaScript utility functions
 
 - generateRange(start, end) : number[]
 
+- getAllSubsets(obj[]) : obj[][]
+
 - getDateTimeString(date) : string
 
 - getOwnProperties(obj = {}) : string[]
