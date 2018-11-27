@@ -15,6 +15,7 @@ module.exports = grunt => {
 		eslint: {
 			target: [
 				'*.js',
+				// 'src/*.js',
 				'test/*.js',
 				'lib/<%= pkg.shortName %>.es6.js'
 			]
@@ -53,7 +54,8 @@ module.exports = grunt => {
 		babel: {
 			options: {
 				sourceMap: false,
-				presets: ['babel-preset-env']
+				// presets: ['babel-preset-env']
+				presets: ['@babel/preset-env']
 			},
 			dist: {
 				files: {
@@ -85,9 +87,9 @@ module.exports = grunt => {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-eslint');
 
-	grunt.registerTask('babili', 'Minifies ES2016+ code', () => {
+	grunt.registerTask('babel-minify', 'Minifies ES2016+ code', () => {
 		const data = fs.readFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.js'), textEncoding),
-			minified = require('babel-core').transform(data, {
+			minified = require('@babel/core').transform(data, {
 				sourceFileName: 'common-utilities.es6.js',
 				sourceMaps: true,
 				presets: ['minify']
@@ -105,5 +107,5 @@ module.exports = grunt => {
 	// Aliases
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
 	grunt.registerTask('build', ['concat', 'babel']);
-	grunt.registerTask('default', ['build', 'test', 'babili', 'uglify']);
+	grunt.registerTask('default', ['build', 'test', 'babel-minify', 'uglify']);
 };
