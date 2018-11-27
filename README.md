@@ -29,6 +29,10 @@ Common JavaScript utility functions
 
 - isArrayOfNumbers(obj) : boolean
 
+- isFunction(obj) : boolean
+
+- isRegularExpression(obj) : boolean
+
 - isDefined(obj) : boolean
 
 - mean(number[]) : number

@@ -17,11 +17,12 @@ module.exports = {
 	test2: function (test) {
 		const arrayOfNumbers = [2, 3, 5, 7];
 
-		test.expect(4);
+		test.expect(5);
 		test.deepEqual(commonUtilities.getTypeString(new Date()), '[object Date]', 'Should be \'[object Date]\'');
 		test.deepEqual(commonUtilities.getTypeString(arrayOfNumbers), '[object Array]', 'Should be \'[object Array]\'');
 		test.deepEqual(commonUtilities.getTypeString(arrayOfNumbers[0]), '[object Number]', 'Should be \'[object Number]\'');
 		test.deepEqual(commonUtilities.getTypeString((a, b) => a + b), '[object Function]', 'Should be \'[object Function]\'');
+		test.deepEqual(commonUtilities.getTypeString(/^[0-9]+$/), '[object RegExp]', 'Should be \'[object RegExp]\'');
 		test.done();
 	},
 	test3a: function (test) {
