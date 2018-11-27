@@ -12,6 +12,31 @@ module.exports = grunt => {
 
 	grunt.initConfig({
 		pkg: gruntfile,
+		/*
+		// From https://github.com/jmreidy/grunt-browserify/blob/master/examples/basic/Gruntfile.js :
+		browserify: {
+			vendor: {
+				src: [],
+				dest: 'public/vendor.js',
+				options: {
+					require: ['jquery'],
+					alias: {
+						momentWrapper: './lib/moments.js'
+					}
+				}
+			},
+			client: {
+				src: ['client/** /*.js'], // ThAW: Added extra space to break up a comment token.
+				dest: 'public/app.js',
+				options: {
+					external: ['jquery', 'momentWrapper'],
+				}
+			}
+		},
+		concat: {
+			'public/main.js': ['public/vendor.js', 'public/app.js']
+		}
+		*/
 		eslint: {
 			target: [
 				'*.js',
@@ -43,19 +68,21 @@ module.exports = grunt => {
 			dist: {
 				src: [
 					'<banner>',
-					// 'src/intro.js',
+					'src/intro.js',
 					// 'src/<%= pkg.shortName %>.js',
-					'src/main.js' // ,
-					// 'src/outro.js'
+					'src/main.js',
+					'src/outro.js'
 				],
 				dest: 'lib/<%= pkg.shortName %>.es6.js'
 			}
 		},
+		/*
 		babel: {
 			options: {
 				sourceMap: false,
-				// presets: ['babel-preset-env']
-				presets: ['@babel/preset-env']
+				presets: [
+					'@babel/preset-env'
+				]
 			},
 			dist: {
 				files: {
@@ -63,12 +90,13 @@ module.exports = grunt => {
 				}
 			}
 		},
+		*/
 		nodeunit: {
 			all: ['test/*.js']
-		},
+		} /*,
 		uglify: {
 			options: {
-				banner: '/*\n <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n @version <%= pkg.version %>\n*/',
+				banner: '/*\n <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n @version <%= pkg.version %>\n* /', // ThAW: Added a space before the last slash
 				sourceMap: true,
 				sourceMapIncludeSources: true
 			},
@@ -78,19 +106,27 @@ module.exports = grunt => {
 				}
 			}
 		}
+		*/
 	});
 
+	// To build regular and non-minified pre-ES6 versions of this package:
+	// $ npm i -D @babel/preset-env grunt-babel grunt-contrib-uglify
+	// ... and then uncomment the 'babel' and 'uglify' tasks and their settings.
+
 	// Tasks
-	grunt.loadNpmTasks('grunt-babel');
+	// grunt.loadNpmTasks('grunt-babel');
+	// grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
+	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-eslint');
 
 	grunt.registerTask('babel-minify', 'Minifies ES2016+ code', () => {
+		// NO: const data = fs.readFileSync(path.join(__dirname, 'lib', `${pkg.shortName}.es6.js`), textEncoding),
 		const data = fs.readFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.js'), textEncoding),
 			minified = require('@babel/core').transform(data, {
-				sourceFileName: 'common-utilities.es6.js',
+				// sourceFileName: 'common-utilities.es6.js',
+				sourceFileName: '<%= pkg.shortName %>.es6.js',
 				sourceMaps: true,
 				presets: ['minify']
 			}),
@@ -98,14 +134,20 @@ module.exports = grunt => {
 			pkg = gruntfile,
 			banner = '/*\n ' + new Date().getFullYear() + ' ' + pkg.author + '\n @version ' + pkg.version + '\n*/\n\"use strict\";';
 
+		// NO: fs.writeFileSync(path.join(__dirname, 'lib', '<%= pkg.shortName %>.es6.min.js'), banner + minified.code + '\n//# sourceMappingURL=<%= pkg.shortName %>.es6.min.js.map', textEncoding);
 		fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js'), banner + minified.code + '\n//# sourceMappingURL=common-utilities.es6.min.js.map', textEncoding);
 		grunt.log.ok('1 file created.');
+		// NO: fs.writeFileSync(path.join(__dirname, 'lib', '<%= pkg.shortName %>.es6.min.js.map'), JSON.stringify(minified.map), textEncoding);
 		fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js.map'), JSON.stringify(minified.map), textEncoding);
 		grunt.log.ok('1 sourcemap created.');
 	});
 
 	// Aliases
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	grunt.registerTask('build', ['concat', 'babel']);
-	grunt.registerTask('default', ['build', 'test', 'babel-minify', 'uglify']);
+	// TODO: browserify after babel?
+	// Or: ['browserify', 'babel', 'concat'] ?
+	// See https://www.npmjs.com/package/grunt-browserify
+	// See https://github.com/jmreidy/grunt-browserify/tree/master/examples/basic
+	grunt.registerTask('build', ['concat' /* , 'babel' */ ]);
+	grunt.registerTask('default', ['build', 'test', 'babel-minify' /* , 'uglify' */ ]);
 };
