@@ -1,9 +1,6 @@
 # From avoidwork's filesize.js :
 /node_modules/
-/lib/common-utilities.min.js
-/lib/common-utilities.min.js.map
-/lib/common-utilities.es6.min.js
-/lib/common-utilities.es6.min.js.map
+/lib/common-utilities*.map
 /src/
 /test/
 .idea
