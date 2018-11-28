@@ -68,7 +68,7 @@ module.exports = grunt => {
 			dist: {
 				src: [
 					'<banner>',
-					'src/intro.js',
+					// 'src/intro.js',
 					// 'src/<%= pkg.shortName %>.js',
 					'src/main.js',
 					'src/outro.js'
@@ -81,7 +81,8 @@ module.exports = grunt => {
 			options: {
 				sourceMap: false,
 				presets: [
-					'@babel/preset-env'
+					'@babel/preset-env',
+					'minify'
 				]
 			},
 			dist: {
@@ -123,10 +124,11 @@ module.exports = grunt => {
 
 	grunt.registerTask('babel-minify', 'Minifies ES2016+ code', () => {
 		// NO: const data = fs.readFileSync(path.join(__dirname, 'lib', `${pkg.shortName}.es6.js`), textEncoding),
-		const data = fs.readFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.js'), textEncoding),
+		// const data = fs.readFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.js'), textEncoding),
+		const data = fs.readFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.js`), textEncoding),
 			minified = require('@babel/core').transform(data, {
 				// sourceFileName: 'common-utilities.es6.js',
-				sourceFileName: '<%= pkg.shortName %>.es6.js',
+				sourceFileName: `${ gruntfile.shortName }.es6.js`,
 				sourceMaps: true,
 				presets: ['minify']
 			}),
@@ -134,11 +136,11 @@ module.exports = grunt => {
 			pkg = gruntfile,
 			banner = '/*\n ' + new Date().getFullYear() + ' ' + pkg.author + '\n @version ' + pkg.version + '\n*/\n\"use strict\";';
 
-		// NO: fs.writeFileSync(path.join(__dirname, 'lib', '<%= pkg.shortName %>.es6.min.js'), banner + minified.code + '\n//# sourceMappingURL=<%= pkg.shortName %>.es6.min.js.map', textEncoding);
-		fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js'), banner + minified.code + '\n//# sourceMappingURL=common-utilities.es6.min.js.map', textEncoding);
+		fs.writeFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.min.js`), banner + minified.code + `\n//# sourceMappingURL=${ gruntfile.shortName }.es6.min.js.map`, textEncoding);
+		// fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js'), banner + minified.code + '\n//# sourceMappingURL=common-utilities.es6.min.js.map', textEncoding);
 		grunt.log.ok('1 file created.');
-		// NO: fs.writeFileSync(path.join(__dirname, 'lib', '<%= pkg.shortName %>.es6.min.js.map'), JSON.stringify(minified.map), textEncoding);
-		fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js.map'), JSON.stringify(minified.map), textEncoding);
+		fs.writeFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.min.js.map`), JSON.stringify(minified.map), textEncoding);
+		// fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js.map'), JSON.stringify(minified.map), textEncoding);
 		grunt.log.ok('1 sourcemap created.');
 	});
 
