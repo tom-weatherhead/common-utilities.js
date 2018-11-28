@@ -94,7 +94,8 @@ module.exports = grunt => {
 		*/
 		nodeunit: {
 			all: ['test/*.js']
-		} /*,
+		},
+		/*
 		uglify: {
 			options: {
 				banner: '/*\n <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n @version <%= pkg.version %>\n* /', // ThAW: Added a space before the last slash
@@ -108,6 +109,53 @@ module.exports = grunt => {
 			}
 		}
 		*/
+		webpack: {
+			// dev: require('./webpack.config.js'),
+			// prod: require('./webpack-production.config.js')
+			dev: {
+				mode: 'development',
+				entry: './src/main.js',
+				output: {
+					path: path.join(__dirname, 'dist'),
+					filename: 'bundle.js',
+					library: 'foo-library-webpack',
+					// libraryTarget: 'umd'
+					libraryTarget: 'window'
+				},
+				plugins: [
+					/*
+					new HtmlWebpackPlugin({
+						template: 'src/index.html'
+					})
+					*/
+				],
+				module: {
+					rules: [
+						{
+							test: /\.js[x]?$/,
+							exclude: /node_modules/,
+							use: [
+								{
+									loader: 'babel-loader',
+									options: {
+										presets: [
+											['latest', {'es2015': false}] // ,
+											// "react",
+										],
+										plugins: ['transform-class-properties']
+									}
+								}
+							]
+						} /*,
+						{
+							test: /.css$/,
+							loader: "style-loader!css-loader"
+						} */
+					]
+				},
+				devtool: 'source-map'
+			}
+		}
 	});
 
 	// To build regular and non-minified pre-ES6 versions of this package:
@@ -121,6 +169,7 @@ module.exports = grunt => {
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-eslint');
+	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask('babel-minify', 'Minifies ES2016+ code', () => {
 		// NO: const data = fs.readFileSync(path.join(__dirname, 'lib', `${pkg.shortName}.es6.js`), textEncoding),
@@ -150,6 +199,6 @@ module.exports = grunt => {
 	// Or: ['browserify', 'babel', 'concat'] ?
 	// See https://www.npmjs.com/package/grunt-browserify
 	// See https://github.com/jmreidy/grunt-browserify/tree/master/examples/basic
-	grunt.registerTask('build', ['concat' /* , 'babel' */ ]);
+	grunt.registerTask('build', ['concat' /* , 'babel' */, 'webpack:dev' ]);
 	grunt.registerTask('default', ['build', 'test', 'babel-minify' /* , 'uglify' */ ]);
 };
