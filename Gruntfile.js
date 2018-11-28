@@ -1,4 +1,4 @@
-// @tom-weatherhead/common-utilities.js/Gruntfile.js
+// common-utilities.js/Gruntfile.js
 
 'use strict';
 
@@ -12,31 +12,6 @@ module.exports = grunt => {
 
 	grunt.initConfig({
 		pkg: gruntfile,
-		/*
-		// From https://github.com/jmreidy/grunt-browserify/blob/master/examples/basic/Gruntfile.js :
-		browserify: {
-			vendor: {
-				src: [],
-				dest: 'public/vendor.js',
-				options: {
-					require: ['jquery'],
-					alias: {
-						momentWrapper: './lib/moments.js'
-					}
-				}
-			},
-			client: {
-				src: ['client/** /*.js'], // ThAW: Added extra space to break up a comment token.
-				dest: 'public/app.js',
-				options: {
-					external: ['jquery', 'momentWrapper'],
-				}
-			}
-		},
-		concat: {
-			'public/main.js': ['public/vendor.js', 'public/app.js']
-		}
-		*/
 		eslint: {
 			target: [
 				'*.js',
@@ -69,29 +44,28 @@ module.exports = grunt => {
 				src: [
 					'<banner>',
 					// 'src/intro.js',
-					// 'src/<%= pkg.shortName %>.js',
 					'src/main.js',
 					'src/outro.js'
 				],
 				dest: 'lib/<%= pkg.shortName %>.es6.js'
 			}
 		},
-		/*
 		babel: {
+			// Generate a file that nodeunit can test.
 			options: {
 				sourceMap: false,
 				presets: [
-					'@babel/preset-env',
-					'minify'
+					'@babel/preset-env' // ,
+					// 'minify'
 				]
 			},
 			dist: {
 				files: {
-					'lib/<%= pkg.shortName %>.js': 'lib/<%= pkg.shortName %>.es6.js'
+					// 'lib/<%= pkg.shortName %>.js': 'lib/<%= pkg.shortName %>.es6.js'
+					'lib/<%= pkg.shortName %>.js': 'src/main.js'
 				}
 			}
 		},
-		*/
 		nodeunit: {
 			all: ['test/*.js']
 		},
@@ -110,17 +84,15 @@ module.exports = grunt => {
 		}
 		*/
 		webpack: {
-			// dev: require('./webpack.config.js'),
-			// prod: require('./webpack-production.config.js')
 			dev: {
 				mode: 'development',
 				entry: './src/main.js',
 				output: {
-					path: path.join(__dirname, 'dist'),
-					filename: 'bundle.js',
-					library: 'foo-library-webpack',
-					// libraryTarget: 'umd'
-					libraryTarget: 'window'
+					path: path.join(__dirname, 'lib'),
+					filename: `${ gruntfile.shortName }-webpack-bundle.js`,
+					library: `${ gruntfile.shortName }-webpack-bundle`,
+					libraryTarget: 'umd'
+					// libraryTarget: 'window'
 				},
 				plugins: [
 					/*
@@ -139,10 +111,13 @@ module.exports = grunt => {
 									loader: 'babel-loader',
 									options: {
 										presets: [
-											['latest', {'es2015': false}] // ,
-											// "react",
+											[
+												'@babel/preset-env'
+											]
 										],
-										plugins: ['transform-class-properties']
+										plugins: [
+											'transform-class-properties'
+										]
 									}
 								}
 							]
@@ -154,7 +129,12 @@ module.exports = grunt => {
 					]
 				},
 				devtool: 'source-map'
+			} /*,
+			prod: {
+				mode: 'production',
+				...
 			}
+			*/
 		}
 	});
 
@@ -162,8 +142,11 @@ module.exports = grunt => {
 	// $ npm i -D @babel/preset-env grunt-babel grunt-contrib-uglify
 	// ... and then uncomment the 'babel' and 'uglify' tasks and their settings.
 
+	// ThAW 2018-11-28 : We use the 'babel' task to generate the version of the package that will ne tested by 'nodeunit'
+	// (until we can test the ES6 version or the Webpack version of the package with nodeunit).
+
 	// Tasks
-	// grunt.loadNpmTasks('grunt-babel');
+	grunt.loadNpmTasks('grunt-babel');
 	// grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
@@ -172,33 +155,23 @@ module.exports = grunt => {
 	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask('babel-minify', 'Minifies ES2016+ code', () => {
-		// NO: const data = fs.readFileSync(path.join(__dirname, 'lib', `${pkg.shortName}.es6.js`), textEncoding),
-		// const data = fs.readFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.js'), textEncoding),
 		const data = fs.readFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.js`), textEncoding),
 			minified = require('@babel/core').transform(data, {
-				// sourceFileName: 'common-utilities.es6.js',
 				sourceFileName: `${ gruntfile.shortName }.es6.js`,
 				sourceMaps: true,
 				presets: ['minify']
 			}),
-			// pkg = require(path.join(__dirname, 'package.json')),
 			pkg = gruntfile,
 			banner = '/*\n ' + new Date().getFullYear() + ' ' + pkg.author + '\n @version ' + pkg.version + '\n*/\n\"use strict\";';
 
 		fs.writeFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.min.js`), banner + minified.code + `\n//# sourceMappingURL=${ gruntfile.shortName }.es6.min.js.map`, textEncoding);
-		// fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js'), banner + minified.code + '\n//# sourceMappingURL=common-utilities.es6.min.js.map', textEncoding);
 		grunt.log.ok('1 file created.');
 		fs.writeFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.min.js.map`), JSON.stringify(minified.map), textEncoding);
-		// fs.writeFileSync(path.join(__dirname, 'lib', 'common-utilities.es6.min.js.map'), JSON.stringify(minified.map), textEncoding);
 		grunt.log.ok('1 sourcemap created.');
 	});
 
 	// Aliases
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	// TODO: browserify after babel?
-	// Or: ['browserify', 'babel', 'concat'] ?
-	// See https://www.npmjs.com/package/grunt-browserify
-	// See https://github.com/jmreidy/grunt-browserify/tree/master/examples/basic
-	grunt.registerTask('build', ['concat' /* , 'babel' */, 'webpack:dev' ]);
+	grunt.registerTask('build', ['concat', 'babel', 'webpack:dev' ]);
 	grunt.registerTask('default', ['build', 'test', 'babel-minify' /* , 'uglify' */ ]);
 };
