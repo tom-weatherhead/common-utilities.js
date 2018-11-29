@@ -2,8 +2,10 @@ const path = require('path');
 
 // import * as commonUtilities from require(path.join(__dirname, '..', 'lib', 'common-utilities.es6.js'));
 // const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities.es6.js'));
-const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities.js'));
-// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-bundle.js'));
+// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities.js'));
+const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-commonjs2.js'));
+// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-umd.js'))['common-utilities-webpack-umd'];
+// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-window.js'));
 
 // exports.commonUtilitiesJs = {
 module.exports = {

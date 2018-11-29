@@ -84,15 +84,70 @@ module.exports = grunt => {
 		}
 		*/
 		webpack: {
-			dev: {
+			// Possible values for libraryTarget:
+			// Variable: as a global variable made available by a script tag (libraryTarget:'var').
+			// This: available through the this object (libraryTarget:'this').
+			// Window: available trough the window object, in the browser (libraryTarget:'window').
+			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
+			devcommonjs2: {
 				mode: 'development',
 				entry: './src/main.js',
 				output: {
 					path: path.join(__dirname, 'lib'),
-					filename: `${ gruntfile.shortName }-webpack-bundle.js`,
-					library: `${ gruntfile.shortName }-webpack-bundle`,
-					libraryTarget: 'umd'
+					filename: `${ gruntfile.shortName }-webpack-commonjs2.js`,
+					library: `${ gruntfile.shortName }-webpack-commonjs2`,
+					// See https://webpack.js.org/configuration/output/#output-librarytarget
+					libraryTarget: 'commonjs2'
+					// libraryTarget: 'this'
+					// libraryTarget: 'umd'
+					// libraryTarget: 'var'
 					// libraryTarget: 'window'
+				},
+				plugins: [
+					/*
+					new HtmlWebpackPlugin({
+						template: 'src/index.html'
+					})
+					*/
+				],
+				module: {
+					rules: [
+						{
+							test: /\.js[x]?$/,
+							exclude: /node_modules/,
+							use: [
+								{
+									loader: 'babel-loader',
+									options: {
+										presets: [
+											[
+												'@babel/preset-env'
+											]
+										],
+										plugins: [
+											'transform-class-properties'
+										]
+									}
+								}
+							]
+						} /*,
+						{
+							test: /.css$/,
+							loader: "style-loader!css-loader"
+						} */
+					]
+				},
+				devtool: 'source-map'
+			},
+			devwindow: {
+				mode: 'development',
+				entry: './src/main.js',
+				output: {
+					path: path.join(__dirname, 'lib'),
+					filename: `${ gruntfile.shortName }-webpack-window.js`,
+					library: `${ gruntfile.shortName }-webpack-window`,
+					// libraryTarget: 'umd'
+					libraryTarget: 'window'
 				},
 				plugins: [
 					/*
@@ -172,6 +227,6 @@ module.exports = grunt => {
 
 	// Aliases
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	grunt.registerTask('build', ['concat', 'babel', 'webpack:dev' ]);
+	grunt.registerTask('build', ['concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow' ]);
 	grunt.registerTask('default', ['build', 'test', 'babel-minify' /* , 'uglify' */ ]);
 };

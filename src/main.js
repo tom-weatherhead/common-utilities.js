@@ -692,3 +692,5 @@ export function areSetsEqual (set1, set2, fnElementsAreEqual) {
 
 	return isArray(set1) && isArray(set2) && isSubset(set1, set2, fnElementsAreEqual) && isSubset(set2, set1, fnElementsAreEqual);
 }
+
+// return () => 'Hello world!';
