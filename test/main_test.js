@@ -1,13 +1,5 @@
-const path = require('path');
+const commonUtilities = require('..');
 
-// import * as commonUtilities from require(path.join(__dirname, '..', 'lib', 'common-utilities.es6.js'));
-// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities.es6.js'));
-// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities.js'));
-const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-commonjs2.js'));
-// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-umd.js'))['common-utilities-webpack-umd'];
-// const commonUtilities = require(path.join(__dirname, '..', 'lib', 'common-utilities-webpack-window.js'));
-
-// exports.commonUtilitiesJs = {
 module.exports = {
 	setUp: function (done) {
 		// this.kilobit = 500;

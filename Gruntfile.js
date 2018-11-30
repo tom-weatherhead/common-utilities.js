@@ -2,13 +2,61 @@
 
 'use strict';
 
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 
 module.exports = grunt => {
 	const packageJsonFilename = 'package.json';
 	const gruntfile = grunt.file.readJSON(packageJsonFilename);
-	const textEncoding = 'utf8';
+	// const textEncoding = 'utf8';
+	const getWebpackConfig = (mode, libraryTarget) => {
+		return {
+			mode: mode, // 'development',
+			entry: './src/main.js',
+			output: {
+				path: path.join(__dirname, 'lib'),
+				filename: `${ gruntfile.shortName }-webpack-${mode}-${libraryTarget}.js`,
+				library: gruntfile.shortName,
+				// See https://webpack.js.org/configuration/output/#output-librarytarget
+				libraryTarget: libraryTarget
+			},
+			// plugins: [
+			/*
+			new HtmlWebpackPlugin({
+				template: 'src/index.html'
+			})
+			*/
+			// ],
+			module: {
+				rules: [
+					{
+						test: /\.js[x]?$/,
+						exclude: /node_modules/,
+						use: [
+							{
+								loader: 'babel-loader',
+								options: {
+									presets: [
+										[
+											'@babel/preset-env'
+										]
+									],
+									plugins: [
+										'transform-class-properties'
+									]
+								}
+							}
+						]
+					} /*,
+					{
+						test: /.css$/,
+						loader: "style-loader!css-loader"
+					} */
+				]
+			},
+			devtool: 'source-map'
+		};
+	};
 
 	grunt.initConfig({
 		pkg: gruntfile,
@@ -30,6 +78,7 @@ module.exports = grunt => {
 				]
 			}
 		}, */
+		/*
 		concat: {
 			options: {
 				banner: '/**\n' +
@@ -38,7 +87,7 @@ module.exports = grunt => {
 				' * @copyright <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n' +
 				' * @license <%= pkg.license %>\n' +
 				' * @version <%= pkg.version %>\n' +
-				' */\n'
+				' * /\n' // Inserted space between * and /
 			},
 			dist: {
 				src: [
@@ -65,7 +114,7 @@ module.exports = grunt => {
 					'lib/<%= pkg.shortName %>.js': 'src/main.js'
 				}
 			}
-		},
+		}, */
 		nodeunit: {
 			all: ['test/*.js']
 		},
@@ -89,107 +138,10 @@ module.exports = grunt => {
 			// This: available through the this object (libraryTarget:'this').
 			// Window: available trough the window object, in the browser (libraryTarget:'window').
 			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
-			devcommonjs2: {
-				mode: 'development',
-				entry: './src/main.js',
-				output: {
-					path: path.join(__dirname, 'lib'),
-					filename: `${ gruntfile.shortName }-webpack-commonjs2.js`,
-					library: `${ gruntfile.shortName }-webpack-commonjs2`,
-					// See https://webpack.js.org/configuration/output/#output-librarytarget
-					libraryTarget: 'commonjs2'
-					// libraryTarget: 'this'
-					// libraryTarget: 'umd'
-					// libraryTarget: 'var'
-					// libraryTarget: 'window'
-				},
-				plugins: [
-					/*
-					new HtmlWebpackPlugin({
-						template: 'src/index.html'
-					})
-					*/
-				],
-				module: {
-					rules: [
-						{
-							test: /\.js[x]?$/,
-							exclude: /node_modules/,
-							use: [
-								{
-									loader: 'babel-loader',
-									options: {
-										presets: [
-											[
-												'@babel/preset-env'
-											]
-										],
-										plugins: [
-											'transform-class-properties'
-										]
-									}
-								}
-							]
-						} /*,
-						{
-							test: /.css$/,
-							loader: "style-loader!css-loader"
-						} */
-					]
-				},
-				devtool: 'source-map'
-			},
-			devwindow: {
-				mode: 'development',
-				entry: './src/main.js',
-				output: {
-					path: path.join(__dirname, 'lib'),
-					filename: `${ gruntfile.shortName }-webpack-window.js`,
-					library: `${ gruntfile.shortName }-webpack-window`,
-					// libraryTarget: 'umd'
-					libraryTarget: 'window'
-				},
-				plugins: [
-					/*
-					new HtmlWebpackPlugin({
-						template: 'src/index.html'
-					})
-					*/
-				],
-				module: {
-					rules: [
-						{
-							test: /\.js[x]?$/,
-							exclude: /node_modules/,
-							use: [
-								{
-									loader: 'babel-loader',
-									options: {
-										presets: [
-											[
-												'@babel/preset-env'
-											]
-										],
-										plugins: [
-											'transform-class-properties'
-										]
-									}
-								}
-							]
-						} /*,
-						{
-							test: /.css$/,
-							loader: "style-loader!css-loader"
-						} */
-					]
-				},
-				devtool: 'source-map'
-			} /*,
-			prod: {
-				mode: 'production',
-				...
-			}
-			*/
+			devcommonjs2: getWebpackConfig('development', 'commonjs2'),
+			devwindow: getWebpackConfig('development', 'window'),
+			prodcommonjs2: getWebpackConfig('production', 'commonjs2'),
+			prodwindow: getWebpackConfig('production', 'window')
 		}
 	});
 
@@ -201,14 +153,15 @@ module.exports = grunt => {
 	// (until we can test the ES6 version or the Webpack version of the package with nodeunit).
 
 	// Tasks
-	grunt.loadNpmTasks('grunt-babel');
+	// grunt.loadNpmTasks('grunt-babel');
 	// grunt.loadNpmTasks('grunt-browserify');
-	grunt.loadNpmTasks('grunt-contrib-concat');
+	// grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-webpack');
 
+	/*
 	grunt.registerTask('babel-minify', 'Minifies ES2016+ code', () => {
 		const data = fs.readFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.js`), textEncoding),
 			minified = require('@babel/core').transform(data, {
@@ -217,16 +170,17 @@ module.exports = grunt => {
 				presets: ['minify']
 			}),
 			pkg = gruntfile,
-			banner = '/*\n ' + new Date().getFullYear() + ' ' + pkg.author + '\n @version ' + pkg.version + '\n*/\n\"use strict\";';
+			banner = '/*\n ' + new Date().getFullYear() + ' ' + pkg.author + '\n @version ' + pkg.version + '\n* /\n\"use strict\";'; // Inserted space between * and /
 
 		fs.writeFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.min.js`), banner + minified.code + `\n//# sourceMappingURL=${ gruntfile.shortName }.es6.min.js.map`, textEncoding);
 		grunt.log.ok('1 file created.');
 		fs.writeFileSync(path.join(__dirname, 'lib', `${ gruntfile.shortName }.es6.min.js.map`), JSON.stringify(minified.map), textEncoding);
 		grunt.log.ok('1 sourcemap created.');
 	});
+	*/
 
 	// Aliases
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	grunt.registerTask('build', ['concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow' ]);
-	grunt.registerTask('default', ['build', 'test', 'babel-minify' /* , 'uglify' */ ]);
+	grunt.registerTask('build', [ /* 'concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow', */ 'webpack:prodcommonjs2', 'webpack:prodwindow']);
+	grunt.registerTask('default', ['build', 'test' /* , 'babel-minify', 'uglify' */ ]);
 };
