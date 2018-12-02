@@ -1,80 +1,58 @@
-// @tom-weatherhead/common-utilities.js/src/main.js
+// tom-weatherhead/common-utilities.js/src/main.js
 
 'use strict';
 
-import { getTestArray } from './arrays.js';
+import {
+	getTestArray,
+	insertionSort,
+	insertNumberIntoArray,
+	removeDuplicatesFromArray
+} from './arrays.js';
 
-export { getTestArray };
+import {
+	getDateTimeString
+} from './dates.js';
 
-// **** Type Utilities ****
+import {
+	histogram,
+	mean,
+	median,
+	mode,
+	sum
+} from './math.js';
 
-export function getTypeString (obj) {
-	return Object.prototype.toString.call(obj);
-}
+import {
+	generateFirstNNaturalNumbers,
+	generateRange,
+	replicateString,
+	zeroPadNumber
+} from './numbers.js';
 
-// **** Object utilities ****
+import {
+	clone,
+	copySpecifiedObjectProperties,
+	getOwnProperties
+} from './objects.js';
 
-/*
-// From A. Levy's answer at https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
+import {
+	// areSetsEqual,
+	getAllSubsets
+} from './sets.js';
 
-When I had to implement general deep copying I ended up compromising by assuming that I would only need to copy
-a plain Object, Array, Date, String, Number, or Boolean. The last 3 types are immutable, so I could perform a shallow copy
-and not worry about it changing. I further assumed that any elements contained in Object or Array would also be one of the 6 simple types
-in that list. This can be accomplished with code like the following:
+import {
+	getTypeString,
+	isArray,
+	isArrayOfNumbers,
+	// isDefined,
+	isFunction,
+	isRegularExpression
+} from './types.js';
 
-function clone(obj) {
-    var copy;
-
-    // Handle the 3 simple types, and null or undefined
-    if (null == obj || "object" != typeof obj) return obj;
-
-    // Handle Date
-    if (obj instanceof Date) {
-        copy = new Date();
-        copy.setTime(obj.getTime());
-        return copy;
-    }
-
-    // Handle Array
-    if (obj instanceof Array) {
-        copy = [];
-        for (var i = 0, len = obj.length; i < len; i++) {
-            copy[i] = clone(obj[i]);
-        }
-        return copy;
-    }
-
-    // Handle Object
-    if (obj instanceof Object) {
-        copy = {};
-        for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
-        }
-        return copy;
-    }
-
-    throw new Error("Unable to copy obj! Its type isn't supported.");
-}
-
-The above function will work adequately for the 6 simple types I mentioned, as long as the data in the objects and arrays form a tree structure.
-That is, there isn't more than one reference to the same data in the object.
-*/
-
-export function clone (arg) {
-	// For an in-depth discussion of object copying, see https://scotch.io/bar-talk/copying-objects-in-javascript
-
-	// **** Warning: JSON.parse(JSON.stringify(arg)) will fail for circular objects.
-	// ? Do we need isCircular(obj) ?
-	return JSON.parse(JSON.stringify(arg));
-
-	// From avoidwork/haro/src/utility.js :
-	// return JSON.parse(JSON.stringify(arg, null, 0)); // TODO: What are the second and third parameters to stringify() ?
-}
-
-export function isDefined (obj) {
+function isDefined (obj) {
 	return typeof obj !== 'undefined';
 }
 
+/*
 export function copySpecifiedObjectProperties (propertyList, src, dst = {}) {
 
 	propertyList.forEach(property => {
@@ -89,7 +67,6 @@ export function copySpecifiedObjectProperties (propertyList, src, dst = {}) {
 }
 
 export function getOwnProperties (obj = {}) {
-	/*
 	// Version 1
 	// See https://stackoverflow.com/questions/208016/how-to-list-the-properties-of-a-javascript-object
 	let result = [];
@@ -101,7 +78,6 @@ export function getOwnProperties (obj = {}) {
 	}
 
 	return result;
-	*/
 
 	// Version 2
 	// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
@@ -196,6 +172,7 @@ export function removeDuplicatesFromArray (array) {
 
 	return array.reduce((x, y) => x.includes(y) ? x : [...x, y], []); // Yes. From svnpenn.
 }
+*/
 
 export function safeJsonParse (str, dflt = undefined) {
 	try {
@@ -532,6 +509,7 @@ export function isArray (arg) {
 }
 */
 
+/*
 function factory_fnIsType (typeName) {
 	return arg => getTypeString(arg) === `[object ${typeName}]`;
 }
@@ -542,12 +520,13 @@ function factory_fnIsType (typeName) {
 // See https://github.com/storybooks/storybook/issues/3937
 // See https://stackoverflow.com/questions/52092739/upgrade-to-babel-7-cannot-read-property-bindings-of-null
 export const isArray = factory_fnIsType('Array');
+*/
 
 /*
 export function isFunction (arg) {
 	return getTypeString(arg) === '[object Function]';
 }
-*/
+
 export const isFunction = factory_fnIsType('Function');
 
 export const isRegularExpression = factory_fnIsType('RegExp');
@@ -608,7 +587,6 @@ export function histogram (arg) {
 
 	return result;
 
-	/* Or:
 	return arg.reduce(
 		(accumulator, element) => {
 			accumulator[element] = (accumulator[element] || 0) + 1;
@@ -617,7 +595,6 @@ export function histogram (arg) {
 		},
 		{}
 	);
-	*/
 }
 
 export function mode (arg) {
@@ -683,12 +660,13 @@ export function getAllSubsets (arg, sortSubsets, fnSubsetComparator) {
 
 	return result;
 }
+*/
 
 function isSubset (set1, set2, fnElementsAreEqual) {
 	return set1.every(element1 => isDefined(set2.find(element2 => fnElementsAreEqual(element1, element2))));
 }
 
-export function areSetsEqual (set1, set2, fnElementsAreEqual) {
+function areSetsEqual (set1, set2, fnElementsAreEqual) {
 
 	if (!isFunction(fnElementsAreEqual)) {
 		fnElementsAreEqual = (a, b) => a === b;
@@ -697,4 +675,37 @@ export function areSetsEqual (set1, set2, fnElementsAreEqual) {
 	return isArray(set1) && isArray(set2) && isSubset(set1, set2, fnElementsAreEqual) && isSubset(set2, set1, fnElementsAreEqual);
 }
 
-// return () => 'Hello world!';
+export {
+	// Arrays
+	getTestArray,
+	insertionSort,
+	insertNumberIntoArray,
+	removeDuplicatesFromArray,
+	// Dates
+	getDateTimeString,
+	// Math
+	histogram,
+	mean,
+	median,
+	mode,
+	sum,
+	// Numbers
+	generateFirstNNaturalNumbers,
+	generateRange,
+	replicateString,
+	zeroPadNumber,
+	// Objects
+	clone,
+	copySpecifiedObjectProperties,
+	getOwnProperties,
+	// Sets
+	areSetsEqual,
+	getAllSubsets,
+	// Types
+	getTypeString,
+	isArray,
+	isArrayOfNumbers,
+	isDefined,
+	isFunction,
+	isRegularExpression
+};

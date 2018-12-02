@@ -11,7 +11,7 @@ module.exports = grunt => {
 	// const textEncoding = 'utf8';
 	const getWebpackConfig = (mode, libraryTarget) => {
 		return {
-			mode: mode, // 'development',
+			mode: mode,
 			entry: './src/main.js',
 			output: {
 				path: path.join(__dirname, 'lib'),
@@ -40,10 +40,10 @@ module.exports = grunt => {
 										[
 											'@babel/preset-env'
 										]
-									],
+									] /* ,
 									plugins: [
 										'transform-class-properties'
-									]
+									] */
 								}
 							}
 						]
@@ -68,16 +68,6 @@ module.exports = grunt => {
 				'lib/<%= pkg.shortName %>.es6.js'
 			]
 		},
-		/* mochaTest: {
-			options: {
-				reporter: 'spec'
-			},
-			test: {
-				src: [
-					'test/*_spec.js'
-				]
-			}
-		}, */
 		concat: {
 			options: {
 				banner: '/**\n' +
@@ -103,6 +93,20 @@ module.exports = grunt => {
 				dest: 'dist/<%= pkg.shortName %>.js'
 			}
 		},
+		nodeunit: {
+			all: ['test/*.js']
+		},
+		webpack: {
+			// Possible values for libraryTarget:
+			// Variable: as a global variable made available by a script tag (libraryTarget:'var').
+			// This: available through the this object (libraryTarget:'this').
+			// Window: available trough the window object, in the browser (libraryTarget:'window').
+			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
+			// devcommonjs2: getWebpackConfig('development', 'commonjs2'),
+			// devwindow: getWebpackConfig('development', 'window'),
+			prodcommonjs2: getWebpackConfig('production', 'commonjs2'),
+			prodwindow: getWebpackConfig('production', 'window')
+		}
 		/*
 		babel: {
 			// Generate a file that nodeunit can test.
@@ -119,11 +123,17 @@ module.exports = grunt => {
 					'lib/<%= pkg.shortName %>.js': 'src/main.js'
 				}
 			}
-		}, */
-		nodeunit: {
-			all: ['test/*.js']
 		},
-		/*
+		mochaTest: {
+			options: {
+				reporter: 'spec'
+			},
+			test: {
+				src: [
+					'test/*_spec.js'
+				]
+			}
+		},
 		uglify: {
 			options: {
 				banner: '/*\n <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n @version <%= pkg.version %>\n* /', // ThAW: Added a space before the last slash
@@ -137,17 +147,6 @@ module.exports = grunt => {
 			}
 		}
 		*/
-		webpack: {
-			// Possible values for libraryTarget:
-			// Variable: as a global variable made available by a script tag (libraryTarget:'var').
-			// This: available through the this object (libraryTarget:'this').
-			// Window: available trough the window object, in the browser (libraryTarget:'window').
-			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
-			// devcommonjs2: getWebpackConfig('development', 'commonjs2'),
-			// devwindow: getWebpackConfig('development', 'window'),
-			prodcommonjs2: getWebpackConfig('production', 'commonjs2'),
-			prodwindow: getWebpackConfig('production', 'window')
-		}
 	});
 
 	// To build regular and non-minified pre-ES6 versions of this package:

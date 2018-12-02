@@ -1,14 +1,17 @@
-# From avoidwork's filesize.js :
+/deletia/
+/insertia/
+/lib/
 /node_modules/
-/lib/common-utilities*.map
+/scripts/
 /src/
 /test/
-.idea
+.editorconfig
 .eslintrc
+.idea
 .travis.yml
-Gruntfile.js
 bower.json
 composer.json
+Gruntfile.js
 # End.
 
 # Logs
@@ -69,9 +72,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-/deletia/
-/scripts/
-
-.editorconfig
-
