@@ -78,7 +78,6 @@ module.exports = grunt => {
 				]
 			}
 		}, */
-		/*
 		concat: {
 			options: {
 				banner: '/**\n' +
@@ -87,18 +86,24 @@ module.exports = grunt => {
 				' * @copyright <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n' +
 				' * @license <%= pkg.license %>\n' +
 				' * @version <%= pkg.version %>\n' +
-				' * /\n' // Inserted space between * and /
+				' */\n'
 			},
 			dist: {
 				src: [
 					'<banner>',
 					// 'src/intro.js',
-					'src/main.js',
-					'src/outro.js'
+					// 'src/main.js',
+					// 'src/outro.js'
+					'insertia/1.js',
+					'lib/common-utilities-webpack-production-window.js',
+					'insertia/2.js',
+					'lib/common-utilities-webpack-production-commonjs2.js',
+					'insertia/3.js'
 				],
-				dest: 'lib/<%= pkg.shortName %>.es6.js'
+				dest: 'dist/<%= pkg.shortName %>.js'
 			}
 		},
+		/*
 		babel: {
 			// Generate a file that nodeunit can test.
 			options: {
@@ -138,8 +143,8 @@ module.exports = grunt => {
 			// This: available through the this object (libraryTarget:'this').
 			// Window: available trough the window object, in the browser (libraryTarget:'window').
 			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
-			devcommonjs2: getWebpackConfig('development', 'commonjs2'),
-			devwindow: getWebpackConfig('development', 'window'),
+			// devcommonjs2: getWebpackConfig('development', 'commonjs2'),
+			// devwindow: getWebpackConfig('development', 'window'),
 			prodcommonjs2: getWebpackConfig('production', 'commonjs2'),
 			prodwindow: getWebpackConfig('production', 'window')
 		}
@@ -155,7 +160,7 @@ module.exports = grunt => {
 	// Tasks
 	// grunt.loadNpmTasks('grunt-babel');
 	// grunt.loadNpmTasks('grunt-browserify');
-	// grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	// grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-eslint');
@@ -180,7 +185,7 @@ module.exports = grunt => {
 	*/
 
 	// Aliases
+	grunt.registerTask('build', [ /* 'concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow', */ 'webpack:prodcommonjs2', 'webpack:prodwindow', 'concat']);
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	grunt.registerTask('build', [ /* 'concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow', */ 'webpack:prodcommonjs2', 'webpack:prodwindow']);
 	grunt.registerTask('default', ['build', 'test' /* , 'babel-minify', 'uglify' */ ]);
 };

@@ -2,6 +2,10 @@
 
 'use strict';
 
+import { getTestArray } from './arrays.js';
+
+export { getTestArray };
+
 // **** Type Utilities ****
 
 export function getTypeString (obj) {

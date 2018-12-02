@@ -3,7 +3,7 @@
 	"shortName": "common-utilities",
 	"description": "Common JavaScript utility functions",
 	"private": false,
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tom-weatherhead/common-utilities.js.git"
@@ -12,7 +12,7 @@
 	"bugs": {
 		"url": "https://github.com/tom-weatherhead/common-utilities.js/issues"
 	},
-	"main": "lib/common-utilities-webpack-production-commonjs2",
+	"main": "dist/common-utilities",
 	"scripts": {
 		"start": "grunt",
 		"test": "grunt test"
@@ -24,6 +24,7 @@
 		"babel-loader": "^8.0.4",
 		"babel-plugin-transform-class-properties": "^6.24.1",
 		"grunt": "^1.0.3",
+		"grunt-contrib-concat": "^1.0.1",
 		"grunt-contrib-nodeunit": "^2.0.0",
 		"grunt-eslint": "^21.0.0",
 		"grunt-webpack": "^3.1.3",

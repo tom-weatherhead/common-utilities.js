@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+        <meta charset="utf-8" />
+        <meta name="author" content="Buckwheat" />
+        <meta name="description" content="common-utilities.js Test" />
+		<title>common-utilities.js Test</title>
+        <!-- NO:  <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" /> -->
+        <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
+	</head>
+
+	<body>
+		<h1>common-utilities.js Test</h1>
+		<br />
+		<span id="dateTimeStringID">DateTime</span>
+		<br />
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../dist/common-utilities.js"></script>
+
+		<script type="text/javascript">
+			const thawCommonUtilities = window['common-utilities'];
+			const dateTimeString = thawCommonUtilities.getDateTimeString();
+
+			console.log('moduleTest() : getDateTimeString() : ', dateTimeString);
+			$("#dateTimeStringID").html("dateTimeString: " + dateTimeString);
+		</script>
+	</body>
+</html>
