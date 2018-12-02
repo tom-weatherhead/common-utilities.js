@@ -7,8 +7,8 @@ export function getTypeString (obj) {
 }
 
 export function isDefined (obj) {
-	// return typeof obj !== 'undefined';
-	return getTypeString(obj) === 'undefined'; // ?
+	return typeof obj !== 'undefined';
+	// return getTypeString(obj) === 'undefined'; // ?
 }
 
 function factory_fnIsType (typeName) {
