@@ -3,7 +3,7 @@
 'use strict';
 
 import {
-	getTestArray,
+	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
 	removeDuplicatesFromArray
@@ -47,9 +47,13 @@ import {
 	getTypeString,
 	isArray,
 	isArrayOfNumbers,
+	isDate,
 	isDefined,
 	isFunction,
-	isRegularExpression
+	isNumber,
+	isObject,
+	isRegularExpression,
+	isString
 } from './types.js';
 
 // uuid() :
@@ -78,7 +82,7 @@ export function uuid () {
 
 export {
 	// Arrays
-	getTestArray,
+	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
 	removeDuplicatesFromArray,
@@ -108,7 +112,11 @@ export {
 	getTypeString,
 	isArray,
 	isArrayOfNumbers,
+	isDate,
 	isDefined,
 	isFunction,
-	isRegularExpression
+	isNumber,
+	isObject,
+	isRegularExpression,
+	isString
 };

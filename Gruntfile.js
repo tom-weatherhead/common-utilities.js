@@ -94,7 +94,7 @@ module.exports = grunt => {
 			}
 		},
 		nodeunit: {
-			all: ['test/*.js']
+			all: ['test/*_test.js']
 		},
 		webpack: {
 			// Possible values for libraryTarget:

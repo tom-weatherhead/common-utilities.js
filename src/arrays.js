@@ -6,9 +6,11 @@ import {
 	clone
 } from './objects.js';
 
+/*
 export function getTestArray () {
 	return ['This', 'is', 'an', 'array'];
 }
+*/
 
 export function insertNumberIntoArray (n, array) {
 	// array must already be sorted in non-descending order.
