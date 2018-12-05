@@ -38,7 +38,21 @@ module.exports = grunt => {
 								options: {
 									presets: [
 										[
-											'@babel/preset-env'
+											'@babel/preset-env',
+											{
+												/* 'targets': {
+													'browsers': ['last 2 Chrome versions']
+													// 'browsers': ['node 10']
+
+												} */
+												// targets: '> 0.25%, not dead'
+												targets: {
+													'chrome': '71',
+													'firefox': '63',
+													'ios': '10',
+													'node': '10'
+												}
+											}
 										]
 									] /* ,
 									plugins: [
