@@ -105,10 +105,9 @@ module.exports = grunt => {
 					// 'src/main.js',
 					// 'src/outro.js'
 					'insertia/1.js',
-					// 'lib/common-utilities-webpack-production-window.js',
-					'lib/common-utilities-webpack-production-global.js',
-					'insertia/2.js',
 					'lib/common-utilities-webpack-production-commonjs2.js',
+					'insertia/2.js',
+					'lib/common-utilities-webpack-production-global.js',
 					'insertia/3.js'
 				],
 				dest: 'dist/<%= pkg.shortName %>.js'
