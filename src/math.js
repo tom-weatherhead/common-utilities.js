@@ -1,5 +1,8 @@
 // tom-weatherhead/common-utilities.js/src/math.js
 
+// !!!! This file is deprecated. Remove it when it is safe to do so. Math-related code belongs in numbers.js.
+
+/*
 'use strict';
 
 import {
@@ -71,7 +74,7 @@ export function histogram (arg) {
 		},
 		{}
 	);
-	*/
+	* /
 }
 
 export function mode (arg) {
@@ -93,3 +96,4 @@ export function mode (arg) {
 		{ element: undefined, count: 0 }
 	);
 }
+*/

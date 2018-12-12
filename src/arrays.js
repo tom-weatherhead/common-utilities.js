@@ -6,6 +6,10 @@ import {
 	clone
 } from './objects.js';
 
+import {
+	isArray
+} from './types.js';
+
 /*
 export function getTestArray () {
 	return ['This', 'is', 'an', 'array'];
@@ -49,4 +53,40 @@ export function removeDuplicatesFromArray (array) {
 	// array.includes() does not exist.
 
 	return array.reduce((x, y) => x.includes(y) ? x : [...x, y], []); // Yes. From svnpenn.
+}
+
+// TODO: Common utils: flatten an array: 1) One level; 2) All levels
+
+export function flattenOneLevel (a, b = []) {
+	return a.reduce(
+		(accumulator, element) => {
+
+			if (isArray(element)) {
+				// flattenAll(element, accumulator);
+				// accumulator.append(element);
+				return accumulator.concat(element);
+			} else {
+				accumulator.push(element);
+
+				return accumulator;
+			}
+		},
+		b
+	);
+}
+
+export function flattenAllLevels (a, b = []) {
+	return a.reduce(
+		(accumulator, element) => {
+
+			if (isArray(element)) {
+				flattenAllLevels(element, accumulator);
+			} else {
+				accumulator.push(element);
+			}
+
+			return accumulator;
+		},
+		b
+	);
 }

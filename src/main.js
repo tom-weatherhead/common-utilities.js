@@ -18,17 +18,14 @@ import {
 } from './json.js';
 
 import {
+	generateFirstNNaturalNumbers,
+	generateRange,
 	histogram,
 	mean,
 	median,
 	mode,
-	sum
-} from './math.js';
-
-import {
-	generateFirstNNaturalNumbers,
-	generateRange,
 	replicateString,
+	sum,
 	zeroPadNumber
 } from './numbers.js';
 

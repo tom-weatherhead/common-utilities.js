@@ -9,13 +9,24 @@ module.exports = grunt => {
 	const packageJsonFilename = 'package.json';
 	const gruntfile = grunt.file.readJSON(packageJsonFilename);
 	// const textEncoding = 'utf8';
-	const getWebpackConfig = (mode, libraryTarget) => {
+	const getWebpackConfig = (mode, libraryTarget, filenameSuffix, babelTargets) => {
+		const babelDefaultTargets = {
+			'chrome': '71',
+			'firefox': '63',
+			'ios': '10',
+			'node': '10'
+		};
+
+		filenameSuffix = filenameSuffix ? `-${filenameSuffix}` : '';
+
+		const filename = `${ gruntfile.shortName }-webpack-${mode}-${libraryTarget}${filenameSuffix}.js`;
+
 		return {
 			mode: mode,
 			entry: './src/main.js',
 			output: {
 				path: path.join(__dirname, 'lib'),
-				filename: `${ gruntfile.shortName }-webpack-${mode}-${libraryTarget}.js`,
+				filename: filename,
 				library: gruntfile.shortName,
 				// See https://webpack.js.org/configuration/output/#output-librarytarget
 				libraryTarget: libraryTarget
@@ -46,12 +57,7 @@ module.exports = grunt => {
 
 												} */
 												// targets: '> 0.25%, not dead'
-												targets: {
-													'chrome': '71',
-													'firefox': '63',
-													'ios': '10',
-													'node': '10'
-												}
+												targets: babelTargets || babelDefaultTargets
 											}
 										]
 									] /* ,
@@ -111,14 +117,28 @@ module.exports = grunt => {
 			all: ['test/*_test.js']
 		},
 		webpack: {
-			// Possible values for libraryTarget:
-			// Variable: as a global variable made available by a script tag (libraryTarget:'var').
-			// This: available through the this object (libraryTarget:'this').
-			// Window: available trough the window object, in the browser (libraryTarget:'window').
-			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
+			// Possible values for libraryTarget: See https://webpack.js.org/configuration/output/#output-librarytarget :
+			// libraryTarget:'amd'
+			// libraryTarget:'amd-require'
+			// libraryTarget:'assign'
+			// devcommonjs: getWebpackConfig('development', 'commonjs'),
 			// devcommonjs2: getWebpackConfig('development', 'commonjs2'),
-			// devwindow: getWebpackConfig('development', 'window'),
+			// Global: available through the global object (libraryTarget:'global').
+			// libraryTarget:'jsonp'
+			// This: available through the this object (libraryTarget:'this').
+			// UMD: available after AMD or CommonJS require (libraryTarget:'umd').
+			// Variable: as a global variable made available by a script tag (libraryTarget:'var').
+			// Window: available trough the window object, in the browser (libraryTarget:'window').
+			prodamd: getWebpackConfig('production', 'amd'),
+			prodamdrequire: getWebpackConfig('production', 'amd-require'),
+			prodassign: getWebpackConfig('production', 'assign'),
+			prodcommonjs: getWebpackConfig('production', 'commonjs'),
 			prodcommonjs2: getWebpackConfig('production', 'commonjs2'),
+			prodglobal: getWebpackConfig('production', 'global'),
+			prodjsonp: getWebpackConfig('production', 'jsonp'),
+			prodthis: getWebpackConfig('production', 'this'),
+			produmd: getWebpackConfig('production', 'umd'),
+			prodvar: getWebpackConfig('production', 'var'),
 			prodwindow: getWebpackConfig('production', 'window')
 		}
 		/*
@@ -198,7 +218,21 @@ module.exports = grunt => {
 	*/
 
 	// Aliases
-	grunt.registerTask('build', [ /* 'concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow', */ 'webpack:prodcommonjs2', 'webpack:prodwindow', 'concat']);
+	grunt.registerTask('build', [
+		/* 'concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow', */
+		'webpack:prodamd',
+		'webpack:prodamdrequire',
+		// 'webpack:prodassign',
+		'webpack:prodcommonjs',
+		'webpack:prodcommonjs2',
+		'webpack:prodglobal',
+		'webpack:prodjsonp',
+		'webpack:prodthis',
+		'webpack:produmd',
+		// 'webpack:prodvar',
+		'webpack:prodwindow',
+		'concat'
+	]);
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
 	grunt.registerTask('default', ['build', 'test' /* , 'babel-minify', 'uglify' */ ]);
 };
