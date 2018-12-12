@@ -105,7 +105,8 @@ module.exports = grunt => {
 					// 'src/main.js',
 					// 'src/outro.js'
 					'insertia/1.js',
-					'lib/common-utilities-webpack-production-window.js',
+					// 'lib/common-utilities-webpack-production-window.js',
+					'lib/common-utilities-webpack-production-global.js',
 					'insertia/2.js',
 					'lib/common-utilities-webpack-production-commonjs2.js',
 					'insertia/3.js'
@@ -220,17 +221,17 @@ module.exports = grunt => {
 	// Aliases
 	grunt.registerTask('build', [
 		/* 'concat', 'babel', 'webpack:devcommonjs2', 'webpack:devwindow', */
-		'webpack:prodamd',
-		'webpack:prodamdrequire',
+		// 'webpack:prodamd',
+		// 'webpack:prodamdrequire',
 		// 'webpack:prodassign',
-		'webpack:prodcommonjs',
+		// 'webpack:prodcommonjs',
 		'webpack:prodcommonjs2',
-		'webpack:prodglobal',
-		'webpack:prodjsonp',
-		'webpack:prodthis',
-		'webpack:produmd',
+		'webpack:prodglobal', // We may want to use prodwindow instead.
+		// 'webpack:prodjsonp',
+		// 'webpack:prodthis',
+		// 'webpack:produmd',
 		// 'webpack:prodvar',
-		'webpack:prodwindow',
+		// 'webpack:prodwindow',
 		'concat'
 	]);
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
