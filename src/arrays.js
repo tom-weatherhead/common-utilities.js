@@ -16,6 +16,15 @@ export function getTestArray () {
 }
 */
 
+export function createArrayFromElement (element, length = 1, accumulator = []) {
+
+	if (length <= 0) {
+		return accumulator;
+	}
+
+	return createArrayFromElement(element, length - 1, [element, ...accumulator]);
+}
+
 export function insertNumberIntoArray (n, array) {
 	// array must already be sorted in non-descending order.
 	let i = array.findIndex(m => m >= n);
@@ -50,9 +59,10 @@ export function removeDuplicatesFromArray (array) {
 
 	// return Array.from(new Set(array)); // Yes
 
-	// array.includes() does not exist.
-
-	return array.reduce((x, y) => x.includes(y) ? x : [...x, y], []); // Yes. From svnpenn.
+	return array.reduce(
+		(x, y) => x.includes(y) ? x : [...x, y],
+		[]
+	); // Yes. From svnpenn.
 }
 
 // TODO: Common utils: flatten an array: 1) One level; 2) All levels

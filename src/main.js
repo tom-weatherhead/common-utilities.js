@@ -3,6 +3,9 @@
 'use strict';
 
 import {
+	createArrayFromElement,
+	flattenAllLevels,
+	flattenOneLevel,
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
@@ -18,14 +21,22 @@ import {
 } from './json.js';
 
 import {
+	additiveIdentity,
+	aToThePowerOfB,
+	factory_fnRoundToNDigits,
+	fnAddition,
+	fnMultiplication,
 	generateFirstNNaturalNumbers,
 	generateRange,
 	histogram,
 	mean,
 	median,
 	mode,
+	multiplicativeIdentity,
+	product,
 	replicateString,
 	sum,
+	tenToThePowerOfN,
 	zeroPadNumber
 } from './numbers.js';
 
@@ -37,7 +48,8 @@ import {
 
 import {
 	areSetsEqual,
-	getAllSubsets
+	getAllSubsets,
+	isSubset
 } from './sets.js';
 
 import {
@@ -79,6 +91,9 @@ export function uuid () {
 
 export {
 	// Arrays
+	createArrayFromElement,
+	flattenAllLevels,
+	flattenOneLevel,
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
@@ -94,9 +109,17 @@ export {
 	mode,
 	sum,
 	// Numbers
+	additiveIdentity,
+	aToThePowerOfB,
+	factory_fnRoundToNDigits,
+	fnAddition,
+	fnMultiplication,
 	generateFirstNNaturalNumbers,
 	generateRange,
+	multiplicativeIdentity,
+	product,
 	replicateString,
+	tenToThePowerOfN,
 	zeroPadNumber,
 	// Objects
 	clone,
@@ -105,6 +128,7 @@ export {
 	// Sets
 	areSetsEqual,
 	getAllSubsets,
+	isSubset,
 	// Types
 	getTypeString,
 	isArray,

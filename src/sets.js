@@ -56,7 +56,7 @@ export function getAllSubsets (arg, sortSubsets, fnSubsetComparator) {
 	return result;
 }
 
-function isSubset (set1, set2, fnElementsAreEqual) {
+export function isSubset (set1, set2, fnElementsAreEqual) {
 	return set1.every(element1 => isDefined(set2.find(element2 => fnElementsAreEqual(element1, element2))));
 }
 

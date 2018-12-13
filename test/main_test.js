@@ -1,3 +1,7 @@
+// tom-weatherhead/common-utilities.js/test/main_test.js
+
+'use strict';
+
 const commonUtilities = require('..');
 
 module.exports = {
@@ -221,6 +225,28 @@ module.exports = {
 		test.expect(1);
 		test.equal(
 			commonUtilities.areSetsEqual([1, 2, 3], [3, 1, 2]), true, 'Should be true');
+		test.done();
+	},
+	test26: test => {
+		const input = [[1, 2], 3, [4, [5, [6, 7], 8, 9]], 10];
+		const output = [1, 2, 3, 4, [5, [6, 7], 8, 9], 10];
+
+		test.expect(1);
+		test.deepEqual(
+			commonUtilities.flattenOneLevel(input),
+			output,
+			`Should be ${output}`);
+		test.done();
+	},
+	test27: test => {
+		const input = [[1, 2], 3, [4, [5, [6, 7], 8, 9]], 10];
+		const output = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+		test.expect(1);
+		test.deepEqual(
+			commonUtilities.flattenAllLevels(input),
+			output,
+			`Should be ${output}`);
 		test.done();
 	}
 };

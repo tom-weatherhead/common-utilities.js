@@ -3,6 +3,10 @@
 'use strict';
 
 import {
+	createArrayFromElement
+} from './arrays.js';
+
+import {
 	clone
 } from './objects.js';
 
@@ -35,11 +39,23 @@ export function generateFirstNNaturalNumbers (n) {
 export function replicateString (str, n) {
 	return generateFirstNNaturalNumbers(n)
 		.reduce(
-			// (accumulator, i) => accumulator + str,
 			accumulator => accumulator + str,
 			''
 		);
 }
+
+/*
+function replicateStringAlt1 (str, n) {
+	let result = [];
+
+	while (n > 0) {
+		result.push(str);
+		n--;
+	}
+
+	return result;
+}
+*/
 
 export function zeroPadNumber (n, minLength) {
 	return (replicateString('0', minLength) + n).slice(-minLength);
@@ -94,6 +110,7 @@ export function median (arg) {
 	return sortedArray[Math.floor(sortedArray.length / 2)];
 }
 
+/*
 export function histogram (arg) {
 
 	if (!isArray(arg)) {
@@ -107,8 +124,17 @@ export function histogram (arg) {
 	});
 
 	return result;
+}
 
-	/* Or:
+/* Or:
+export function histogramAlt1 (arg) {
+*/
+export function histogram (arg) {
+
+	if (!isArray(arg)) {
+		return undefined;
+	}
+
 	return arg.reduce(
 		(accumulator, element) => {
 			accumulator[element] = (accumulator[element] || 0) + 1;
@@ -117,8 +143,8 @@ export function histogram (arg) {
 		},
 		{}
 	);
-	*/
 }
+/* */
 
 export function mode (arg) {
 	const hist = histogram(arg);
@@ -140,33 +166,8 @@ export function mode (arg) {
 	);
 }
 
-export function createListFromElement (element, length = 1, accumulator = []) {
-
-	if (length <= 0) {
-		return accumulator;
-	}
-
-	return createListFromElement(element, length - 1, [element, ...accumulator]);
-}
-
-/*
-export function sumListOfNumbers (list) {
-	return list.reduce(
-		fnAddition,
-		additiveIdentity
-	);
-}
-*/
-
-export function productOfListOfNumbers (list) {
-	return list.reduce(
-		fnMultiplication,
-		multiplicativeIdentity
-	);
-}
-
 export function aToThePowerOfB (a, b) {
-	return productOfListOfNumbers(createListFromElement(a, b));
+	return product(createArrayFromElement(a, b));
 }
 
 export function tenToThePowerOfN (n) {

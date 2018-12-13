@@ -2,6 +2,10 @@
 
 'use strict';
 
+import {
+	isDefined
+} from './types.js';
+
 export function clone (arg) {
 	// For an in-depth discussion of object copying, see https://scotch.io/bar-talk/copying-objects-in-javascript
 
@@ -13,9 +17,11 @@ export function clone (arg) {
 	// return JSON.parse(JSON.stringify(arg, null, 0)); // TODO: What are the second and third parameters to stringify() ?
 }
 
+/*
 export function isDefined (obj) {
 	return typeof obj !== 'undefined';
 }
+*/
 
 export function copySpecifiedObjectProperties (propertyList, src, dst = {}) {
 
