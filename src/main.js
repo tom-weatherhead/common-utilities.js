@@ -43,7 +43,8 @@ import {
 import {
 	clone,
 	copySpecifiedObjectProperties,
-	getOwnProperties
+	getOwnProperties,
+	getProperty
 } from './objects.js';
 
 import {
@@ -125,6 +126,7 @@ export {
 	clone,
 	copySpecifiedObjectProperties,
 	getOwnProperties,
+	getProperty,
 	// Sets
 	areSetsEqual,
 	getAllSubsets,

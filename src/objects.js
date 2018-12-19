@@ -55,3 +55,20 @@ export function getOwnProperties (obj = {}) {
 	// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames
 	return Object.getOwnPropertyNames(obj);
 }
+
+// E.g. getProperty(obj, 'subObj1.subObj2.arrayMember.length', 'Toast');
+
+export function getProperty (obj, propertyPath, defaultValue) {
+	const arrayOfProperties = propertyPath.split('.');
+
+	for (let i = 0; i < arrayOfProperties.length; ++i) {
+
+		if (!isDefined(obj)) {
+			return defaultValue;
+		}
+
+		obj = obj[arrayOfProperties[i]];
+	}
+
+	return obj;
+}

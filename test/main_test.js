@@ -248,5 +248,25 @@ module.exports = {
 			output,
 			`Should be ${output}`);
 		test.done();
+	},
+	// getProperty (obj, propertyPath, defaultValue)
+	test28: test => {
+		const input1 = { subObject1a: { subEntity1aa: '1aa', subEntity1ab: '1ab' }, subObject1b: { subEntity1ba: '1ba' } };
+		const defaultValue1 = 'Foo';
+		const propertyPath1a = 'subObject1a.subEntity1ab';
+		const output1a = '1ab';
+		const propertyPath1b = 'subObject3a.subEntity1ab';
+		const output1b = defaultValue1;
+
+		test.expect(2);
+		test.deepEqual(
+			commonUtilities.getProperty(input1, propertyPath1a, defaultValue1),
+			output1a,
+			`Should be ${output1a}`);
+		test.deepEqual(
+			commonUtilities.getProperty(input1, propertyPath1b, defaultValue1),
+			output1b,
+			`Should be ${output1b}`);
+		test.done();
 	}
 };
