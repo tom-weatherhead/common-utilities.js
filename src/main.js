@@ -39,6 +39,7 @@ import {
 	replicateString,
 	sum,
 	tenToThePowerOfN,
+	zeroExtendNumber,
 	zeroPadNumber
 } from './numbers.js';
 
@@ -125,6 +126,7 @@ export {
 	product,
 	replicateString,
 	tenToThePowerOfN,
+	zeroExtendNumber,
 	zeroPadNumber,
 	// Objects
 	clone,

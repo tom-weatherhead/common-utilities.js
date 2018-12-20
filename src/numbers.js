@@ -61,6 +61,19 @@ export function zeroPadNumber (n, minLength) {
 	return (replicateString('0', minLength) + n).slice(-minLength);
 }
 
+export function zeroExtendNumber (n, minNumberOfDecimalPlaces) {
+	// return (replicateString('0', minLength) + n).slice(-minLength);
+	let str = n.toString();
+	let indexOfDecimalPoint = str.indexOf('.');
+
+	if (indexOfDecimalPoint < 0) {
+		indexOfDecimalPoint = str.length;
+		str = str + '.';
+	}
+
+	return str + replicateString('0', indexOfDecimalPoint + 1 + minNumberOfDecimalPlaces - str.length);
+}
+
 export function sum (arg) {
 
 	if (!isArrayOfNumbers(arg)) {

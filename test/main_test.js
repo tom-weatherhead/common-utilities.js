@@ -296,5 +296,18 @@ module.exports = {
 			output,
 			`Should be ${output}`);
 		test.done();
+	},
+	test31: test => {
+		const input_n = 1.25;
+		const input_minNumberOfDecimalPlaces = 5;
+		const output = '1.25000';
+
+		// zeroExtendNumber,
+		test.expect(1);
+		test.equal(
+			commonUtilities.zeroExtendNumber(input_n, input_minNumberOfDecimalPlaces),
+			output,
+			`Should be ${output}`);
+		test.done();
 	}
 };
