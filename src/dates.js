@@ -56,3 +56,27 @@ export function getDateTimeString (date) {
 		.replace(',', '');
 	*/
 }
+
+export function getDifferenceBetweenDatesAsObject (dateEarlier, dateLater) {
+	const dateValueDifference = dateLater.valueOf() - dateEarlier.valueOf();
+	let seconds = Math.floor(dateValueDifference / 1000);
+	const hours = Math.floor(seconds / 3600);
+
+	seconds -= hours * 3600;
+
+	const minutes = Math.floor(seconds / 60);
+
+	seconds -= minutes * 60;
+
+	return {
+		hours: hours,
+		minutes: minutes,
+		seconds: seconds
+	};
+}
+
+export function getDifferenceBetweenDatesAsString (dateEarlier, dateLater) {
+	const diff = getDifferenceBetweenDatesAsObject(dateEarlier, dateLater);
+
+	return `${zeroPadNumber(diff.hours, 2)}h ${zeroPadNumber(diff.minutes, 2)}m ${zeroPadNumber(diff.seconds, 2)}s`;
+}

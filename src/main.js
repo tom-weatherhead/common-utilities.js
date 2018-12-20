@@ -13,7 +13,9 @@ import {
 } from './arrays.js';
 
 import {
-	getDateTimeString
+	getDateTimeString,
+	getDifferenceBetweenDatesAsObject,
+	getDifferenceBetweenDatesAsString
 } from './dates.js';
 
 import {
@@ -101,6 +103,8 @@ export {
 	removeDuplicatesFromArray,
 	// Dates
 	getDateTimeString,
+	getDifferenceBetweenDatesAsObject,
+	getDifferenceBetweenDatesAsString,
 	// JSON
 	safeJsonParse,
 	// Math

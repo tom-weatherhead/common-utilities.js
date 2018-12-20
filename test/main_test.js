@@ -268,5 +268,33 @@ module.exports = {
 			output1b,
 			`Should be ${output1b}`);
 		test.done();
+	},
+	test29: test => {
+		const inputEarlierDate = new Date(2018, 3, 4, 5, 6, 7);
+		const inputLaterDate = new Date(2018, 3, 4, 13, 12, 22);
+		const output = {
+			hours: 8,
+			minutes: 6,
+			seconds: 15
+		};
+
+		test.expect(1);
+		test.deepEqual(
+			commonUtilities.getDifferenceBetweenDatesAsObject(inputEarlierDate, inputLaterDate),
+			output,
+			`Should be ${output}`);
+		test.done();
+	},
+	test30: test => {
+		const inputEarlierDate = new Date(2018, 3, 4, 5, 6, 7);
+		const inputLaterDate = new Date(2018, 3, 4, 13, 12, 22);
+		const output = '08h 06m 15s';
+
+		test.expect(1);
+		test.deepEqual(
+			commonUtilities.getDifferenceBetweenDatesAsString(inputEarlierDate, inputLaterDate),
+			output,
+			`Should be ${output}`);
+		test.done();
 	}
 };

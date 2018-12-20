@@ -3,66 +3,72 @@ Common JavaScript utility functions
 
 [![build status](https://secure.travis-ci.org/tom-weatherhead/common-utilities.js.svg)](https://travis-ci.org/tom-weatherhead/common-utilities.js)
 
-- clone(arg) : object
+- clone(arg: any) : any
 
-- copySpecifiedObjectProperties(propertyList, src, dst = {}) : object
+- copySpecifiedObjectProperties(propertyList: string[], src: object, dst: object = {}) : object
 
-- createArrayFromElement()
+- createArrayFromElement(element: any, length: number = 1, accumulator: any[] = []): any[]
 
-- flattenAllLevels()
+- flattenAllLevels(a: any[], b: any[]): any[]
 
-- flattenOneLevel()
+- flattenOneLevel(a: any[], b: any[]): any[]
 
-- generateFirstNNaturalNumbers(n) : number[]
+- generateFirstNNaturalNumbers(n: number) : number[]
 
-- generateRange(start, end) : number[]
+- generateRange(start: number, end: number) : number[]
 
-- getAllSubsets(obj[]) : obj[][]
+- getAllSubsets(arg: any[]) : any[][]
 
-- getDateTimeString(date) : string
+- getDateTimeString(date: Date) : string
 
-- getOwnProperties(obj = {}) : string[]
+- getDifferenceBetweenDatesAsObject(earlierDate: Date, laterDate: Date) : object
 
-- getTypeString(obj) : string
+- getDifferenceBetweenDatesAsString(earlierDate: Date, laterDate: Date) : string
 
-- histogram(any[]) : object[]
+- getOwnProperties(obj: object = {}) : string[]
 
-- insertNumberIntoArray(n, array) : number[]
+- getProperty (obj: object, propertyPath: string, defaultValue: any) : any
 
-- insertionSort(array) : number[]
+- getTypeString(arg: any) : string
 
-- isArray(obj) : boolean
+- histogram(arg: any[]) : object[]
 
-- isArrayOfNumbers(obj) : boolean
+- insertNumberIntoArray(n: number, array: number[]) : number[]
 
-- isDate(obj) : boolean
+- insertionSort(array: number[]) : number[]
 
-- isDefined(obj) : boolean
+- isArray(arg: any) : boolean
 
-- isFunction(obj) : boolean
+- isArrayOfNumbers(arg: any) : boolean
 
-- isNumber(obj) : boolean
+- isDate(arg: any) : boolean
 
-- isObject(obj) : boolean
+- isDefined(arg: any) : boolean
 
-- isRegularExpression(obj) : boolean
+- isFunction(arg: any) : boolean
 
-- isString(obj) : boolean
+- isNumber(arg: any) : boolean
 
-- isSubset(obj) : boolean
+- isObject(arg: any) : boolean
 
-- mean(number[]) : number
+- isRegularExpression(arg: any) : boolean
 
-- median(number[]) : number
+- isString(arg: any) : boolean
 
-- mode(any[]) : object
+- isSubset(set1: any[], set2: any[], fnElementsAreEqual: function) : boolean
 
-- removeDuplicatesFromArray(array) : any[]
+- mean(arg: number[]) : number
 
-- replicateString(str, n) : string
+- median(arg: number[]) : number
 
-- safeJsonParse(str) : object
+- mode(arg: any[]) : object
 
-- sum(number[]) : number
+- removeDuplicatesFromArray(array: any[]) : any[]
 
-- zeroPadNumber(n, minLength) : string
+- replicateString(str: string, n: number) : string
+
+- safeJsonParse(str: string) : object
+
+- sum(arg: number[]) : number
+
+- zeroPadNumber(n: number, minLength: number) : string
