@@ -6,6 +6,7 @@ import {
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
+	getRandomArrayElement,
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
@@ -14,6 +15,7 @@ import {
 
 import {
 	getDateTimeString,
+	getDateTimeUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString
 } from './dates.js';
@@ -98,12 +100,14 @@ export {
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
+	getRandomArrayElement,
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
 	removeDuplicatesFromArray,
 	// Dates
 	getDateTimeString,
+	getDateTimeUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString,
 	// JSON

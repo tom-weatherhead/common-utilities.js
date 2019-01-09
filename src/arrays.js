@@ -100,3 +100,13 @@ export function flattenAllLevels (a, b = []) {
 		b
 	);
 }
+
+export function getRandomArrayElement (array) {
+
+	if (!isArray(array) || !array.length) {
+		return undefined;
+	}
+
+	return array[Math.floor(Math.random() * array.length)];
+}
+

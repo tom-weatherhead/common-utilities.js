@@ -57,6 +57,16 @@ export function getDateTimeString (date) {
 	*/
 }
 
+export function getDateTimeUTCString (date) {
+
+	if (!date || !isDate(date)) {
+		// console.log('getDateTimeString() : Setting the parameter to the current date and time...');
+		date = new Date();
+	}
+
+	return `${date.getUTCFullYear()}-${zeroPadNumber(date.getUTCMonth() + 1, 2)}-${zeroPadNumber(date.getUTCDate(), 2)} ${zeroPadNumber(date.getUTCHours(), 2)}:${zeroPadNumber(date.getUTCMinutes(), 2)}:${zeroPadNumber(date.getUTCSeconds(), 2)}`;
+}
+
 export function getDifferenceBetweenDatesAsObject (dateEarlier, dateLater) {
 	const dateValueDifference = dateLater.valueOf() - dateEarlier.valueOf();
 	let seconds = Math.floor(dateValueDifference / 1000);
