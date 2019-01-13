@@ -1,5 +1,10 @@
 // tom-weatherhead/common-utilities.js/src/http.js
 
+// See e.g.:
+// - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+// - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+// - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
+
 'use strict';
 
 export function getJson (url) {
@@ -10,7 +15,8 @@ export function getJson (url) {
 		xmlhttp.overrideMimeType('application/json');
 		xmlhttp.open('GET', url, true);
 
-		xmlhttp.onreadystatechange = () => {
+		// xmlhttp.onreadystatechange = () => {
+		xmlhttp.addEventListener('load', () => {
 
 			if (xmlhttp.readyState === 4) {
 
@@ -32,7 +38,34 @@ export function getJson (url) {
 					}));
 				}
 			}
-		};
+		// };
+		});
+
+		/*
+		xmlhttp.addEventListener('progress', event => {
+		// if (event.lengthComputable) {
+		// var percentComplete = event.loaded / event.total * 100;
+		// ...
+		// } else {
+		// Unable to compute progress information since the total size is unknown
+		// }
+		});
+		*/
+
+		xmlhttp.addEventListener('abort', event => {
+			console.error('Abort. event:', event);
+			reject(new Error('Abort'));
+		});
+
+		xmlhttp.addEventListener('error', event => {
+			console.error('Error. event:', event);
+			reject(new Error('Error'));
+		});
+
+		xmlhttp.addEventListener('timeout', event => {
+			console.error('Timeout. event:', event);
+			reject(new Error('Timeout'));
+		});
 
 		xmlhttp.send(null);
 	});
@@ -47,7 +80,8 @@ export function postJson (url, jsonToPost) {
 		xmlhttp.open('POST', url, true);
 		xmlhttp.setRequestHeader('Content-Type', 'application/json');
 
-		xmlhttp.onreadystatechange = () => {
+		// xmlhttp.onreadystatechange = () => {
+		xmlhttp.addEventListener('load', () => {
 
 			if (xmlhttp.readyState === 4) {
 
@@ -62,7 +96,23 @@ export function postJson (url, jsonToPost) {
 					}));
 				}
 			}
-		};
+		});
+		// };
+
+		xmlhttp.addEventListener('abort', event => {
+			console.error('Abort. event:', event);
+			reject(new Error('Abort'));
+		});
+
+		xmlhttp.addEventListener('error', event => {
+			console.error('Error. event:', event);
+			reject(new Error('Error'));
+		});
+
+		xmlhttp.addEventListener('timeout', event => {
+			console.error('Timeout. event:', event);
+			reject(new Error('Timeout'));
+		});
 
 		xmlhttp.send(JSON.stringify(jsonToPost));
 	});
