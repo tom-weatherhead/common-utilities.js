@@ -21,6 +21,11 @@ import {
 } from './dates.js';
 
 import {
+	getJson,
+	postJson
+} from './http.js';
+
+import {
 	safeJsonParse
 } from './json.js';
 
@@ -110,6 +115,9 @@ export {
 	getDateTimeUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString,
+	// HTTP
+	getJson,
+	postJson,
 	// JSON
 	safeJsonParse,
 	// Math

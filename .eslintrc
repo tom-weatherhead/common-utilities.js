@@ -4,9 +4,11 @@
 		"console": true,
 		"global": true,
 		"module": true,
+		"Promise": true,
 		"require": true,
 		"Set": true,
-		"window": true
+		"window": true,
+		"XMLHttpRequest": true
 	},
 	"parserOptions": {
 		"ecmaVersion": 2018,

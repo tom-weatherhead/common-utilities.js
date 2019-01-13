@@ -131,5 +131,5 @@ module.exports = grunt => {
 		'concat'
 	]);
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	grunt.registerTask('default', ['build', 'test']);
+	grunt.registerTask('default', ['eslint', 'build', 'nodeunit']);
 };
