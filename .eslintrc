@@ -1,5 +1,6 @@
 {
 	"globals": {
+		"Buffer": true,
 		"__dirname": true,
 		"console": true,
 		"global": true,

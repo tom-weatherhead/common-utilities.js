@@ -193,5 +193,13 @@ export function factory_fnRoundToNDigits (n) {
 	return m => Math.round(m * val_tenToThePowerOfN) / val_tenToThePowerOfN;
 }
 
+export function isInteger (n) {
+	return parseInt(n, 10) === n;
+}
+
+export function integerDivision (n1, n2) {
+	return parseInt(n1 / n2, 10);
+}
+
 // const roundTo2Digits = factory_fnRoundToNDigits(2);
 // const roundTo5Digits = factory_fnRoundToNDigits(5);

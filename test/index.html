@@ -6,7 +6,6 @@
         <meta name="author" content="Buckwheat" />
         <meta name="description" content="common-utilities.js Test" />
 		<title>common-utilities.js Test</title>
-        <!-- NO:  <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" /> -->
         <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
 	</head>
 
@@ -14,6 +13,16 @@
 		<h1>common-utilities.js Test</h1>
 		<br />
 		<span id="dateTimeStringID">DateTime</span>
+		<br />
+
+		<button onclick="sendHttpGetRequest();">GET</button>
+		<br />
+		GET Result: <span id="httpGetRequest_ResultID">Foo</span>
+		<br />
+
+		<button onclick="sendHttpPostRequest();">POST</button>
+		<br />
+		POST Result: <span id="httpPostRequest_ResultID">Foo</span>
 		<br />
 
 		<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
@@ -26,6 +35,30 @@
 			console.log('moduleTest() : getDateTimeString() : ', dateTimeString);
 			// $("#dateTimeStringID").html("dateTimeString: " + dateTimeString);
 			document.getElementById("dateTimeStringID").innerHTML = "dateTimeString: " + dateTimeString;
+
+			function sendHttpGetRequest() {
+				thawCommonUtilities.getJson('https://httpbin.org/json')
+					.then(result => {
+						console.log('GET: result is', result);
+						console.log('GET: author is', result.slideshow.author);
+						document.getElementById('httpGetRequest_ResultID').innerHTML = result.slideshow.author;
+					})
+					.catch(error => {
+						console.error('GET: error is', error);
+					});
+			}
+
+			function sendHttpPostRequest() {
+				thawCommonUtilities.postJson('https://httpbin.org/post')
+					.then(result => {
+						console.log('POST: result is', result);
+						console.log('POST: author is', result.json.status);
+						document.getElementById('httpPostRequest_ResultID').innerHTML = result.slideshow.author;
+					})
+					.catch(error => {
+						console.error('POST: error is', error);
+					});
+			}
 		</script>
 	</body>
 </html>
