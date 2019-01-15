@@ -15,16 +15,18 @@ module.exports = grunt => {
 			'node': '10'
 		};
 
-		filenameSuffix = filenameSuffix ? `-${filenameSuffix}` : '';
+		// filenameSuffix = filenameSuffix ? `-${filenameSuffix}` : '';
 
-		const filename = `${ gruntfile.shortName }-webpack-${mode}-${libraryTarget}${filenameSuffix}.js`;
+		// const filename = `${ gruntfile.shortName }-webpack-${mode}-${libraryTarget}${filenameSuffix}.js`;
+		const filename = `${ gruntfile.shortName }-${libraryTarget}.js`;
 
 		return {
 			mode: mode,
 			entry: './src/main.js',
 			target: libraryTarget === 'commonjs2' ? 'node' : undefined, // See https://stackoverflow.com/questions/43915463/webpack-node-js-http-module-http-createserver-is-not-a-function
 			output: {
-				path: path.join(__dirname, 'lib'),
+				// path: path.join(__dirname, 'lib'),
+				path: path.join(__dirname, 'dist'),
 				filename: filename,
 				library: gruntfile.shortName,
 				// See https://webpack.js.org/configuration/output/#output-librarytarget
@@ -100,9 +102,11 @@ module.exports = grunt => {
 				src: [
 					'<banner>',
 					'insertia/1.js',
-					'lib/common-utilities-webpack-production-commonjs2.js',
+					// 'lib/common-utilities-webpack-production-commonjs2.js',
+					'dist/common-utilities-commonjs2.js',
 					'insertia/2.js',
-					'lib/common-utilities-webpack-production-global.js',
+					// 'lib/common-utilities-webpack-production-global.js',
+					'dist/common-utilities-global.js',
 					'insertia/3.js'
 				],
 				dest: 'dist/<%= pkg.shortName %>.js'

@@ -214,6 +214,8 @@ export function getJson (urlString, verbose = false) {
 		return sendHttpRequest_clientSideVersion('GET', urlString, null, verbose);
 	} else {
 		return sendHttpRequest_serverSideVersion('GET', urlString, null, verbose);
+
+		// return Promise.reject('XMLHttpRequest missing but required. Node.js packages such as http cause angular-cli to fail.');
 	}
 }
 
@@ -223,5 +225,7 @@ export function postJson (urlString, jsonToPost, verbose = false) {
 		return sendHttpRequest_clientSideVersion('POST', urlString, jsonToPost, verbose);
 	} else {
 		return sendHttpRequest_serverSideVersion('POST', urlString, jsonToPost, verbose);
+
+		// return Promise.reject('XMLHttpRequest missing but required. Node.js packages such as http cause angular-cli to fail.');
 	}
 }
