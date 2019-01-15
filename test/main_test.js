@@ -302,12 +302,53 @@ module.exports = {
 		const input_minNumberOfDecimalPlaces = 5;
 		const output = '1.25000';
 
-		// zeroExtendNumber,
 		test.expect(1);
 		test.equal(
 			commonUtilities.zeroExtendNumber(input_n, input_minNumberOfDecimalPlaces),
 			output,
 			`Should be ${output}`);
 		test.done();
+	},
+	test32: test => {
+		test.expect(2);
+		commonUtilities.getJson('https://httpbin.org/json')
+			.then(result => {
+				const expectedStatus = 200;
+				const expectedAuthor = 'Yours Truly';
+
+				test.equal(result.status, expectedStatus, `Should be ${expectedStatus}`);
+				test.equal(
+					result.responseJson.slideshow.author,
+					expectedAuthor,
+					`Should be ${expectedAuthor}`);
+				test.done();
+			})
+			.catch(error => {
+				console.error('getJson: error is', error);
+				throw error;
+			});
+	},
+	test33: test => {
+		const dataToPost = {
+			name: 'Waldo',
+			status: 'Silly'
+		};
+
+		test.expect(2);
+		commonUtilities.postJson('https://httpbin.org/post', dataToPost)
+			.then(result => {
+				// const expectedStatus = 201; // Created
+
+				test.equal(result.status === 200 || result.status === 201, true, 'Should be 200 or 201');
+				test.deepEqual(
+					result.responseJson.json,
+					dataToPost,
+					`Should be ${dataToPost}`);
+				test.done();
+			})
+			.catch(error => {
+				console.error('postJson: error is', error);
+				throw error;
+			});
 	}
 };

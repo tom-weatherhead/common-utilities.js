@@ -7,63 +7,50 @@
 
 'use strict';
 
-/*
-import {
-	isDefined
-} from './types.js';
-*/
-
-// export function getJson (url) {
-// function getJson_clientSideVersion (url) {
 function sendHttpRequest_clientSideVersion (method, urlString, requestData = null, verbose = false) {
 	console.log(`verbose is ${verbose}`);
 
 	return new Promise((resolve, reject) => {
-		// !!! XMLHttpRequest (apparently) does not exist on the server side. Use require('http') on the server side instead?
-		// See e.g. tom-weatherhead\observable-json-rest-api-client\src\engine.js
 		const xmlhttp = new XMLHttpRequest();
 
 		xmlhttp.overrideMimeType('application/json'); // ? Which methods (if any) require this?
-		// xmlhttp.open('GET', url, true);
 		xmlhttp.open(method, urlString, true);
 
 		if (requestData) {
 			xmlhttp.setRequestHeader('Content-Type', 'application/json');
 		}
 
-		// xmlhttp.onreadystatechange = () => {
 		xmlhttp.addEventListener('load', () => {
 
-			if (xmlhttp.readyState === 4) {
-				const response = {
-					status: xmlhttp.status,
-					statusText: xmlhttp.statusText,
-					responseText: xmlhttp.responseText
-				};
+			// if (xmlhttp.readyState === 4) {
+			const response = {
+				status: xmlhttp.status,
+				statusText: xmlhttp.statusText,
+				responseText: xmlhttp.responseText
+			};
 
-				if (xmlhttp.status === 200) {
-					// console.log('xmlhttp.responseText is', xmlhttp.responseText);
+			if (xmlhttp.status === 200) {
+				// console.log('xmlhttp.responseText is', xmlhttp.responseText);
 
-					try {
-						response.responseJson = JSON.parse(xmlhttp.responseText);
-					} catch (error) {
-						console.error('JSON.parse error:', error);
-						// reject(error);
-						response.jsonParseError = error;
-					}
-
-					resolve(response);
-				} else {
-					// console.error('xmlhttp.readyState is', xmlhttp.readyState);
-					// console.error('xmlhttp.status is', xmlhttp.status);
-					/* reject(new Error({
-						status: xmlhttp.status,
-						statusText: xmlhttp.statusText
-					})); */
-					reject(response);
+				try {
+					response.responseJson = JSON.parse(xmlhttp.responseText);
+				} catch (error) {
+					console.error('JSON.parse error:', error);
+					// reject(error);
+					response.jsonParseError = error;
 				}
+
+				resolve(response);
+			} else {
+				// console.error('xmlhttp.readyState is', xmlhttp.readyState);
+				// console.error('xmlhttp.status is', xmlhttp.status);
+				/* reject(new Error({
+					status: xmlhttp.status,
+					statusText: xmlhttp.statusText
+				})); */
+				reject(response);
 			}
-		// };
+			// }
 		});
 
 		/*
@@ -101,16 +88,15 @@ function sendHttpRequest_clientSideVersion (method, urlString, requestData = nul
 }
 
 function sendHttpRequest_serverSideVersion (method, urlString, requestData = null, verbose = false) {
-	console.log('sendHttpRequest_serverSideVersion() : Begin');
-	console.log('sendHttpRequest_serverSideVersion() : urlString is', urlString);
+	// console.log('sendHttpRequest_serverSideVersion() : Begin');
+	// console.log('sendHttpRequest_serverSideVersion() : urlString is', urlString);
 
 	const url = require('url');
 
 	return new Promise((resolve, reject) => {
-		// const parsedUrl = url.parse(urlString);
 		const parsedUrl = url.parse(urlString);
 
-		console.log('sendHttpRequest_serverSideVersion() : parsedUrl is', parsedUrl);
+		// console.log('sendHttpRequest_serverSideVersion() : parsedUrl is', parsedUrl);
 
 		const options = {
 			protocol: parsedUrl.protocol,
@@ -119,16 +105,7 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 			path: parsedUrl.path,
 			method: method
 		};
-		/*
-		const options = {
-			protocol: 'https:',
-			hostname: 'httpbin.org',
-			port: 80,
-			path: '/json',
-			method: 'GET'
-		};
-		*/
-		/*
+
 		let http;
 
 		if (options.protocol === 'http:') {
@@ -136,16 +113,13 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 		} else if (options.protocol === 'https:') {
 			http = require('https');
 		} else {
-			// observer.error(`Unsupported protocol: ${options.protocol}`);
 			reject(`Unsupported protocol: ${options.protocol}`);
 		}
-		*/
-		const http = require('https');
 
-		console.log('sendHttpRequest_serverSideVersion() : http is', http);
+		// console.log('sendHttpRequest_serverSideVersion() : http is', http);
 
 		const requestObject = http.request(options, response => {
-			console.log('sendHttpRequest_serverSideVersion() : Callback: Begin');
+			// console.log('sendHttpRequest_serverSideVersion() : Callback: Begin');
 
 			let rawResponseBody = '';
 
@@ -196,20 +170,17 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 					console.log('jsonResponseBody', result.responseJson);
 				}
 
-				// observer.next(result);
-				// observer.complete();
 				resolve(result);
 			});
 		});
 
 		requestObject.on('error', error => {
 			console.error(`HTTP request error: ${error.message || error}`);
-			// observer.error(error.message);
 			reject(error);
 		});
 
 		if (requestData !== null) {
-			console.log('sendHttpRequest_serverSideVersion() : Adding the request data to the request object');
+			// console.log('sendHttpRequest_serverSideVersion() : Adding the request data to the request object');
 
 			// Write data to the request body
 			let requestDataString = JSON.stringify(requestData);
@@ -239,7 +210,6 @@ const deleteRaw = (urlString, verbose = false) => request('DELETE', urlString, n
 
 export function getJson (urlString, verbose = false) {
 
-	// if (isDefined(XMLHttpRequest)) {
 	if (typeof XMLHttpRequest !== 'undefined') {
 		return sendHttpRequest_clientSideVersion('GET', urlString, null, verbose);
 	} else {
@@ -249,7 +219,6 @@ export function getJson (urlString, verbose = false) {
 
 export function postJson (urlString, jsonToPost, verbose = false) {
 
-	// if (isDefined(XMLHttpRequest)) {
 	if (typeof XMLHttpRequest !== 'undefined') {
 		return sendHttpRequest_clientSideVersion('POST', urlString, jsonToPost, verbose);
 	} else {
