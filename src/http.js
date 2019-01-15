@@ -7,9 +7,11 @@
 
 'use strict';
 
+/*
 import {
 	isDefined
 } from './types.js';
+*/
 
 // export function getJson (url) {
 // function getJson_clientSideVersion (url) {
@@ -90,15 +92,26 @@ function sendHttpRequest_clientSideVersion (method, urlString, requestData = nul
 			reject(new Error('Timeout'));
 		});
 
-		xmlhttp.send(null);
+		if (requestData) {
+			xmlhttp.send(JSON.stringify(requestData));
+		} else {
+			xmlhttp.send(null);
+		}
 	});
 }
 
 function sendHttpRequest_serverSideVersion (method, urlString, requestData = null, verbose = false) {
+	console.log('sendHttpRequest_serverSideVersion() : Begin');
+	console.log('sendHttpRequest_serverSideVersion() : urlString is', urlString);
+
 	const url = require('url');
 
 	return new Promise((resolve, reject) => {
+		// const parsedUrl = url.parse(urlString);
 		const parsedUrl = url.parse(urlString);
+
+		console.log('sendHttpRequest_serverSideVersion() : parsedUrl is', parsedUrl);
+
 		const options = {
 			protocol: parsedUrl.protocol,
 			hostname: parsedUrl.hostname,
@@ -106,6 +119,16 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 			path: parsedUrl.path,
 			method: method
 		};
+		/*
+		const options = {
+			protocol: 'https:',
+			hostname: 'httpbin.org',
+			port: 80,
+			path: '/json',
+			method: 'GET'
+		};
+		*/
+		/*
 		let http;
 
 		if (options.protocol === 'http:') {
@@ -116,8 +139,14 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 			// observer.error(`Unsupported protocol: ${options.protocol}`);
 			reject(`Unsupported protocol: ${options.protocol}`);
 		}
+		*/
+		const http = require('https');
+
+		console.log('sendHttpRequest_serverSideVersion() : http is', http);
 
 		const requestObject = http.request(options, response => {
+			console.log('sendHttpRequest_serverSideVersion() : Callback: Begin');
+
 			let rawResponseBody = '';
 
 			if (verbose) {
@@ -138,9 +167,9 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 
 			response.on('end', () => {
 				let result = {
-					statusCode: response.statusCode,
-					statusMessage: response.statusMessage,
-					rawResponseBody: rawResponseBody
+					status: response.statusCode,
+					statusText: response.statusMessage,
+					responseText: rawResponseBody
 				};
 
 				if (verbose) {
@@ -148,7 +177,7 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 				}
 
 				try {
-					result.jsonResponseBody = JSON.parse(rawResponseBody);
+					result.responseJson = JSON.parse(rawResponseBody);
 
 					if (verbose) {
 						console.log('JSON parse succeeded.');
@@ -162,9 +191,9 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 				}
 
 				if (verbose) {
-					console.log('Sending result:', result.statusCode, result.statusMessage);
-					console.log('rawResponseBody', result.rawResponseBody);
-					console.log('jsonResponseBody', result.jsonResponseBody);
+					console.log('Sending result:', result.status, result.statusText);
+					console.log('rawResponseBody', result.responseText);
+					console.log('jsonResponseBody', result.responseJson);
 				}
 
 				// observer.next(result);
@@ -180,6 +209,8 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 		});
 
 		if (requestData !== null) {
+			console.log('sendHttpRequest_serverSideVersion() : Adding the request data to the request object');
+
 			// Write data to the request body
 			let requestDataString = JSON.stringify(requestData);
 
@@ -193,7 +224,7 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 		return () => {
 
 			if (verbose) {
-				console.log('request() : The End.');
+				console.log('sendHttpRequest_serverSideVersion() : The End.');
 			}
 		};
 	});
@@ -208,7 +239,8 @@ const deleteRaw = (urlString, verbose = false) => request('DELETE', urlString, n
 
 export function getJson (urlString, verbose = false) {
 
-	if (isDefined(XMLHttpRequest)) {
+	// if (isDefined(XMLHttpRequest)) {
+	if (typeof XMLHttpRequest !== 'undefined') {
 		return sendHttpRequest_clientSideVersion('GET', urlString, null, verbose);
 	} else {
 		return sendHttpRequest_serverSideVersion('GET', urlString, null, verbose);
@@ -217,58 +249,10 @@ export function getJson (urlString, verbose = false) {
 
 export function postJson (urlString, jsonToPost, verbose = false) {
 
-	if (isDefined(XMLHttpRequest)) {
+	// if (isDefined(XMLHttpRequest)) {
+	if (typeof XMLHttpRequest !== 'undefined') {
 		return sendHttpRequest_clientSideVersion('POST', urlString, jsonToPost, verbose);
 	} else {
 		return sendHttpRequest_serverSideVersion('POST', urlString, jsonToPost, verbose);
 	}
 }
-
-/*
-export function postJson (url, jsonToPost) {
-
-	return new Promise((resolve, reject) => {
-		const xmlhttp = new XMLHttpRequest();
-
-		// xmlhttp.overrideMimeType('application/json');
-		xmlhttp.open('POST', url, true);
-		xmlhttp.setRequestHeader('Content-Type', 'application/json');
-
-		// xmlhttp.onreadystatechange = () => {
-		xmlhttp.addEventListener('load', () => {
-
-			if (xmlhttp.readyState === 4) {
-
-				if (xmlhttp.status === 200) {
-					resolve(xmlhttp.responseText);
-				} else {
-					// console.error('xmlhttp.readyState is', xmlhttp.readyState);
-					// console.error('xmlhttp.status is', xmlhttp.status);
-					reject(new Error({
-						status: xmlhttp.status,
-						statusText: xmlhttp.statusText
-					}));
-				}
-			}
-		});
-		// };
-
-		xmlhttp.addEventListener('abort', event => {
-			console.error('Abort. event:', event);
-			reject(new Error('Abort'));
-		});
-
-		xmlhttp.addEventListener('error', event => {
-			console.error('Error. event:', event);
-			reject(new Error('Error'));
-		});
-
-		xmlhttp.addEventListener('timeout', event => {
-			console.error('Timeout. event:', event);
-			reject(new Error('Timeout'));
-		});
-
-		xmlhttp.send(JSON.stringify(jsonToPost));
-	});
-}
-*/

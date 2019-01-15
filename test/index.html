@@ -39,9 +39,9 @@
 			function sendHttpGetRequest() {
 				thawCommonUtilities.getJson('https://httpbin.org/json')
 					.then(result => {
-						console.log('GET: result is', result);
-						console.log('GET: author is', result.slideshow.author);
-						document.getElementById('httpGetRequest_ResultID').innerHTML = result.slideshow.author;
+						// console.log('GET: result is', result);
+						console.log('GET: author is', result.responseJson.slideshow.author);
+						document.getElementById('httpGetRequest_ResultID').innerHTML = result.responseJson.slideshow.author;
 					})
 					.catch(error => {
 						console.error('GET: error is', error);
@@ -49,11 +49,16 @@
 			}
 
 			function sendHttpPostRequest() {
-				thawCommonUtilities.postJson('https://httpbin.org/post')
+				const data = {
+					name: 'Waldo',
+					status: 'Silly'
+				};
+
+				thawCommonUtilities.postJson('https://httpbin.org/post', data)
 					.then(result => {
-						console.log('POST: result is', result);
-						console.log('POST: author is', result.json.status);
-						document.getElementById('httpPostRequest_ResultID').innerHTML = result.slideshow.author;
+						console.log('POST: result is', result.responseJson);
+						console.log('POST: Status is', result.responseJson.json.status);
+						document.getElementById('httpPostRequest_ResultID').innerHTML = result.responseJson.json.status;
 					})
 					.catch(error => {
 						console.error('POST: error is', error);

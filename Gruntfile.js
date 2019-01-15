@@ -22,6 +22,7 @@ module.exports = grunt => {
 		return {
 			mode: mode,
 			entry: './src/main.js',
+			target: libraryTarget === 'commonjs2' ? 'node' : undefined, // See https://stackoverflow.com/questions/43915463/webpack-node-js-http-module-http-createserver-is-not-a-function
 			output: {
 				path: path.join(__dirname, 'lib'),
 				filename: filename,
