@@ -3,7 +3,7 @@
  *
  * @copyright 2019 Tom Weatherhead <null@2hrd4u.org> (https://httpbin.org/status/418)
  * @license MIT
- * @version 0.0.12
+ * @version 0.0.13
  */
 if (typeof module !== 'undefined') {
 
