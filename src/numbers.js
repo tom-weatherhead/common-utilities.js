@@ -12,7 +12,8 @@ import {
 
 import {
 	isArray,
-	isArrayOfNumbers
+	isArrayOfNumbers,
+	isNumber
 } from './types.js';
 
 export const fnAddition = (a, b) => a + b;
@@ -76,11 +77,13 @@ export function zeroExtendNumber (n, minNumberOfDecimalPlaces) {
 
 export function sum (arg) {
 
-	if (!isArrayOfNumbers(arg)) {
+	// if (!isArrayOfNumbers(arg)) {
+	if (!isArray(arg)) {
 		return undefined;
 	}
 
-	return arg.reduce(
+	// return arg.reduce(
+	return arg.filter(isNumber).reduce(
 		fnAddition,
 		additiveIdentity
 	);
@@ -88,11 +91,13 @@ export function sum (arg) {
 
 export function product (arg) {
 
-	if (!isArrayOfNumbers(arg)) {
+	// if (!isArrayOfNumbers(arg)) {
+	if (!isArray(arg)) {
 		return undefined;
 	}
 
-	return arg.reduce(
+	// return arg.reduce(
+	return arg.filter(isNumber).reduce(
 		fnMultiplication,
 		multiplicativeIdentity
 	);
@@ -200,6 +205,3 @@ export function isInteger (n) {
 export function integerDivision (n1, n2) {
 	return parseInt(n1 / n2, 10);
 }
-
-// const roundTo2Digits = factory_fnRoundToNDigits(2);
-// const roundTo5Digits = factory_fnRoundToNDigits(5);

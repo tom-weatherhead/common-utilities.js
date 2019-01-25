@@ -171,9 +171,16 @@ module.exports = {
 	test19: test => {
 		test.expect(4);
 		test.equal(commonUtilities.sum('abc'), undefined, 'Should be undefined');
-		test.equal(commonUtilities.sum([1, 2, 3, false]), undefined, 'Should be undefined');
+		// test.equal(commonUtilities.sum([1, 2, 3, false]), undefined, 'Should be undefined');
 		test.equal(commonUtilities.sum([]), 0, 'Should be 0');
 		test.equal(commonUtilities.sum([2, 3, 5, 7]), 17, 'Should be 17');
+		test.equal(commonUtilities.sum([1, 'a', 2, {}, 3, /abc/, 4]), 10, 'Should be 10');
+		test.done();
+	},
+	test19b: test => {
+		test.expect(2);
+		test.equal(commonUtilities.product([2, 3, 5, 7]), 210, 'Should be 210');
+		test.equal(commonUtilities.product([1, 'a', 2, {}, 3, /abc/, 4]), 24, 'Should be 24');
 		test.done();
 	},
 	test20: test => {
