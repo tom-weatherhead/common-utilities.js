@@ -14,6 +14,11 @@ import {
 } from './arrays.js';
 
 import {
+	asyncForEach,
+	asyncMap
+} from './asynchronous.js';
+
+import {
 	getDateTimeString,
 	getDateTimeUTCString,
 	getDifferenceBetweenDatesAsObject,
@@ -112,6 +117,9 @@ export {
 	insertionSort,
 	insertNumberIntoArray,
 	removeDuplicatesFromArray,
+	// Asynchronous
+	asyncForEach,
+	asyncMap,
 	// Dates
 	getDateTimeString,
 	getDateTimeUTCString,
