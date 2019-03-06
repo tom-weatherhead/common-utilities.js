@@ -3,7 +3,7 @@
 	"shortName": "common-utilities",
 	"description": "Common JavaScript utility functions",
 	"private": false,
-	"version": "0.0.14",
+	"version": "0.0.15",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tom-weatherhead/common-utilities.js.git"
@@ -19,15 +19,15 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@babel/core": "^7.1.6",
-		"@babel/preset-env": "^7.1.6",
-		"babel-loader": "^8.0.4",
+		"@babel/core": "^7.3.4",
+		"@babel/preset-env": "^7.3.4",
+		"babel-loader": "^8.0.5",
 		"grunt": "^1.0.3",
 		"grunt-contrib-concat": "^1.0.1",
 		"grunt-contrib-nodeunit": "^2.0.0",
 		"grunt-eslint": "^21.0.0",
 		"grunt-webpack": "^3.1.3",
-		"webpack": "^4.26.1"
+		"webpack": "^4.29.6"
 	},
 	"engineStrict": true,
 	"engines": {

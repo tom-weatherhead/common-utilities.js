@@ -3,6 +3,8 @@
 'use strict';
 
 import {
+	categorizeArrayElementsByFunction,
+	categorizeArrayElementsByProperty,
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
@@ -21,6 +23,7 @@ import {
 import {
 	getDateTimeString,
 	getDateTimeUTCString,
+	getDateUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString
 } from './dates.js';
@@ -109,6 +112,8 @@ export function uuid () {
 
 export {
 	// Arrays
+	categorizeArrayElementsByFunction,
+	categorizeArrayElementsByProperty,
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
@@ -123,6 +128,7 @@ export {
 	// Dates
 	getDateTimeString,
 	getDateTimeUTCString,
+	getDateUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString,
 	// HTTP

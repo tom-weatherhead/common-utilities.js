@@ -3,6 +3,10 @@
 'use strict';
 
 import {
+	sum
+} from './numbers.js';
+
+import {
 	clone
 } from './objects.js';
 
@@ -110,3 +114,62 @@ export function getRandomArrayElement (array) {
 	return array[Math.floor(Math.random() * array.length)];
 }
 
+export function propertySum (array, propertyName) {
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	return sum(array.map(element => element[propertyName]));
+}
+
+// Categorize? Or pigeonhole?
+
+export function categorizeArrayElementsByFunction (array, fn) {
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	// [...new Set(array)] : Remove duplicate elements
+	// const propertyValues = [...new Set(array.map(element => fn(element)))];
+	const propertyValues = removeDuplicatesFromArray(array.map(element => fn(element)));
+
+	propertyValues.sort();
+
+	return propertyValues.reduce(
+		(accumulator, propertyValue) => {
+			accumulator[propertyValue] = array.filter(element => fn(element) === propertyValue);
+
+			return accumulator;
+		},
+		{}
+	);
+}
+
+export function categorizeArrayElementsByFunction_version2 (array, fn) {
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	return array.reduce(
+		(accumulator, element) => {
+			const key = fn(element);
+
+			if (!accumulator[key]) {
+				accumulator[key] = [];
+			}
+
+			// Array.push() returns the length of the array after the push.
+			accumulator[key].push(element);
+
+			return accumulator;
+		},
+		{}
+	);
+}
+
+export function categorizeArrayElementsByProperty (array, propertyName) {
+	return categorizeArrayElementsByFunction(array, element => element[propertyName]);
+}

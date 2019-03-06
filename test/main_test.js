@@ -17,7 +17,20 @@ module.exports = {
 	test2: function (test) {
 		const arrayOfNumbers = [2, 3, 5, 7];
 
-		test.expect(14);
+		test.expect(24);
+		test.equal(commonUtilities.getTypeString(undefined), '[object Undefined]', 'Should be \'[object Undefined]\'');
+
+		// The six 'falsy' values in JavaScript:
+		test.equal(commonUtilities.isDefined(undefined), false, 'Should be false');
+		test.equal(commonUtilities.isDefined(null), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(0), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(NaN), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(''), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(false), true, 'Should be true');
+
+		test.equal(commonUtilities.isDefined([]), true, 'Should be true');
+		test.equal(commonUtilities.isDefined({}), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(/abc/), true, 'Should be true');
 		test.equal(commonUtilities.getTypeString(new Date()), '[object Date]', 'Should be \'[object Date]\'');
 		test.equal(commonUtilities.isDate(new Date()), true, 'Should be true');
 		test.equal(commonUtilities.getTypeString(arrayOfNumbers), '[object Array]', 'Should be \'[object Array]\'');
