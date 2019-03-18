@@ -21,9 +21,10 @@ import {
 } from './asynchronous.js';
 
 import {
+	getDateString,
+	getDateUTCString,
 	getDateTimeString,
 	getDateTimeUTCString,
-	getDateUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString
 } from './dates.js';
@@ -126,9 +127,10 @@ export {
 	asyncForEach,
 	asyncMap,
 	// Dates
+	getDateString,
+	getDateUTCString,
 	getDateTimeString,
 	getDateTimeUTCString,
-	getDateUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString,
 	// HTTP

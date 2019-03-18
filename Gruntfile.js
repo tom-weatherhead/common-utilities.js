@@ -7,13 +7,34 @@ const path = require('path');
 module.exports = grunt => {
 	const packageJsonFilename = 'package.json';
 	const gruntfile = grunt.file.readJSON(packageJsonFilename);
-	const getWebpackConfig = (mode, libraryTarget, filenameSuffix, babelTargets) => {
+	// const getWebpackConfig = (mode, libraryTarget, filenameSuffix, babelTargets) => {
+	const getWebpackConfig = (mode, libraryTarget) => {
+		/*
 		const babelDefaultTargets = {
 			'chrome': '71',
 			'firefox': '63',
 			'ios': '10',
 			'node': '10'
 		};
+		 */
+		const babelDefaultTargets1 = {	// For code on the server side
+			'node': 'current'
+		};
+		const babelDefaultTargets2 = {	// For code on the client side
+			// See https://github.com/browserslist/browserslist
+			// 'chrome': 'last 2 versions',
+			// 'firefox': 'last 2 versions',
+			// 'ios': '10',
+			// 'browsers': ['last 2 Chrome versions'], // This works.
+			'browsers': [{
+				'chrome': 'last 2 versions',
+				'firefox': 'last 2 versions',
+				'ios_saf': '10'
+			}],
+			// 'ios': '10',
+			'node': 'current'
+		};
+		const babelTargets = libraryTarget === 'commonjs2' ? babelDefaultTargets1 : babelDefaultTargets2;
 
 		// filenameSuffix = filenameSuffix ? `-${filenameSuffix}` : '';
 
@@ -58,13 +79,30 @@ module.exports = grunt => {
 
 												} */
 												// targets: '> 0.25%, not dead'
-												targets: babelTargets || babelDefaultTargets
+												targets: babelTargets // || babelDefaultTargets
 											}
 										]
 									] /* ,
 									plugins: [
 										'transform-class-properties'
 									] */
+
+									/*
+									// From https://babeljs.io/docs/en/babel-plugin-transform-classes :
+									// This plugin allows a class in this package to be used as the base class
+									// of a class outside of this package:
+
+									// $ npm i -D @babel/plugin-transform-classes
+
+									// 'loose' defaults to false:
+									// 'plugins': ['@babel/plugin-transform-classes']
+
+									'plugins': [
+										['@babel/plugin-transform-classes', {
+											'loose': true
+										}]
+									]
+									 */
 								}
 							}
 						]
@@ -81,13 +119,6 @@ module.exports = grunt => {
 
 	grunt.initConfig({
 		pkg: gruntfile,
-		eslint: {
-			target: [
-				'*.js',
-				'src/*.js',
-				'test/*.js'
-			]
-		},
 		concat: {
 			options: {
 				banner: '/**\n' +
@@ -111,6 +142,13 @@ module.exports = grunt => {
 				],
 				dest: 'dist/<%= pkg.shortName %>.js'
 			}
+		},
+		eslint: {
+			target: [
+				'*.js',
+				'src/*.js',
+				'test/*.js'
+			]
 		},
 		nodeunit: {
 			all: ['test/*_test.js']
