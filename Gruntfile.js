@@ -4,39 +4,14 @@
 
 const path = require('path');
 
+const babelTargetsClientSide = require('./config/babel-targets-client-side');
+const babelTargetsServerSide = require('./config/babel-targets-server-side');
+
 module.exports = grunt => {
 	const packageJsonFilename = 'package.json';
 	const gruntfile = grunt.file.readJSON(packageJsonFilename);
-	// const getWebpackConfig = (mode, libraryTarget, filenameSuffix, babelTargets) => {
 	const getWebpackConfig = (mode, libraryTarget) => {
-		/*
-		const babelDefaultTargets = {
-			'chrome': '71',
-			'firefox': '63',
-			'ios': '10',
-			'node': '10'
-		};
-		 */
-		const babelDefaultTargets1 = {	// For code on the server side
-			'node': 'current'
-		};
-		const babelDefaultTargets2 = {	// For code on the client side
-			// See https://github.com/browserslist/browserslist
-			// 'chrome': 'last 2 versions',
-			// 'firefox': 'last 2 versions',
-			// 'ios': '10',
-			// 'browsers': ['last 2 Chrome versions'], // This works.
-			'browsers': [{
-				'chrome': 'last 2 versions',
-				'firefox': 'last 2 versions',
-				'ios_saf': '10'
-			}],
-			// 'ios': '10',
-			'node': 'current'
-		};
-		const babelTargets = libraryTarget === 'commonjs2' ? babelDefaultTargets1 : babelDefaultTargets2;
-
-		// filenameSuffix = filenameSuffix ? `-${filenameSuffix}` : '';
+		const babelTargets = libraryTarget === 'commonjs2' ? babelTargetsServerSide : babelTargetsClientSide;
 
 		// const filename = `${ gruntfile.shortName }-webpack-${mode}-${libraryTarget}${filenameSuffix}.js`;
 		const filename = `${ gruntfile.shortName }-${libraryTarget}.js`;
@@ -46,7 +21,6 @@ module.exports = grunt => {
 			entry: './src/main.js',
 			target: libraryTarget === 'commonjs2' ? 'node' : undefined, // See https://stackoverflow.com/questions/43915463/webpack-node-js-http-module-http-createserver-is-not-a-function
 			output: {
-				// path: path.join(__dirname, 'lib'),
 				path: path.join(__dirname, 'dist'),
 				filename: filename,
 				library: gruntfile.shortName,
@@ -54,11 +28,9 @@ module.exports = grunt => {
 				libraryTarget: libraryTarget
 			},
 			// plugins: [
-			/*
-			new HtmlWebpackPlugin({
-				template: 'src/index.html'
-			})
-			*/
+			// 	new HtmlWebpackPlugin({
+			// 		template: 'src/index.html'
+			// 	})
 			// ],
 			module: {
 				rules: [
@@ -73,22 +45,24 @@ module.exports = grunt => {
 										[
 											'@babel/preset-env',
 											{
-												/* 'targets': {
-													'browsers': ['last 2 Chrome versions']
-													// 'browsers': ['node 10']
-
-												} */
 												// targets: '> 0.25%, not dead'
-												targets: babelTargets // || babelDefaultTargets
+												targets: babelTargets
 											}
 										]
-									] /* ,
-									plugins: [
-										'transform-class-properties'
-									] */
+									]
+									// ,
+									// plugins: [
+									// 	'transform-class-properties'
+									// 	? 2019-03-18 : Replace the above with @babel/plugin-proposal-class-properties ?
+									// ]
 
-									/*
 									// From https://babeljs.io/docs/en/babel-plugin-transform-classes :
+
+									// When extending a native class (e.g., class extends Array {}), the super class needs to be wrapped. This is needed to workaround two problems:
+									//
+									//     Babel transpiles classes using SuperClass.apply(/* ... */), but native classes aren't callable and thus throw in this case.
+									//     Some built-in functions (like Array) always return a new object. Instead of returning it, Babel should treat it as the new this.
+
 									// This plugin allows a class in this package to be used as the base class
 									// of a class outside of this package:
 
@@ -97,20 +71,20 @@ module.exports = grunt => {
 									// 'loose' defaults to false:
 									// 'plugins': ['@babel/plugin-transform-classes']
 
-									'plugins': [
-										['@babel/plugin-transform-classes', {
-											'loose': true
-										}]
-									]
-									 */
+									// 'plugins': [
+									// 	['@babel/plugin-transform-classes', {
+									// 		'loose': true
+									// 	}]
+									// ]
 								}
 							}
 						]
-					} /*,
-					{
-						test: /.css$/,
-						loader: "style-loader!css-loader"
-					} */
+					}
+					// ,
+					// {
+					// 	test: /.css$/,
+					// 	loader: "style-loader!css-loader"
+					// }
 				]
 			},
 			devtool: 'source-map'
@@ -133,10 +107,8 @@ module.exports = grunt => {
 				src: [
 					'<banner>',
 					'insertia/1.js',
-					// 'lib/common-utilities-webpack-production-commonjs2.js',
 					'dist/common-utilities-commonjs2.js',
 					'insertia/2.js',
-					// 'lib/common-utilities-webpack-production-global.js',
 					'dist/common-utilities-global.js',
 					'insertia/3.js'
 				],
