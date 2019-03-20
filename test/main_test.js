@@ -17,10 +17,11 @@ module.exports = {
 	test2: function (test) {
 		const arrayOfNumbers = [2, 3, 5, 7];
 
-		test.expect(24);
+		test.expect(30);
 		test.equal(commonUtilities.getTypeString(undefined), '[object Undefined]', 'Should be \'[object Undefined]\'');
 
 		// The six 'falsy' values in JavaScript:
+		console.log(`commonUtilities.getTypeString(undefined) is ${commonUtilities.getTypeString(undefined)}`);
 		test.equal(commonUtilities.isDefined(undefined), false, 'Should be false');
 		test.equal(commonUtilities.isDefined(null), true, 'Should be true');
 		test.equal(commonUtilities.isDefined(0), true, 'Should be true');
@@ -31,12 +32,32 @@ module.exports = {
 		test.equal(commonUtilities.isDefined([]), true, 'Should be true');
 		test.equal(commonUtilities.isDefined({}), true, 'Should be true');
 		test.equal(commonUtilities.isDefined(/abc/), true, 'Should be true');
+
+		//
+
+		let foo;
+
+		test.equal(commonUtilities.isDefined(foo), false, 'Should be false');
+		foo = 0;
+		test.equal(commonUtilities.isDefined(foo), true, 'Should be true');
+
+		foo = { key1: 'value1' };
+		test.equal(commonUtilities.isDefined(foo.key1), true, 'Should be true');
+		// test.equal(commonUtilities.isDefined(foo['key1']), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(foo.key2), false, 'Should be false');
+		// test.equal(commonUtilities.isDefined(foo['key2']), false, 'Should be false');
+
+		//
+
 		test.equal(commonUtilities.getTypeString(new Date()), '[object Date]', 'Should be \'[object Date]\'');
 		test.equal(commonUtilities.isDate(new Date()), true, 'Should be true');
 		test.equal(commonUtilities.getTypeString(arrayOfNumbers), '[object Array]', 'Should be \'[object Array]\'');
 		test.equal(commonUtilities.isArray(arrayOfNumbers), true, 'Should be true');
 		test.equal(commonUtilities.getTypeString(arrayOfNumbers[0]), '[object Number]', 'Should be \'[object Number]\'');
 		test.equal(commonUtilities.isNumber(arrayOfNumbers[0]), true, 'Should be true');
+		test.equal(commonUtilities.isNumber(NaN), false, 'Should be false');
+		test.equal(commonUtilities.isNumber(Infinity), true, 'Should be true');
+		// test.equal(commonUtilities.isNumber(Epsilon), true, 'Should be true');
 		test.equal(commonUtilities.getTypeString((a, b) => a + b), '[object Function]', 'Should be \'[object Function]\'');
 		test.equal(commonUtilities.isFunction((a, b) => a + b), true, 'Should be true');
 		test.equal(commonUtilities.getTypeString({ a: 1, b: 'two' }), '[object Object]', 'Should be \'[object Object]\'');
