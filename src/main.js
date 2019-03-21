@@ -30,6 +30,12 @@ import {
 } from './dates.js';
 
 import {
+	booleanInvertFunction,
+	compositeFunctions,
+	identityFunction
+} from './functions.js';
+
+import {
 	getJson,
 	postJson
 } from './http.js';
@@ -37,6 +43,10 @@ import {
 import {
 	safeJsonParse
 } from './json.js';
+
+import {
+	makeLazyList
+} from './lazy.js';
 
 import {
 	additiveIdentity,
@@ -133,11 +143,17 @@ export {
 	getDateTimeUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString,
+	// Functions
+	booleanInvertFunction,
+	compositeFunctions,
+	identityFunction,
 	// HTTP
 	getJson,
 	postJson,
 	// JSON
 	safeJsonParse,
+	// Lazy
+	makeLazyList,
 	// Math
 	histogram,
 	mean,

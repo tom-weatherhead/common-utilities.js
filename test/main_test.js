@@ -21,7 +21,7 @@ module.exports = {
 		test.equal(commonUtilities.getTypeString(undefined), '[object Undefined]', 'Should be \'[object Undefined]\'');
 
 		// The six 'falsy' values in JavaScript:
-		console.log(`commonUtilities.getTypeString(undefined) is ${commonUtilities.getTypeString(undefined)}`);
+		// console.log(`commonUtilities.getTypeString(undefined) is ${commonUtilities.getTypeString(undefined)}`);
 		test.equal(commonUtilities.isDefined(undefined), false, 'Should be false');
 		test.equal(commonUtilities.isDefined(null), true, 'Should be true');
 		test.equal(commonUtilities.isDefined(0), true, 'Should be true');
@@ -391,5 +391,24 @@ module.exports = {
 				console.error('postJson: error is', error);
 				throw error;
 			});
+	},
+	test34: test => {
+		const expectedResult = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
+
+		test.expect(1);
+
+		let b = commonUtilities.makeLazyList(1, 1, (x, y) => x + y);
+		let actualResult = [];
+
+		for (let i = 0; i < 10; i++) {
+			let a;
+
+			[a, b] = b();
+			actualResult.push(a);
+			// console.log(`${i} : a is ${a}`);
+		}
+
+		test.deepEqual(actualResult, expectedResult, `Should be ${expectedResult}`);
+		test.done();
 	}
 };
