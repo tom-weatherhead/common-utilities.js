@@ -397,7 +397,8 @@ module.exports = {
 
 		test.expect(1);
 
-		let b = commonUtilities.makeLazyList(1, 1, (x, y) => x + y);
+		// let b = commonUtilities.makeLazyList(1, 1, (x, y) => x + y);
+		let b = commonUtilities.makeLazyList((x, y) => x + y, 1, 1);
 		let actualResult = [];
 
 		for (let i = 0; i < 10; i++) {

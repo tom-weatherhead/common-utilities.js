@@ -20,6 +20,15 @@ export function getTestArray () {
 }
 */
 
+export function cloneArray (array) {
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	return array.slice(0); // See https://davidwalsh.name/javascript-clone-array
+}
+
 export function createArrayFromElement (element, length = 1, accumulator = []) {
 
 	if (length <= 0) {

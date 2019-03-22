@@ -5,6 +5,7 @@
 import {
 	categorizeArrayElementsByFunction,
 	categorizeArrayElementsByProperty,
+	cloneArray,
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
@@ -125,6 +126,7 @@ export {
 	// Arrays
 	categorizeArrayElementsByFunction,
 	categorizeArrayElementsByProperty,
+	cloneArray,
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
