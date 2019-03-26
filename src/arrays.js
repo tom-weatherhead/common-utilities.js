@@ -27,6 +27,9 @@ export function cloneArray (array) {
 	}
 
 	return array.slice(0); // See https://davidwalsh.name/javascript-clone-array
+
+	// How about: return isArray(array) && array.slice(0); // ?
+	// Would undefined be returned if isArray(array) is falsy?
 }
 
 export function createArrayFromElement (element, length = 1, accumulator = []) {
@@ -181,4 +184,20 @@ export function categorizeArrayElementsByFunction_version2 (array, fn) {
 
 export function categorizeArrayElementsByProperty (array, propertyName) {
 	return categorizeArrayElementsByFunction(array, element => element[propertyName]);
+}
+
+export function union (...arrayOfArrays) {
+	let result = [];
+
+	arrayOfArrays.forEach(array => {
+
+		array.forEach(element => {
+
+			if (!result.includes(element)) {
+				result.push(element);
+			}
+		});
+	});
+
+	return result;
 }

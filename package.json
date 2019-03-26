@@ -14,6 +14,12 @@
 	},
 	"main": "dist/common-utilities",
 	"scripts": {
+		"build": "npm i && grunt && npm pack",
+		"buildw": "npm i & grunt & npm pack",
+		"clean": "rm -rf node_modules && rm -f dist/* && rm -f package-lock.json",
+		"cleanw": "rmdir /Q /S node_modules & del /Q dist\\* & del package-lock.json",
+		"rebuild": "npm run clean & npm run build",
+		"rebuildw": "npm run cleanw & npm run buildw",
 		"start": "grunt",
 		"test": "grunt test"
 	},
@@ -22,7 +28,7 @@
 		"@babel/core": "^7.4.0",
 		"@babel/preset-env": "^7.4.2",
 		"babel-loader": "^8.0.5",
-		"grunt": "^1.0.3",
+		"grunt": "^1.0.4",
 		"grunt-contrib-concat": "^1.0.1",
 		"grunt-contrib-nodeunit": "^2.0.0",
 		"grunt-eslint": "^21.0.0",

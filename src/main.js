@@ -13,7 +13,8 @@ import {
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
-	removeDuplicatesFromArray
+	removeDuplicatesFromArray,
+	union
 } from './arrays.js';
 
 import {
@@ -74,6 +75,7 @@ import {
 
 import {
 	clone,
+	combineObjects,
 	copySpecifiedObjectProperties,
 	getOwnProperties,
 	getProperty
@@ -135,6 +137,7 @@ export {
 	insertionSort,
 	insertNumberIntoArray,
 	removeDuplicatesFromArray,
+	union,
 	// Asynchronous
 	asyncForEach,
 	asyncMap,
@@ -180,6 +183,7 @@ export {
 	zeroPadNumber,
 	// Objects
 	clone,
+	combineObjects,
 	copySpecifiedObjectProperties,
 	getOwnProperties,
 	getProperty,

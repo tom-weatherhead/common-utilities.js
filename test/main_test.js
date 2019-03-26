@@ -411,5 +411,59 @@ module.exports = {
 
 		test.deepEqual(actualResult, expectedResult, `Should be ${expectedResult}`);
 		test.done();
+	},
+	test35: test => {
+		const input = [
+			['a', 'b', 'c'],
+			['a', 'c', 'e'],
+			['c', 'e', 'z']
+		];
+		const expectedResult = ['a', 'b', 'c', 'e', 'z'];
+
+		test.expect(2);
+		// From https://github.com/caolan/nodeunit :
+		// deepEqual(actual, expected, [message]) - Tests for deep equality.
+		test.deepEqual(
+			commonUtilities.union(...input),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.deepEqual(
+			commonUtilities.union(input[0], input[1], input[2]),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
+	},
+	test36: test => {
+		const input = [
+			{
+				w: 1,
+				x: 2
+			},
+			{
+				x: 2,
+				y: 3
+			},
+			{
+				w: 7,
+				z: 13
+			}
+		];
+		const expectedResult = {
+			w: 7,
+			x: 2,
+			y: 3,
+			z: 13
+		};
+
+		test.expect(2);
+		test.deepEqual(
+			commonUtilities.combineObjects(...input),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.deepEqual(
+			commonUtilities.combineObjects(input[0], input[1], input[2]),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
 	}
 };

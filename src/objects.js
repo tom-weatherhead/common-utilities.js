@@ -36,6 +36,19 @@ export function copySpecifiedObjectProperties (propertyList, src, dst = {}) {
 	return dst;
 }
 
+export function combineObjects (...objects) {
+	let combinedObject = {};
+
+	objects.forEach(object => {
+
+		Object.keys(object).forEach(key => {
+			combinedObject[key] = object[key];
+		});
+	});
+
+	return combinedObject;
+}
+
 export function getOwnProperties (obj = {}) {
 	/*
 	// Version 1
