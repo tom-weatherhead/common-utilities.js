@@ -34,6 +34,7 @@ import {
 import {
 	booleanInvertFunction,
 	compositeFunctions,
+	curry,
 	identityFunction
 } from './functions.js';
 
@@ -151,6 +152,7 @@ export {
 	// Functions
 	booleanInvertFunction,
 	compositeFunctions,
+	curry,
 	identityFunction,
 	// HTTP
 	getJson,

@@ -465,5 +465,16 @@ module.exports = {
 			expectedResult,
 			`Should be ${expectedResult}`);
 		test.done();
+	},
+	test37: test => {
+		const actualResult = commonUtilities.curry((x, y, z) => x + y + z)(1)(2)(3);
+		const expectedResult = 6;
+
+		test.expect(1);
+		test.equal(
+			actualResult,
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
 	}
 };
