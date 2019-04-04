@@ -3,6 +3,7 @@
 'use strict';
 
 import {
+	bubbleSort,
 	categorizeArrayElementsByFunction,
 	categorizeArrayElementsByProperty,
 	cloneArray,
@@ -12,6 +13,7 @@ import {
 	getLastElementOfArray,
 	getRandomArrayElement,
 	// getTestArray,
+	heapSort,
 	insertionSort,
 	insertNumberIntoArray,
 	mergeSort,
@@ -130,6 +132,7 @@ export function uuid () {
 
 export {
 	// Arrays
+	bubbleSort,
 	categorizeArrayElementsByFunction,
 	categorizeArrayElementsByProperty,
 	cloneArray,
@@ -139,6 +142,7 @@ export {
 	getLastElementOfArray,
 	getRandomArrayElement,
 	// getTestArray,
+	heapSort,
 	insertionSort,
 	insertNumberIntoArray,
 	mergeSort,

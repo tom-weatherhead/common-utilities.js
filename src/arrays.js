@@ -57,11 +57,137 @@ export function insertNumberIntoArray (n, array) {
 	return result;
 }
 
-// export function bubbleSort (array) {
-// }
+export function bubbleSort (array) {
+	let changeDetected = true;
 
-// export function heapSort (array) {
-// }
+	array = cloneArray(array);
+
+	for (let i = array.length - 1; i > 0 && changeDetected; i--) {
+		changeDetected = false;
+
+		for (let j = 0; j < i; j++) {
+			const element1 = array[j];
+			const element2 = array[j + 1];
+
+			if (element1 > element2) {
+				array[j] = element2;
+				array[j + 1] = element1;
+				changeDetected = true;
+			}
+		}
+	}
+
+	return array;
+}
+
+// TODO? : Create a file called heaps.js ?
+
+export function addElementToHeap (heap, element) {
+	heap.push(element);
+
+	// Now: Restore the heap condition throughout the heap by propagating
+	// the element that is now at index heap.length - 1 up through the heap, as necessary.
+
+	let index = heap.length - 1;
+
+	while (index) {
+		const nextIndex = Math.trunc((index - 1) / 2);
+
+		const elementAtIndex = heap[index];
+		const elementAtNextIndex = heap[nextIndex];
+
+		if (elementAtNextIndex >= elementAtIndex) {
+			break;
+		}
+
+		// Swap the two elements:
+		heap[index] = elementAtNextIndex;
+		heap[nextIndex] = elementAtIndex;
+
+		index = nextIndex;
+	}
+
+	return heap;
+}
+
+export function removeElementFromTopOfHeap (heap) {
+
+	if (!heap.length) {
+		return undefined;
+	}
+
+	const result = heap[0];
+
+	const lastElement = heap.pop();
+
+	if (!heap.length) {
+		return result;
+	}
+
+	heap[0] = lastElement;
+
+	// Now: Restore the heap condition throughout the heap by propagating lastElement
+	// (i.e. the element that is now at index 0) down through the heap, as necessary.
+
+	// The heap condition is: For all integers i where 0 <= i < heap.length :
+	// 1) If 2 * i + 1 < heap.length then heap[i] >= heap[2 * i + 1], and
+	// 2) If 2 * i + 2 < heap.length then heap[i] >= heap[2 * i + 2]
+
+	// The heap condition ensures that the largest element in the heap is at index 0.
+
+	let index = 0;
+
+	while (index < heap.length) {
+		const nextIndex1 = 2 * index + 1;
+		const nextIndex2 = nextIndex1 + 1;
+
+		let nextIndex;
+
+		if (nextIndex1 >= heap.length) {
+			break;
+		} else if (nextIndex2 >= heap.length) {
+			nextIndex = nextIndex1;
+		} else if (heap[nextIndex1] >= heap[nextIndex2]) {
+			nextIndex = nextIndex1;
+		} else {
+			nextIndex = nextIndex2;
+		}
+
+		const elementAtIndex = heap[index];
+		const elementAtNextIndex = heap[nextIndex];
+
+		if (elementAtNextIndex <= elementAtIndex) {
+			break;
+		}
+
+		// Swap the two elements:
+		heap[index] = elementAtNextIndex;
+		heap[nextIndex] = elementAtIndex;
+
+		index = nextIndex;
+	}
+
+	return result;
+}
+
+export function heapSort (array) {
+	let heap = array.reduce(
+		(accumulator, element) => addElementToHeap(accumulator, element),
+		[]
+	);
+
+	// console.log('heap is', heap);
+
+	// return [];
+
+	let result = [];
+
+	while (heap.length) {
+		result.push(removeElementFromTopOfHeap(heap));
+	}
+
+	return result.reverse();
+}
 
 export function insertionSort (array) {
 	return array.reduce(

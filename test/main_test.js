@@ -477,16 +477,16 @@ module.exports = {
 			`Should be ${expectedResult}`);
 		test.done();
 	},
-	// test38: test => {
-	// 	test.expect(1);
-	// 	test.deepEqual(commonUtilities.bubbleSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-	// 	test.done();
-	// },
-	// test39: test => {
-	// 	test.expect(1);
-	// 	test.deepEqual(commonUtilities.heapSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-	// 	test.done();
-	// },
+	test38: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.bubbleSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.done();
+	},
+	test39: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.heapSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.done();
+	},
 	test40: test => {
 		test.expect(1);
 		test.deepEqual(commonUtilities.mergeSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
@@ -496,6 +496,7 @@ module.exports = {
 	// 	test.expect(1);
 	// 	test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
 	// 	test.done();
+	// },
 	test42: test => {
 		const array1 = [1, 3];
 		const array2 = [2, 4];
