@@ -9,10 +9,13 @@ import {
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
+	getLastElementOfArray,
 	getRandomArrayElement,
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
+	mergeSort,
+	mergeTwoSortedArrays,
 	removeDuplicatesFromArray,
 	union
 } from './arrays.js';
@@ -133,10 +136,13 @@ export {
 	createArrayFromElement,
 	flattenAllLevels,
 	flattenOneLevel,
+	getLastElementOfArray,
 	getRandomArrayElement,
 	// getTestArray,
 	insertionSort,
 	insertNumberIntoArray,
+	mergeSort,
+	mergeTwoSortedArrays,
 	removeDuplicatesFromArray,
 	union,
 	// Asynchronous

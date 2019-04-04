@@ -57,12 +57,90 @@ export function insertNumberIntoArray (n, array) {
 	return result;
 }
 
+// export function bubbleSort (array) {
+// }
+
+// export function heapSort (array) {
+// }
+
 export function insertionSort (array) {
 	return array.reduce(
 		(accumulator, n) => insertNumberIntoArray(n, accumulator),
 		[]
 	);
 }
+
+export function mergeTwoSortedArrays (array1 = [], array2 = []) {
+	let index1 = 0;
+	let index2 = 0;
+	let result = [];
+
+	// console.log('array1 is', array1);
+	// console.log('array2 is', array2);
+	// console.log('array1.length is', array1.length);
+	// console.log('array2.length is', array2.length);
+
+	while (index1 < array1.length && index2 < array2.length) {
+		const element1 = array1[index1];
+		const element2 = array2[index2];
+
+		if (element1 <= element2) {
+			result.push(element1);
+			index1++;
+		} else {
+			result.push(element2);
+			index2++;
+		}
+	}
+
+	// console.log('After loop: index1 is', index1);
+	// console.log('After loop: index2 is', index2);
+	// console.log('After loop: result is', result);
+
+	if (index1 < array1.length) {
+		// Array.concat() does not modify the array in place; ot returns a new array.
+		return result.concat(array1.slice(index1));
+	} else if (index2 < array2.length) {
+		return result.concat(array2.slice(index2));
+	} else {
+		return result;
+	}
+}
+
+export function mergeSort (array) {
+
+	if (array.length <= 1) {
+		// console.log('Trivial: mergedArray is', array);
+
+		return array;
+	}
+
+	const midpoint = Math.trunc(array.length / 2);
+
+	// console.log('array is', array);
+	// console.log('midpoint is', midpoint);
+
+	const array1 = array.slice(0, midpoint);
+	const array2 = array.slice(midpoint);
+
+	// console.log('array1 is', array1);
+	// console.log('array2 is', array2);
+
+	const sortedArray1 = mergeSort(array1);
+	const sortedArray2 = mergeSort(array2);
+
+	// console.log('sortedArray1 is', sortedArray1);
+	// console.log('sortedArray2 is', sortedArray2);
+
+	const mergedArray = mergeTwoSortedArrays(sortedArray1, sortedArray2);
+
+	// console.log('mergedArray is', mergedArray);
+
+	return mergedArray;
+}
+
+// export function quickSort (array) {
+// }
 
 export function removeDuplicatesFromArray (array) {
 	// See the discussion at https://gist.github.com/telekosmos/3b62a31a5c43f40849bb
@@ -81,15 +159,11 @@ export function removeDuplicatesFromArray (array) {
 	); // Yes. From svnpenn.
 }
 
-// TODO: Common utils: flatten an array: 1) One level; 2) All levels
-
 export function flattenOneLevel (a, b = []) {
 	return a.reduce(
 		(accumulator, element) => {
 
 			if (isArray(element)) {
-				// flattenAll(element, accumulator);
-				// accumulator.append(element);
 				return accumulator.concat(element);
 			} else {
 				accumulator.push(element);
@@ -200,4 +274,19 @@ export function union (...arrayOfArrays) {
 	});
 
 	return result;
+}
+
+export function getLastElementOfArray (array) {
+
+	if (!isArray(array) || !array.length) {
+		return undefined;
+	}
+
+	// From https://solidfoundationwebdev.com/blog/posts/3-methods-to-get-the-last-element-of-an-array-in-javascript :
+
+	// return array[array.length - 1];
+
+	// return array.pop(); // But this will remove the last element from the array.
+
+	return array(-1)[0];
 }

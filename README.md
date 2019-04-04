@@ -3,15 +3,105 @@ Common JavaScript utility functions
 
 [![build status](https://secure.travis-ci.org/tom-weatherhead/common-utilities.js.svg)](https://travis-ci.org/tom-weatherhead/common-utilities.js)
 
-- clone(arg: any) : any
+// Arrays
+categorizeArrayElementsByFunction,
+categorizeArrayElementsByProperty,
+cloneArray,
+createArrayFromElement(element: any, length: number = 1, accumulator: any[] = []): any[]
 
-- copySpecifiedObjectProperties(propertyList: string[], src: object, dst: object = {}) : object
+flattenAllLevels(a: any[], b: any[] = []): any[]
 
-- createArrayFromElement(element: any, length: number = 1, accumulator: any[] = []): any[]
+flattenOneLevel(a: any[], b: any[] = []): any[]
 
-- flattenAllLevels(a: any[], b: any[]): any[]
+getLastElementOfArray,
+getRandomArrayElement,
+// getTestArray,
+insertionSort,
+insertNumberIntoArray,
+removeDuplicatesFromArray,
+union,
 
-- flattenOneLevel(a: any[], b: any[]): any[]
+// Asynchronous
+asyncForEach,
+asyncMap,
+
+// Dates
+getDateString,
+getDateUTCString,
+getDateTimeString,
+getDateTimeUTCString,
+getDifferenceBetweenDatesAsObject,
+getDifferenceBetweenDatesAsString,
+
+// Functions
+booleanInvertFunction,
+compositeFunctions,
+curry,
+identityFunction,
+
+// HTTP
+getJson,
+postJson,
+
+// JSON
+safeJsonParse,
+
+// Lazy
+makeLazyList,
+
+// Math
+histogram,
+mean,
+median,
+mode,
+sum,
+
+// Numbers
+additiveIdentity,
+aToThePowerOfB,
+factory_fnRoundToNDigits,
+fnAddition,
+fnMultiplication,
+generateFirstNNaturalNumbers,
+generateRange,
+integerDivision,
+isInteger,
+multiplicativeIdentity,
+product,
+replicateString,
+tenToThePowerOfN,
+zeroExtendNumber,
+zeroPadNumber,
+
+// Objects
+clone,
+	- clone(arg: any) : any
+
+combineObjects,
+copySpecifiedObjectProperties,
+	- copySpecifiedObjectProperties(propertyList: string[], src: object, dst: object = {}) : object
+
+getOwnProperties,
+getProperty,
+
+// Sets
+areSetsEqual,
+getAllSubsets,
+isSubset,
+
+// Types
+getTypeString,
+isArray,
+isArrayOfNumbers,
+isDate,
+isDefined,
+isFunction,
+isNumber,
+isObject,
+isRegularExpression,
+isString
+
+****
 
 - generateFirstNNaturalNumbers(n: number) : number[]
 
