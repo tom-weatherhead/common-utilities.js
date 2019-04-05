@@ -342,6 +342,26 @@ export function isArrayInNonDecreasingOrder (array) {
 	 */
 }
 
+export function findSuperlativeElement (array, fn) {
+
+	if (!isArray(array) || !array.length) {
+		return undefined;
+	}
+
+	return array.slice(1).reduce(
+		(accumulator, element) => fn(accumulator, element),
+		array[0]
+	);
+}
+
+export function max (array) {
+	return findSuperlativeElement(array, (x, y) => x > y ? x : y);
+}
+
+export function min (array) {
+	return findSuperlativeElement(array, (x, y) => x < y ? x : y);
+}
+
 export function removeDuplicatesFromArray (array) {
 	// See the discussion at https://gist.github.com/telekosmos/3b62a31a5c43f40849bb
 

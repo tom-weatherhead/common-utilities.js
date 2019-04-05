@@ -516,5 +516,29 @@ module.exports = {
 		test.equal(commonUtilities.isArrayInNonDecreasingOrder([1, 2, 3, 3, 5]), true, 'Should be true');
 		test.equal(commonUtilities.isArrayInNonDecreasingOrder([1, 2, 4, 3, 5]), false, 'Should be false');
 		test.done();
+	},
+	test44: test => {
+		const array = [2, 1, 3, 5, 4];
+		const expectedResult = 5;
+		const actualResult = commonUtilities.max(array);
+
+		test.expect(1);
+		test.equal(
+			actualResult,
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
+	},
+	test45: test => {
+		const array = [2, 1, 3, 5, 4];
+		const expectedResult = 1;
+		const actualResult = commonUtilities.min(array);
+
+		test.expect(1);
+		test.equal(
+			actualResult,
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
 	}
 };
