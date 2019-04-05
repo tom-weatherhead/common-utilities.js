@@ -492,11 +492,11 @@ module.exports = {
 		test.deepEqual(commonUtilities.mergeSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
 		test.done();
 	},
-	// test41: test => {
-	// 	test.expect(1);
-	// 	test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-	// 	test.done();
-	// },
+	test41: test => {
+		test.expect(1);
+		test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.done();
+	},
 	test42: test => {
 		const array1 = [1, 3];
 		const array2 = [2, 4];
@@ -508,6 +508,13 @@ module.exports = {
 			actualResult,
 			expectedResult,
 			`Should be ${expectedResult}`);
+		test.done();
+	},
+	test43: test => {
+		test.expect(3);
+		test.equal(commonUtilities.isArrayInNonDecreasingOrder([1, 2, 3, 4, 5]), true, 'Should be true');
+		test.equal(commonUtilities.isArrayInNonDecreasingOrder([1, 2, 3, 3, 5]), true, 'Should be true');
+		test.equal(commonUtilities.isArrayInNonDecreasingOrder([1, 2, 4, 3, 5]), false, 'Should be false');
 		test.done();
 	}
 };

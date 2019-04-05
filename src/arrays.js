@@ -41,21 +41,7 @@ export function createArrayFromElement (element, length = 1, accumulator = []) {
 	return createArrayFromElement(element, length - 1, [element, ...accumulator]);
 }
 
-export function insertNumberIntoArray (n, array) {
-	// array must already be sorted in non-descending order.
-	let i = array.findIndex(m => m >= n);
-
-	if (i < 0) {
-		i = array.length;
-	}
-
-	let result = clone(array);
-
-	// Array.splice modifies the array in place. See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-	result.splice(i, 0, n);
-
-	return result;
-}
+// Sorting algorithm number 1: Bubble Sort
 
 export function bubbleSort (array) {
 	let changeDetected = true;
@@ -79,6 +65,8 @@ export function bubbleSort (array) {
 
 	return array;
 }
+
+// Sorting algorithm number 2: Heap Sort
 
 // TODO? : Create a file called heaps.js ?
 
@@ -189,12 +177,32 @@ export function heapSort (array) {
 	return result.reverse();
 }
 
+// Sorting algorithm number 3: Insertion Sort
+
+export function insertNumberIntoArray (n, array) {
+	// array must already be sorted in non-descending order.
+	let i = array.findIndex(m => m >= n);
+
+	if (i < 0) {
+		i = array.length;
+	}
+
+	let result = clone(array);
+
+	// Array.splice modifies the array in place. See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+	result.splice(i, 0, n);
+
+	return result;
+}
+
 export function insertionSort (array) {
 	return array.reduce(
 		(accumulator, n) => insertNumberIntoArray(n, accumulator),
 		[]
 	);
 }
+
+// Sorting algorithm number 4: Merge Sort
 
 export function mergeTwoSortedArrays (array1 = [], array2 = []) {
 	let index1 = 0;
@@ -265,8 +273,74 @@ export function mergeSort (array) {
 	return mergedArray;
 }
 
-// export function quickSort (array) {
-// }
+// Sorting algorithm number 5: Quicksort
+
+export function quickSort (array) {
+
+	if (array.length <= 1) {
+		return array;
+	}
+
+	const pivotElement = array.shift();
+	let subArray1 = [];
+	let subArray2 = [];
+
+	array.forEach(element => {
+
+		if (element <= pivotElement) {
+			subArray1.push(element);
+		} else {
+			subArray2.push(element);
+		}
+	});
+
+	return quickSort(subArray1).concat([pivotElement]).concat(quickSort(subArray2));
+}
+
+/*
+export function doesConsecutiveElementsConditionHold (array, fn, defaultResult = true) {
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	if (array.length <= 1) {
+		// The array is too short to have any consecutive elements.
+
+		return defaultResult;
+	}
+
+	for (let i = 0; i < array.length - 1; i++) {
+
+		if (!fn(array[i], array[i + 1])) {
+			return false;
+		}
+	}
+
+	return true;
+}
+ */
+
+export function isArrayInNonDecreasingOrder (array) {
+	// return doesConsecutiveElementsConditionHold(array, (x, y) => x <= y, true);
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	if (array.length <= 1) {
+		return true;
+	}
+
+	for (let i = 0; i < array.length - 1; i++) {
+
+		if (array[i] > array[i + 1]) {
+			return false;
+		}
+	}
+
+	return true;
+}
 
 export function removeDuplicatesFromArray (array) {
 	// See the discussion at https://gist.github.com/telekosmos/3b62a31a5c43f40849bb

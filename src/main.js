@@ -16,8 +16,10 @@ import {
 	heapSort,
 	insertionSort,
 	insertNumberIntoArray,
+	isArrayInNonDecreasingOrder,
 	mergeSort,
 	mergeTwoSortedArrays,
+	quickSort,
 	removeDuplicatesFromArray,
 	union
 } from './arrays.js';
@@ -145,8 +147,10 @@ export {
 	heapSort,
 	insertionSort,
 	insertNumberIntoArray,
+	isArrayInNonDecreasingOrder,
 	mergeSort,
 	mergeTwoSortedArrays,
+	quickSort,
 	removeDuplicatesFromArray,
 	union,
 	// Asynchronous
