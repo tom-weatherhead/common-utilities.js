@@ -297,7 +297,6 @@ export function quickSort (array) {
 	return quickSort(subArray1).concat([pivotElement]).concat(quickSort(subArray2));
 }
 
-/*
 export function doesConsecutiveElementsConditionHold (array, fn, defaultResult = true) {
 
 	if (!isArray(array)) {
@@ -319,11 +318,11 @@ export function doesConsecutiveElementsConditionHold (array, fn, defaultResult =
 
 	return true;
 }
- */
 
 export function isArrayInNonDecreasingOrder (array) {
-	// return doesConsecutiveElementsConditionHold(array, (x, y) => x <= y, true);
+	return doesConsecutiveElementsConditionHold(array, (x, y) => x <= y, true);
 
+	/*
 	if (!isArray(array)) {
 		return undefined;
 	}
@@ -340,6 +339,7 @@ export function isArrayInNonDecreasingOrder (array) {
 	}
 
 	return true;
+	 */
 }
 
 export function removeDuplicatesFromArray (array) {
