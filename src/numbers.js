@@ -22,6 +22,19 @@ export const additiveIdentity = 0;
 export const fnMultiplication = (a, b) => a * b;
 export const multiplicativeIdentity = 1;
 
+export function getSign (n) {
+
+	if (!isNumber(n)) {
+		return undefined;
+	} else if (n > 0) {
+		return 1;
+	} else if (n < 0) {
+		return -1;
+	} else {
+		return 0;
+	}
+}
+
 export function generateRange (start, end) {
 	let result = [];
 
@@ -44,19 +57,6 @@ export function replicateString (str, n) {
 			''
 		);
 }
-
-/*
-function replicateStringAlt1 (str, n) {
-	let result = [];
-
-	while (n > 0) {
-		result.push(str);
-		n--;
-	}
-
-	return result;
-}
-*/
 
 export function zeroPadNumber (n, minLength) {
 	return (replicateString('0', minLength) + n).slice(-minLength);
@@ -128,25 +128,6 @@ export function median (arg) {
 	return sortedArray[Math.floor(sortedArray.length / 2)];
 }
 
-/*
-export function histogram (arg) {
-
-	if (!isArray(arg)) {
-		return undefined;
-	}
-
-	let result = {};
-
-	arg.forEach(element => {
-		result[element] = (result[element] || 0) + 1;
-	});
-
-	return result;
-}
-
-/* Or:
-export function histogramAlt1 (arg) {
-*/
 export function histogram (arg) {
 
 	if (!isArray(arg)) {
@@ -162,7 +143,6 @@ export function histogram (arg) {
 		{}
 	);
 }
-/* */
 
 export function mode (arg) {
 	const hist = histogram(arg);

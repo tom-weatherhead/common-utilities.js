@@ -518,27 +518,68 @@ module.exports = {
 		test.done();
 	},
 	test44: test => {
-		const array = [2, 1, 3, 5, 4];
+		const array1 = [2, 1, 3, 5, 4];
+		const array2 = [5, 2, 1, 3, 4];
 		const expectedResult = 5;
-		const actualResult = commonUtilities.max(array);
+		const actualResult1 = commonUtilities.max(array1);
+		const actualResult2 = commonUtilities.max(array2);
 
-		test.expect(1);
+		test.expect(2);
 		test.equal(
-			actualResult,
+			actualResult1,
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.equal(
+			actualResult2,
 			expectedResult,
 			`Should be ${expectedResult}`);
 		test.done();
 	},
 	test45: test => {
-		const array = [2, 1, 3, 5, 4];
+		const array1 = [2, 1, 3, 5, 4];
+		const array2 = [1, 2, 3, 5, 4];
 		const expectedResult = 1;
-		const actualResult = commonUtilities.min(array);
+		const actualResult1 = commonUtilities.min(array1);
+		const actualResult2 = commonUtilities.min(array2);
 
-		test.expect(1);
+		test.expect(2);
 		test.equal(
-			actualResult,
+			actualResult1,
 			expectedResult,
 			`Should be ${expectedResult}`);
+		test.equal(
+			actualResult2,
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
+	},
+	test46: test => {
+		const actualResult1 = commonUtilities.getSign('Foo');
+		const expectedResult1 = undefined;
+		const actualResult2 = commonUtilities.getSign(3.14);
+		const expectedResult2 = 1;
+		const actualResult3 = commonUtilities.getSign(-4);
+		const expectedResult3 = -1;
+		const actualResult4 = commonUtilities.getSign(0);
+		const expectedResult4 = 0;
+
+		test.expect(4);
+		test.equal(
+			actualResult1,
+			expectedResult1,
+			`Should be ${expectedResult1}`);
+		test.equal(
+			actualResult2,
+			expectedResult2,
+			`Should be ${expectedResult2}`);
+		test.equal(
+			actualResult3,
+			expectedResult3,
+			`Should be ${expectedResult3}`);
+		test.equal(
+			actualResult4,
+			expectedResult4,
+			`Should be ${expectedResult4}`);
 		test.done();
 	}
 };

@@ -319,27 +319,20 @@ export function doesConsecutiveElementsConditionHold (array, fn, defaultResult =
 	return true;
 }
 
+export function isArrayInIncreasingOrder (array) {
+	return doesConsecutiveElementsConditionHold(array, (x, y) => x < y, true);
+}
+
 export function isArrayInNonDecreasingOrder (array) {
 	return doesConsecutiveElementsConditionHold(array, (x, y) => x <= y, true);
+}
 
-	/*
-	if (!isArray(array)) {
-		return undefined;
-	}
+export function isArrayInDecreasingOrder (array) {
+	return doesConsecutiveElementsConditionHold(array, (x, y) => x > y, true);
+}
 
-	if (array.length <= 1) {
-		return true;
-	}
-
-	for (let i = 0; i < array.length - 1; i++) {
-
-		if (array[i] > array[i + 1]) {
-			return false;
-		}
-	}
-
-	return true;
-	 */
+export function isArrayInNonIncreasingOrder (array) {
+	return doesConsecutiveElementsConditionHold(array, (x, y) => x >= y, true);
 }
 
 export function findSuperlativeElement (array, fn) {
@@ -349,7 +342,7 @@ export function findSuperlativeElement (array, fn) {
 	}
 
 	return array.slice(1).reduce(
-		(accumulator, element) => fn(accumulator, element),
+		fn,
 		array[0]
 	);
 }
