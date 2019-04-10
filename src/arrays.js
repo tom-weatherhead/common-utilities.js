@@ -11,7 +11,8 @@ import {
 } from './objects.js';
 
 import {
-	isArray
+	isArray,
+	isFunction
 } from './types.js';
 
 /*
@@ -41,9 +42,24 @@ export function createArrayFromElement (element, length = 1, accumulator = []) {
 	return createArrayFromElement(element, length - 1, [element, ...accumulator]);
 }
 
+function getSafeComparatorFunction (fnComparator) {
+
+	if (!isFunction(fnComparator) || fnComparator.length !== 2) {
+		return (x, y) => x < y;
+	} else {
+		return fnComparator;
+	}
+}
+
 // Sorting algorithm number 1: Bubble Sort
 
-export function bubbleSort (array) {
+export function bubbleSort (array, fnComparator) {
+
+	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
+	// 	fnComparator = (x, y) => x < y;
+	// }
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	let changeDetected = true;
 
 	array = cloneArray(array);
@@ -55,7 +71,8 @@ export function bubbleSort (array) {
 			const element1 = array[j];
 			const element2 = array[j + 1];
 
-			if (element1 > element2) {
+			// if (element1 > element2) {
+			if (!fnComparator(element1, element2)) {
 				array[j] = element2;
 				array[j + 1] = element1;
 				changeDetected = true;
@@ -70,7 +87,7 @@ export function bubbleSort (array) {
 
 // TODO? : Create a file called heaps.js ?
 
-export function addElementToHeap (heap, element) {
+export function addElementToHeap (heap, element, fnComparator) {
 	heap.push(element);
 
 	// Now: Restore the heap condition throughout the heap by propagating
@@ -78,13 +95,16 @@ export function addElementToHeap (heap, element) {
 
 	let index = heap.length - 1;
 
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	while (index) {
 		const nextIndex = Math.trunc((index - 1) / 2);
 
 		const elementAtIndex = heap[index];
 		const elementAtNextIndex = heap[nextIndex];
 
-		if (elementAtNextIndex >= elementAtIndex) {
+		// if (elementAtNextIndex >= elementAtIndex) {
+		if (!fnComparator(elementAtNextIndex, elementAtIndex)) {
 			break;
 		}
 
@@ -98,7 +118,7 @@ export function addElementToHeap (heap, element) {
 	return heap;
 }
 
-export function removeElementFromTopOfHeap (heap) {
+export function removeElementFromTopOfHeap (heap, fnComparator) {
 
 	if (!heap.length) {
 		return undefined;
@@ -123,6 +143,8 @@ export function removeElementFromTopOfHeap (heap) {
 
 	// The heap condition ensures that the largest element in the heap is at index 0.
 
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	let index = 0;
 
 	while (index < heap.length) {
@@ -135,7 +157,8 @@ export function removeElementFromTopOfHeap (heap) {
 			break;
 		} else if (nextIndex2 >= heap.length) {
 			nextIndex = nextIndex1;
-		} else if (heap[nextIndex1] >= heap[nextIndex2]) {
+		// } else if (heap[nextIndex1] >= heap[nextIndex2]) {
+		} else if (!fnComparator(heap[nextIndex1], heap[nextIndex2])) {
 			nextIndex = nextIndex1;
 		} else {
 			nextIndex = nextIndex2;
@@ -144,7 +167,8 @@ export function removeElementFromTopOfHeap (heap) {
 		const elementAtIndex = heap[index];
 		const elementAtNextIndex = heap[nextIndex];
 
-		if (elementAtNextIndex <= elementAtIndex) {
+		// if (elementAtNextIndex <= elementAtIndex) {
+		if (fnComparator(elementAtNextIndex, elementAtIndex)) {
 			break;
 		}
 
@@ -158,9 +182,11 @@ export function removeElementFromTopOfHeap (heap) {
 	return result;
 }
 
-export function heapSort (array) {
+export function heapSort (array, fnComparator) {
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	let heap = array.reduce(
-		(accumulator, element) => addElementToHeap(accumulator, element),
+		(accumulator, element) => addElementToHeap(accumulator, element, fnComparator),
 		[]
 	);
 
@@ -171,7 +197,7 @@ export function heapSort (array) {
 	let result = [];
 
 	while (heap.length) {
-		result.push(removeElementFromTopOfHeap(heap));
+		result.push(removeElementFromTopOfHeap(heap, fnComparator));
 	}
 
 	return result.reverse();
@@ -179,9 +205,17 @@ export function heapSort (array) {
 
 // Sorting algorithm number 3: Insertion Sort
 
-export function insertNumberIntoArray (n, array) {
+// export function insertNumberIntoArray (n, array) {
+export function insertNumberIntoArray (n, array, fnComparator) {
 	// array must already be sorted in non-descending order.
-	let i = array.findIndex(m => m >= n);
+	// let i = array.findIndex(m => m >= n);
+
+	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
+	// 	fnComparator = (x, y) => x < y;
+	// }
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
+	let i = array.findIndex(m => !fnComparator(m, n));
 
 	if (i < 0) {
 		i = array.length;
@@ -195,16 +229,22 @@ export function insertNumberIntoArray (n, array) {
 	return result;
 }
 
-export function insertionSort (array) {
+export function insertionSort (array, fnComparator) {
+
+	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
+	// 	fnComparator = (x, y) => x < y;
+	// }
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	return array.reduce(
-		(accumulator, n) => insertNumberIntoArray(n, accumulator),
+		(accumulator, n) => insertNumberIntoArray(n, accumulator, fnComparator),
 		[]
 	);
 }
 
 // Sorting algorithm number 4: Merge Sort
 
-export function mergeTwoSortedArrays (array1 = [], array2 = []) {
+export function mergeTwoSortedArrays (array1 = [], array2 = [], fnComparator) {
 	let index1 = 0;
 	let index2 = 0;
 	let result = [];
@@ -214,11 +254,14 @@ export function mergeTwoSortedArrays (array1 = [], array2 = []) {
 	// console.log('array1.length is', array1.length);
 	// console.log('array2.length is', array2.length);
 
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	while (index1 < array1.length && index2 < array2.length) {
 		const element1 = array1[index1];
 		const element2 = array2[index2];
 
-		if (element1 <= element2) {
+		// if (element1 <= element2) {
+		if (fnComparator(element1, element2)) {
 			result.push(element1);
 			index1++;
 		} else {
@@ -241,13 +284,18 @@ export function mergeTwoSortedArrays (array1 = [], array2 = []) {
 	}
 }
 
-export function mergeSort (array) {
+export function mergeSort (array, fnComparator) {
 
 	if (array.length <= 1) {
 		// console.log('Trivial: mergedArray is', array);
 
 		return array;
 	}
+
+	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
+	// 	fnComparator = (x, y) => x < y;
+	// }
+	fnComparator = getSafeComparatorFunction(fnComparator);
 
 	const midpoint = Math.trunc(array.length / 2);
 
@@ -266,7 +314,7 @@ export function mergeSort (array) {
 	// console.log('sortedArray1 is', sortedArray1);
 	// console.log('sortedArray2 is', sortedArray2);
 
-	const mergedArray = mergeTwoSortedArrays(sortedArray1, sortedArray2);
+	const mergedArray = mergeTwoSortedArrays(sortedArray1, sortedArray2, fnComparator);
 
 	// console.log('mergedArray is', mergedArray);
 
@@ -275,7 +323,7 @@ export function mergeSort (array) {
 
 // Sorting algorithm number 5: Quicksort
 
-export function quickSort (array) {
+export function quickSort (array, fnComparator) {
 
 	if (array.length <= 1) {
 		return array;
@@ -285,9 +333,12 @@ export function quickSort (array) {
 	let subArray1 = [];
 	let subArray2 = [];
 
+	fnComparator = getSafeComparatorFunction(fnComparator);
+
 	array.forEach(element => {
 
-		if (element <= pivotElement) {
+		// if (element <= pivotElement) {
+		if (fnComparator(element, pivotElement)) {
 			subArray1.push(element);
 		} else {
 			subArray2.push(element);
