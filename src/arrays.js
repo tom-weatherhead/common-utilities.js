@@ -552,5 +552,5 @@ export function getLastElementOfArray (array) {
 
 	// return array.pop(); // But this will remove the last element from the array.
 
-	return array(-1)[0];
+	return array.slice(-1)[0];
 }
