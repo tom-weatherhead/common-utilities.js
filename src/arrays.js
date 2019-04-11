@@ -308,8 +308,8 @@ export function mergeSort (array, fnComparator) {
 	// console.log('array1 is', array1);
 	// console.log('array2 is', array2);
 
-	const sortedArray1 = mergeSort(array1);
-	const sortedArray2 = mergeSort(array2);
+	const sortedArray1 = mergeSort(array1, fnComparator);
+	const sortedArray2 = mergeSort(array2, fnComparator);
 
 	// console.log('sortedArray1 is', sortedArray1);
 	// console.log('sortedArray2 is', sortedArray2);
@@ -345,7 +345,7 @@ export function quickSort (array, fnComparator) {
 		}
 	});
 
-	return quickSort(subArray1).concat([pivotElement]).concat(quickSort(subArray2));
+	return quickSort(subArray1, fnComparator).concat([pivotElement]).concat(quickSort(subArray2, fnComparator));
 }
 
 export function doesConsecutiveElementsConditionHold (array, fn, defaultResult = true) {
@@ -553,4 +553,52 @@ export function getLastElementOfArray (array) {
 	// return array.pop(); // But this will remove the last element from the array.
 
 	return array.slice(-1)[0];
+}
+
+export function generateHierarchyOfLocalMaximaAndMinima (array) {
+
+	if (!isArray(array)) {
+		return undefined;
+	}
+
+	let result = [];
+
+	let currentTier = array.map(element => {
+		return {
+			minimum: element,
+			maximum: element
+		};
+	});
+
+	result.unshift(currentTier);
+
+	while (currentTier.length > 1) {
+		let newTier = [];
+
+		for (let i = 0; i < currentTier.length; i += 2) {
+			const value1 = currentTier[i];
+			let combinedValue;
+
+			if (i + 1 < currentTier.length) {
+				const value2 = currentTier[i + 1];
+
+				combinedValue = {
+					minimum: Math.min(value1.minimum, value2.minimum),
+					maximum: Math.max(value1.maximum, value2.maximum)
+				};
+			} else {
+				combinedValue = {
+					minimum: value1.minimum,
+					maximum: value1.maximum
+				};
+			}
+
+			newTier.push(combinedValue);
+		}
+
+		currentTier = newTier;
+		result.unshift(currentTier);
+	}
+
+	return result;
 }

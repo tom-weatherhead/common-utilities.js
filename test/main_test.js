@@ -4,6 +4,8 @@
 
 const commonUtilities = require('..');
 
+const fnGreaterThan = (x, y) => x > y;
+
 module.exports = {
 	setUp: function (done) {
 		// this.kilobit = 500;
@@ -119,8 +121,9 @@ module.exports = {
 		test.done();
 	},
 	test9: test => {
-		test.expect(1);
+		test.expect(2);
 		test.deepEqual(commonUtilities.insertionSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.deepEqual(commonUtilities.insertionSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
 		test.done();
 	},
 	test10: test => {
@@ -478,23 +481,27 @@ module.exports = {
 		test.done();
 	},
 	test38: test => {
-		test.expect(1);
+		test.expect(2);
 		test.deepEqual(commonUtilities.bubbleSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.deepEqual(commonUtilities.bubbleSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
 		test.done();
 	},
 	test39: test => {
-		test.expect(1);
+		test.expect(2);
 		test.deepEqual(commonUtilities.heapSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.deepEqual(commonUtilities.heapSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
 		test.done();
 	},
 	test40: test => {
-		test.expect(1);
+		test.expect(2);
 		test.deepEqual(commonUtilities.mergeSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.deepEqual(commonUtilities.mergeSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
 		test.done();
 	},
 	test41: test => {
-		test.expect(1);
+		test.expect(2);
 		test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
+		test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
 		test.done();
 	},
 	test42: test => {
