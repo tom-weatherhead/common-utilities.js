@@ -15,11 +15,11 @@ import {
 	isFunction
 } from './types.js';
 
-/*
-export function getTestArray () {
-	return ['This', 'is', 'an', 'array'];
-}
-*/
+const fnIsLessThan = (x, y) => x < y;
+
+// export function getTestArray () {
+// 	return ['This', 'is', 'an', 'array'];
+// }
 
 export function cloneArray (array) {
 
@@ -45,7 +45,7 @@ export function createArrayFromElement (element, length = 1, accumulator = []) {
 function getSafeComparatorFunction (fnComparator) {
 
 	if (!isFunction(fnComparator) || fnComparator.length !== 2) {
-		return (x, y) => x < y;
+		return fnIsLessThan;
 	} else {
 		return fnComparator;
 	}
@@ -54,10 +54,6 @@ function getSafeComparatorFunction (fnComparator) {
 // Sorting algorithm number 1: Bubble Sort
 
 export function bubbleSort (array, fnComparator) {
-
-	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
-	// 	fnComparator = (x, y) => x < y;
-	// }
 	fnComparator = getSafeComparatorFunction(fnComparator);
 
 	let changeDetected = true;
@@ -71,7 +67,6 @@ export function bubbleSort (array, fnComparator) {
 			const element1 = array[j];
 			const element2 = array[j + 1];
 
-			// if (element1 > element2) {
 			if (!fnComparator(element1, element2)) {
 				array[j] = element2;
 				array[j + 1] = element1;
@@ -103,7 +98,6 @@ export function addElementToHeap (heap, element, fnComparator) {
 		const elementAtIndex = heap[index];
 		const elementAtNextIndex = heap[nextIndex];
 
-		// if (elementAtNextIndex >= elementAtIndex) {
 		if (!fnComparator(elementAtNextIndex, elementAtIndex)) {
 			break;
 		}
@@ -157,7 +151,6 @@ export function removeElementFromTopOfHeap (heap, fnComparator) {
 			break;
 		} else if (nextIndex2 >= heap.length) {
 			nextIndex = nextIndex1;
-		// } else if (heap[nextIndex1] >= heap[nextIndex2]) {
 		} else if (!fnComparator(heap[nextIndex1], heap[nextIndex2])) {
 			nextIndex = nextIndex1;
 		} else {
@@ -167,7 +160,6 @@ export function removeElementFromTopOfHeap (heap, fnComparator) {
 		const elementAtIndex = heap[index];
 		const elementAtNextIndex = heap[nextIndex];
 
-		// if (elementAtNextIndex <= elementAtIndex) {
 		if (fnComparator(elementAtNextIndex, elementAtIndex)) {
 			break;
 		}
@@ -183,17 +175,10 @@ export function removeElementFromTopOfHeap (heap, fnComparator) {
 }
 
 export function heapSort (array, fnComparator) {
-	fnComparator = getSafeComparatorFunction(fnComparator);
-
 	let heap = array.reduce(
 		(accumulator, element) => addElementToHeap(accumulator, element, fnComparator),
 		[]
 	);
-
-	// console.log('heap is', heap);
-
-	// return [];
-
 	let result = [];
 
 	while (heap.length) {
@@ -205,14 +190,9 @@ export function heapSort (array, fnComparator) {
 
 // Sorting algorithm number 3: Insertion Sort
 
-// export function insertNumberIntoArray (n, array) {
 export function insertNumberIntoArray (n, array, fnComparator) {
-	// array must already be sorted in non-descending order.
-	// let i = array.findIndex(m => m >= n);
+	// array must already be sorted in the proper order.
 
-	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
-	// 	fnComparator = (x, y) => x < y;
-	// }
 	fnComparator = getSafeComparatorFunction(fnComparator);
 
 	let i = array.findIndex(m => !fnComparator(m, n));
@@ -230,12 +210,6 @@ export function insertNumberIntoArray (n, array, fnComparator) {
 }
 
 export function insertionSort (array, fnComparator) {
-
-	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
-	// 	fnComparator = (x, y) => x < y;
-	// }
-	fnComparator = getSafeComparatorFunction(fnComparator);
-
 	return array.reduce(
 		(accumulator, n) => insertNumberIntoArray(n, accumulator, fnComparator),
 		[]
@@ -249,18 +223,12 @@ export function mergeTwoSortedArrays (array1 = [], array2 = [], fnComparator) {
 	let index2 = 0;
 	let result = [];
 
-	// console.log('array1 is', array1);
-	// console.log('array2 is', array2);
-	// console.log('array1.length is', array1.length);
-	// console.log('array2.length is', array2.length);
-
 	fnComparator = getSafeComparatorFunction(fnComparator);
 
 	while (index1 < array1.length && index2 < array2.length) {
 		const element1 = array1[index1];
 		const element2 = array2[index2];
 
-		// if (element1 <= element2) {
 		if (fnComparator(element1, element2)) {
 			result.push(element1);
 			index1++;
@@ -269,10 +237,6 @@ export function mergeTwoSortedArrays (array1 = [], array2 = [], fnComparator) {
 			index2++;
 		}
 	}
-
-	// console.log('After loop: index1 is', index1);
-	// console.log('After loop: index2 is', index2);
-	// console.log('After loop: result is', result);
 
 	if (index1 < array1.length) {
 		// Array.concat() does not modify the array in place; ot returns a new array.
@@ -287,36 +251,18 @@ export function mergeTwoSortedArrays (array1 = [], array2 = [], fnComparator) {
 export function mergeSort (array, fnComparator) {
 
 	if (array.length <= 1) {
-		// console.log('Trivial: mergedArray is', array);
-
 		return array;
 	}
 
-	// if (!isFunction(fnComparator) || fnComparator.length !== 2) {
-	// 	fnComparator = (x, y) => x < y;
-	// }
-	fnComparator = getSafeComparatorFunction(fnComparator);
-
 	const midpoint = Math.trunc(array.length / 2);
-
-	// console.log('array is', array);
-	// console.log('midpoint is', midpoint);
 
 	const array1 = array.slice(0, midpoint);
 	const array2 = array.slice(midpoint);
 
-	// console.log('array1 is', array1);
-	// console.log('array2 is', array2);
-
 	const sortedArray1 = mergeSort(array1, fnComparator);
 	const sortedArray2 = mergeSort(array2, fnComparator);
 
-	// console.log('sortedArray1 is', sortedArray1);
-	// console.log('sortedArray2 is', sortedArray2);
-
 	const mergedArray = mergeTwoSortedArrays(sortedArray1, sortedArray2, fnComparator);
-
-	// console.log('mergedArray is', mergedArray);
 
 	return mergedArray;
 }
@@ -329,13 +275,14 @@ export function quickSort (array, fnComparator) {
 		return array;
 	}
 
-	const pivotElement = array.shift();
+	// const pivotElement = array.shift(); // No. Don't destroy the parameter.
+	const pivotElement = array[0];
 	let subArray1 = [];
 	let subArray2 = [];
 
 	fnComparator = getSafeComparatorFunction(fnComparator);
 
-	array.forEach(element => {
+	array.slice(1).forEach(element => {
 
 		// if (element <= pivotElement) {
 		if (fnComparator(element, pivotElement)) {

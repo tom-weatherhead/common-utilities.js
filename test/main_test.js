@@ -4,6 +4,10 @@
 
 const commonUtilities = require('..');
 
+const array1Unsorted = [8, 6, 7, 5, 3, 0, 9];
+const array1SortedNonDecreasing = [0, 3, 5, 6, 7, 8, 9];
+const array1SortedNonIncreasing = [9, 8, 7, 6, 5, 3, 0];
+
 const fnGreaterThan = (x, y) => x > y;
 
 module.exports = {
@@ -122,8 +126,8 @@ module.exports = {
 	},
 	test9: test => {
 		test.expect(2);
-		test.deepEqual(commonUtilities.insertionSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-		test.deepEqual(commonUtilities.insertionSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
+		test.deepEqual(commonUtilities.insertionSort(array1Unsorted), array1SortedNonDecreasing, `Should be ${array1SortedNonDecreasing}`);
+		test.deepEqual(commonUtilities.insertionSort(array1Unsorted, fnGreaterThan), array1SortedNonIncreasing, `Should be ${array1SortedNonIncreasing}`);
 		test.done();
 	},
 	test10: test => {
@@ -482,26 +486,27 @@ module.exports = {
 	},
 	test38: test => {
 		test.expect(2);
-		test.deepEqual(commonUtilities.bubbleSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-		test.deepEqual(commonUtilities.bubbleSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
+		test.deepEqual(commonUtilities.bubbleSort(array1Unsorted), array1SortedNonDecreasing, `Should be ${array1SortedNonDecreasing}`);
+		test.deepEqual(commonUtilities.bubbleSort(array1Unsorted, fnGreaterThan), array1SortedNonIncreasing, `Should be ${array1SortedNonIncreasing}`);
 		test.done();
 	},
 	test39: test => {
 		test.expect(2);
-		test.deepEqual(commonUtilities.heapSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-		test.deepEqual(commonUtilities.heapSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
+		test.deepEqual(commonUtilities.heapSort(array1Unsorted), array1SortedNonDecreasing, `Should be ${array1SortedNonDecreasing}`);
+		test.deepEqual(commonUtilities.heapSort(array1Unsorted, fnGreaterThan), array1SortedNonIncreasing, `Should be ${array1SortedNonIncreasing}`);
 		test.done();
 	},
 	test40: test => {
 		test.expect(2);
-		test.deepEqual(commonUtilities.mergeSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-		test.deepEqual(commonUtilities.mergeSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
+		test.deepEqual(commonUtilities.mergeSort(array1Unsorted), array1SortedNonDecreasing, `Should be ${array1SortedNonDecreasing}`);
+		test.deepEqual(commonUtilities.mergeSort(array1Unsorted, fnGreaterThan), array1SortedNonIncreasing, `Should be ${array1SortedNonIncreasing}`);
 		test.done();
 	},
 	test41: test => {
 		test.expect(2);
-		test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9]), [0, 3, 5, 6, 7, 8, 9], 'Should be [0, 3, 5, 6, 7, 8, 9]');
-		test.deepEqual(commonUtilities.quickSort([8, 6, 7, 5, 3, 0, 9], fnGreaterThan), [9, 8, 7, 6, 5, 3, 0], 'Should be [9, 8, 7, 6, 5, 3, 0]');
+		// test.expect(1);
+		test.deepEqual(commonUtilities.quickSort(array1Unsorted), array1SortedNonDecreasing, `Should be ${array1SortedNonDecreasing}`);
+		test.deepEqual(commonUtilities.quickSort(array1Unsorted, fnGreaterThan), array1SortedNonIncreasing, `Should be ${array1SortedNonIncreasing}`);
 		test.done();
 	},
 	test42: test => {
@@ -587,6 +592,43 @@ module.exports = {
 			actualResult4,
 			expectedResult4,
 			`Should be ${expectedResult4}`);
+		test.done();
+	},
+	test47: test => {
+		const array = [1, 3, 8, 2, 7, 5, 4, 6];
+		const actualResult = commonUtilities.generateHierarchyOfLocalMaximaAndMinima(array);
+		const expectedResult = [
+			[
+				{ minimum: 1, maximum: 8 }
+			],
+			[
+				{ minimum: 1, maximum: 8 },
+				{ minimum: 4, maximum: 7 }
+			],
+			[
+				{ minimum: 1, maximum: 3 },
+				{ minimum: 2, maximum: 8 },
+				{ minimum: 5, maximum: 7 },
+				{ minimum: 4, maximum: 6 }
+			],
+			[
+				{ minimum: 1, maximum: 1 },
+				{ minimum: 3, maximum: 3 },
+				{ minimum: 8, maximum: 8 },
+				{ minimum: 2, maximum: 2 },
+				{ minimum: 7, maximum: 7 },
+				{ minimum: 5, maximum: 5 },
+				{ minimum: 4, maximum: 4 },
+				{ minimum: 6, maximum: 6 }
+			]
+		];
+
+		test.expect(1);
+		test.deepEqual(
+			actualResult,
+			expectedResult,
+			`Should be ${expectedResult}`);
+		// test.equal(0, 0);
 		test.done();
 	}
 };
