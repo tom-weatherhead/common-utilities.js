@@ -628,7 +628,27 @@ module.exports = {
 			actualResult,
 			expectedResult,
 			`Should be ${expectedResult}`);
-		// test.equal(0, 0);
+		test.done();
+	},
+	test48: test => {
+		const obj = {
+			a: 1,
+			b: undefined,
+			c: null,
+			d: 'Foo'
+		};
+		const expectedResult = {
+			a: 1,
+			c: null,
+			d: 'Foo'
+		};
+		const actualResult = commonUtilities.deleteUndefinedValuesFromObject(obj);
+
+		test.expect(1);
+		test.deepEqual(
+			actualResult,
+			expectedResult,
+			`Should be ${JSON.stringify(expectedResult)}`);
 		test.done();
 	}
 };

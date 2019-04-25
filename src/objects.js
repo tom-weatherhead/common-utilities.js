@@ -85,3 +85,13 @@ export function getProperty (obj, propertyPath, defaultValue) {
 
 	return obj;
 }
+
+export function deleteUndefinedValuesFromObject (obj) {
+	let keysToDelete = Object.keys(obj).filter(key => typeof obj[key] === 'undefined');
+
+	keysToDelete.forEach(key => {
+		delete obj[key];
+	});
+
+	return obj;
+}

@@ -93,6 +93,7 @@ import {
 	clone,
 	combineObjects,
 	copySpecifiedObjectProperties,
+	deleteUndefinedValuesFromObject,
 	getOwnProperties,
 	getProperty
 } from './objects.js';
@@ -217,6 +218,7 @@ export {
 	clone,
 	combineObjects,
 	copySpecifiedObjectProperties,
+	deleteUndefinedValuesFromObject,
 	getOwnProperties,
 	getProperty,
 	// Sets
