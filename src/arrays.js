@@ -284,7 +284,6 @@ export function quickSort (array, fnComparator) {
 
 	array.slice(1).forEach(element => {
 
-		// if (element <= pivotElement) {
 		if (fnComparator(element, pivotElement)) {
 			subArray1.push(element);
 		} else {

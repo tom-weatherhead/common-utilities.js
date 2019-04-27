@@ -6,22 +6,6 @@ import {
 	cloneArray
 } from './arrays.js';
 
-// 1)
-/*
-export function makeLazyList (x, y) {
-	return () => [x, makeLazyList(y, x + y)];
-}
-
-let b = makeLazyList(1, 1);
-
-// 2) Or: function makeList (x, y, fn) { .. } , where fn = (x, y) => x + y;
-export function makeLazyList (x, y, fn) {
-	return () => [x, makeLazyList(y, fn(x, y), fn)];
-}
- */
-
-// 3)
-
 function pushMe (array, element) {
 	array.push(element);
 

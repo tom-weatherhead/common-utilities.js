@@ -29,8 +29,6 @@ export function getAllSubsets (arg, sortSubsets, fnSubsetComparator) {
 
 	getAllSubsetsHelper(result, arg, 0, []);
 
-	// console.log('getAllSubsets() : arg is', arg, '; result is', result);
-
 	if (sortSubsets) {
 		const fnDefaultSubsetComparator = (s1, s2) => {
 			const lengthDiff = s1.length - s2.length;

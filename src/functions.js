@@ -31,21 +31,3 @@ export function curry (fn, args = []) {
 		return curry(fn, args);
 	};
 }
-
-/*
-export function curry2 (fn, args = []) {
-	return arg => {
-
-		if (args.length < fn.length) {
-			console.log(`args is ${args}`);
-			console.log(`[...args, arg] is ${[...args, arg]}`);
-
-			return curry2(fn, [...args, arg]);
-		}
-
-		console.log(`Yay! args is ${args}`);
-
-		return fn(...args);
-	};
-}
- */

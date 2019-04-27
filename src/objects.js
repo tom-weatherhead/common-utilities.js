@@ -17,21 +17,20 @@ export function clone (arg) {
 	// return JSON.parse(JSON.stringify(arg, null, 0)); // TODO: What are the second and third parameters to stringify() ?
 }
 
-/*
-export function isDefined (obj) {
-	return typeof obj !== 'undefined';
-}
-*/
-
 export function copySpecifiedObjectProperties (propertyList, src, dst = {}) {
 
-	propertyList.forEach(property => {
+	// propertyList.forEach(property => {
 
-		// if (typeof src[property] !== 'undefined') {
-		if (isDefined(src[property])) {
+	// 	if (isDefined(src[property])) {
+	// 		dst[property] = src[property];
+	// 	}
+	// });
+
+	propertyList
+		.filter(property => isDefined(src[property]))
+		.forEach(property => {
 			dst[property] = src[property];
-		}
-	});
+		});
 
 	return dst;
 }
@@ -87,7 +86,7 @@ export function getProperty (obj, propertyPath, defaultValue) {
 }
 
 export function deleteUndefinedValuesFromObject (obj) {
-	let keysToDelete = Object.keys(obj).filter(key => typeof obj[key] === 'undefined');
+	const keysToDelete = Object.keys(obj).filter(key => typeof obj[key] === 'undefined');
 
 	keysToDelete.forEach(key => {
 		delete obj[key];
