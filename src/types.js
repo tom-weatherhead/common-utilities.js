@@ -45,4 +45,7 @@ export const isRegularExpression = factory_fnIsType('RegExp');
 
 export const isString = factory_fnIsType('String');
 
-export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
+export const isArrayOf = (arg, fn) => isArray(arg) && arg.every(fn);
+
+// export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
+export const isArrayOfNumbers = arg => isArrayOf(arg, isNumber);

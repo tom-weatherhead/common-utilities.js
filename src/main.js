@@ -1,5 +1,9 @@
 // tom-weatherhead/common-utilities.js/src/main.js
 
+// TODO:
+// - isArrayOf(fn), where fn is e.g. isNumber or isString
+// ? isPrimeNumber
+
 'use strict';
 
 import {
@@ -77,6 +81,8 @@ import {
 	histogram,
 	integerDivision,
 	isInteger,
+	isNonNegativeInteger,
+	isPositiveInteger,
 	mean,
 	median,
 	mode,
@@ -208,6 +214,8 @@ export {
 	getSign,
 	integerDivision,
 	isInteger,
+	isNonNegativeInteger,
+	isPositiveInteger,
 	multiplicativeIdentity,
 	product,
 	replicateString,

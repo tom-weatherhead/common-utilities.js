@@ -173,6 +173,14 @@ export function isInteger (n) {
 	return parseInt(n, 10) === n;
 }
 
+export function isNonNegativeInteger (n) {
+	return isInteger(n) && n >= 0;
+}
+
+export function isPositiveInteger (n) {
+	return isInteger(n) && n > 0;
+}
+
 export function integerDivision (n1, n2) {
 	return parseInt(n1 / n2, 10);
 }
