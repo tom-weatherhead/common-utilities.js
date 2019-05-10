@@ -66,3 +66,29 @@ export function areSetsEqual (set1, set2, fnElementsAreEqual) {
 
 	return isArray(set1) && isArray(set2) && isSubset(set1, set2, fnElementsAreEqual) && isSubset(set2, set1, fnElementsAreEqual);
 }
+
+export function intersection (...arrayOfArrays) {
+	let result = clone(arrayOfArrays[0]);
+
+	arrayOfArrays.slice(1).forEach(array => {
+		result = result.filter(element => array.includes(element));
+	});
+
+	return result;
+}
+
+export function union (...arrayOfArrays) {
+	let result = [];
+
+	arrayOfArrays.forEach(array => {
+
+		array.forEach(element => {
+
+			if (!result.includes(element)) {
+				result.push(element);
+			}
+		});
+	});
+
+	return result;
+}

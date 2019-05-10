@@ -297,7 +297,6 @@ module.exports = {
 			`Should be ${output}`);
 		test.done();
 	},
-	// getProperty (obj, propertyPath, defaultValue)
 	test28: test => {
 		const input1 = { subObject1a: { subEntity1aa: '1aa', subEntity1ab: '1ab' }, subObject1b: { subEntity1ba: '1ba' } };
 		const defaultValue1 = 'Foo';
@@ -357,6 +356,7 @@ module.exports = {
 			`Should be ${output}`);
 		test.done();
 	},
+	/*
 	test32: test => {
 		test.expect(2);
 		commonUtilities.getJson('https://httpbin.org/json')
@@ -399,12 +399,12 @@ module.exports = {
 				throw error;
 			});
 	},
+	 */
 	test34: test => {
 		const expectedResult = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
 
 		test.expect(1);
 
-		// let b = commonUtilities.makeLazyList(1, 1, (x, y) => x + y);
 		let b = commonUtilities.makeLazyList((x, y) => x + y, 1, 1);
 		let actualResult = [];
 
@@ -436,6 +436,25 @@ module.exports = {
 			`Should be ${expectedResult}`);
 		test.deepEqual(
 			commonUtilities.union(input[0], input[1], input[2]),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
+	},
+	test_intersection: test => {
+		const input = [
+			['a', 'b', 'c', 'd', 'e', 'f'],
+			['b', 'c', 'd', 'e'],
+			['b', 'd', 'f']
+		];
+		const expectedResult = ['b', 'd'];
+
+		test.expect(2);
+		test.deepEqual(
+			commonUtilities.intersection(...input),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.deepEqual(
+			commonUtilities.intersection(input[0], input[1], input[2]),
 			expectedResult,
 			`Should be ${expectedResult}`);
 		test.done();
@@ -718,4 +737,36 @@ module.exports = {
 	}
 };
 
-// integerDivision
+// TODO: Tests to write:
+
+// categorizeArrayElementsByFunction
+// categorizeArrayElementsByProperty
+// cloneArray
+// createArrayFromElement
+// findSuperlativeElement
+// getLastElementOfArray
+// getRandomArrayElement
+// isArrayInDecreasingOrder
+// isArrayInIncreasingOrder
+// isArrayInNonIncreasingOrder
+
+// asyncForEach
+// asyncMap
+
+// getDateString
+// getDateUTCString
+// getDateTimeUTCString
+
+// booleanInvertFunction
+// compositeFunctions
+// identityFunction
+
+// additiveIdentity,
+// aToThePowerOfB,
+// factory_fnRoundToNDigits,
+// fnAddition,
+// fnMultiplication,
+// multiplicativeIdentity,
+// tenToThePowerOfN,
+
+// isSubset

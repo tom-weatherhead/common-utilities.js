@@ -470,22 +470,6 @@ export function categorizeArrayElementsByProperty (array, propertyName) {
 	return categorizeArrayElementsByFunction(array, element => element[propertyName]);
 }
 
-export function union (...arrayOfArrays) {
-	let result = [];
-
-	arrayOfArrays.forEach(array => {
-
-		array.forEach(element => {
-
-			if (!result.includes(element)) {
-				result.push(element);
-			}
-		});
-	});
-
-	return result;
-}
-
 export function getLastElementOfArray (array) {
 
 	if (!isArray(array) || !array.length) {

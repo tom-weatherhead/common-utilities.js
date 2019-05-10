@@ -11,6 +11,10 @@ import {
 } from './objects.js';
 
 import {
+	replicateString
+} from './strings.js';
+
+import {
 	isArray,
 	isArrayOfNumbers,
 	isNumber
@@ -50,13 +54,13 @@ export function generateFirstNNaturalNumbers (n) {
 	return generateRange(1, n);
 }
 
-export function replicateString (str, n) {
-	return generateFirstNNaturalNumbers(n)
-		.reduce(
-			accumulator => accumulator + str,
-			''
-		);
-}
+// export function replicateString (str, n) {
+// 	return generateFirstNNaturalNumbers(n)
+// 		.reduce(
+// 			accumulator => accumulator + str,
+// 			''
+// 		);
+// }
 
 export function zeroPadNumber (n, minLength) {
 	return (replicateString('0', minLength) + n).slice(-minLength);

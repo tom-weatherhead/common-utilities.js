@@ -31,8 +31,7 @@ import {
 	mergeTwoSortedArrays,
 	min,
 	quickSort,
-	removeDuplicatesFromArray,
-	union
+	removeDuplicatesFromArray
 } from './arrays.js';
 
 import {
@@ -88,7 +87,7 @@ import {
 	mode,
 	multiplicativeIdentity,
 	product,
-	replicateString,
+	// replicateString,
 	sum,
 	tenToThePowerOfN,
 	zeroExtendNumber,
@@ -107,8 +106,14 @@ import {
 import {
 	areSetsEqual,
 	getAllSubsets,
-	isSubset
+	intersection,
+	isSubset,
+	union
 } from './sets.js';
+
+import {
+	replicateString
+} from './strings.js';
 
 import {
 	getTypeString,
@@ -174,10 +179,11 @@ export {
 	min,
 	quickSort,
 	removeDuplicatesFromArray,
-	union,
+
 	// Asynchronous
 	asyncForEach,
 	asyncMap,
+
 	// Dates
 	getDateString,
 	getDateUTCString,
@@ -185,24 +191,30 @@ export {
 	getDateTimeUTCString,
 	getDifferenceBetweenDatesAsObject,
 	getDifferenceBetweenDatesAsString,
+
 	// Functions
 	booleanInvertFunction,
 	compositeFunctions,
 	curry,
 	identityFunction,
+
 	// HTTP
 	getJson,
 	postJson,
+
 	// JSON
 	safeJsonParse,
+
 	// Lazy
 	makeLazyList,
+
 	// Math
 	histogram,
 	mean,
 	median,
 	mode,
 	sum,
+
 	// Numbers
 	additiveIdentity,
 	aToThePowerOfB,
@@ -218,10 +230,10 @@ export {
 	isPositiveInteger,
 	multiplicativeIdentity,
 	product,
-	replicateString,
 	tenToThePowerOfN,
 	zeroExtendNumber,
 	zeroPadNumber,
+
 	// Objects
 	clone,
 	combineObjects,
@@ -229,10 +241,17 @@ export {
 	deleteUndefinedValuesFromObject,
 	getOwnProperties,
 	getProperty,
+
 	// Sets
 	areSetsEqual,
 	getAllSubsets,
+	intersection,
 	isSubset,
+	union,
+
+	// Strings
+	replicateString,
+
 	// Types
 	getTypeString,
 	isArray,
