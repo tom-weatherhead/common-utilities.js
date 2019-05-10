@@ -183,4 +183,10 @@ export function isPositiveInteger (n) {
 
 export function integerDivision (n1, n2) {
 	return parseInt(n1 / n2, 10);
+
+	// try {
+	// 	return parseInt(n1 / n2, 10);
+	// } catch (error) {
+	// 	return undefined;
+	// }
 }

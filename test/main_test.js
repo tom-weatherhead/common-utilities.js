@@ -650,5 +650,72 @@ module.exports = {
 			expectedResult,
 			`Should be ${JSON.stringify(expectedResult)}`);
 		test.done();
+	},
+	test49: test => {
+		test.expect(15);
+		test.equal(commonUtilities.isInteger(0), true, 'Should be true');
+		test.equal(commonUtilities.isInteger(1), true, 'Should be true');
+		test.equal(commonUtilities.isInteger(-1), true, 'Should be true');
+		test.equal(commonUtilities.isInteger(12345), true, 'Should be true');
+		test.equal(commonUtilities.isInteger(1.5), false, 'Should be false');
+		test.equal(commonUtilities.isInteger(undefined), false, 'Should be false');
+		test.equal(commonUtilities.isInteger(null), false, 'Should be false');
+		test.equal(commonUtilities.isInteger(NaN), false, 'Should be false');
+		test.equal(commonUtilities.isInteger(''), false, 'Should be false');
+		test.equal(commonUtilities.isInteger('abc'), false, 'Should be false');
+		test.equal(commonUtilities.isInteger([]), false, 'Should be false');
+		test.equal(commonUtilities.isInteger([1, 2, 3]), false, 'Should be false');
+		test.equal(commonUtilities.isInteger({}), false, 'Should be false');
+		test.equal(commonUtilities.isInteger({ a: 1, b: 2 }), false, 'Should be false');
+		test.equal(commonUtilities.isInteger(/abc/), false, 'Should be false');
+		test.done();
+	},
+	test50: test => {
+		test.expect(15);
+		test.equal(commonUtilities.isNonNegativeInteger(0), true, 'Should be true');
+		test.equal(commonUtilities.isNonNegativeInteger(1), true, 'Should be true');
+		test.equal(commonUtilities.isNonNegativeInteger(-1), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger(12345), true, 'Should be true');
+		test.equal(commonUtilities.isNonNegativeInteger(1.5), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger(undefined), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger(null), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger(NaN), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger(''), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger('abc'), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger([]), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger([1, 2, 3]), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger({}), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger({ a: 1, b: 2 }), false, 'Should be false');
+		test.equal(commonUtilities.isNonNegativeInteger(/abc/), false, 'Should be false');
+		test.done();
+	},
+	test51: test => {
+		test.expect(15);
+		test.equal(commonUtilities.isPositiveInteger(0), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(1), true, 'Should be true');
+		test.equal(commonUtilities.isPositiveInteger(-1), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(12345), true, 'Should be true');
+		test.equal(commonUtilities.isPositiveInteger(1.5), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(undefined), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(null), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(NaN), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(''), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger('abc'), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger([]), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger([1, 2, 3]), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger({}), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger({ a: 1, b: 2 }), false, 'Should be false');
+		test.equal(commonUtilities.isPositiveInteger(/abc/), false, 'Should be false');
+		test.done();
+	},
+	test52: test => {
+		test.expect(3);
+		test.equal(commonUtilities.integerDivision(22, 7), 3, 'Should be 3');
+		test.equal(Number.isNaN(commonUtilities.integerDivision(0, 0)), true, 'Should be true');
+		test.equal(Number.isNaN(commonUtilities.integerDivision('abc', 'def')), true, 'Should be true');
+		// test.equal(commonUtilities.integerDivision('abc', 'def'), 3, 'Should be 3');
+		test.done();
 	}
 };
+
+// integerDivision
