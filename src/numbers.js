@@ -159,6 +159,18 @@ export function mode (arg) {
 	);
 }
 
+export function standardDeviation (arg) {
+
+	if (!isArrayOfNumbers(arg) || arg.length <= 1) {
+		return undefined;
+	}
+
+	const meanOfArg = mean(arg);
+	const square = n => n * n;
+
+	return Math.sqrt(sum(arg.map(n => square(n - meanOfArg))) / (arg.length - 1));
+}
+
 export function aToThePowerOfB (a, b) {
 	return product(createArrayFromElement(a, b));
 }

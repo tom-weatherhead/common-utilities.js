@@ -802,6 +802,7 @@ module.exports = {
 // fnAddition,
 // fnMultiplication,
 // multiplicativeIdentity,
+// standardDeviation,
 // tenToThePowerOfN,
 
 // isSubset
