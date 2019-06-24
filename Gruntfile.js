@@ -107,9 +107,9 @@ module.exports = grunt => {
 				src: [
 					'<banner>',
 					'insertia/1.js',
-					'dist/common-utilities-commonjs2.js',
+					'dist/<%= pkg.shortName %>-commonjs2.js',
 					'insertia/2.js',
-					'dist/common-utilities-global.js',
+					'dist/<%= pkg.shortName %>-global.js',
 					'insertia/3.js'
 				],
 				dest: 'dist/<%= pkg.shortName %>.js'
