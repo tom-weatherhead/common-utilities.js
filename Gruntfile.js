@@ -2,6 +2,8 @@
 
 'use strict';
 
+module.exports = require('thaw-config').grunt.eslint_webpack_concat_nodeunit(__dirname);
+/*
 const path = require('path');
 
 const babelTargetsClientSide = require('./config/babel-targets-client-side');
@@ -60,7 +62,7 @@ module.exports = grunt => {
 
 									// When extending a native class (e.g., class extends Array {}), the super class needs to be wrapped. This is needed to workaround two problems:
 									//
-									//     Babel transpiles classes using SuperClass.apply(/* ... */), but native classes aren't callable and thus throw in this case.
+									//     Babel transpiles classes using SuperClass.apply(/* ... * /), but native classes aren't callable and thus throw in this case.
 									//     Some built-in functions (like Array) always return a new object. Instead of returning it, Babel should treat it as the new this.
 
 									// This plugin allows a class in this package to be used as the base class
@@ -101,7 +103,7 @@ module.exports = grunt => {
 				' * @copyright <%= grunt.template.today(\'yyyy\') %> <%= pkg.author %>\n' +
 				' * @license <%= pkg.license %>\n' +
 				' * @version <%= pkg.version %>\n' +
-				' */\n'
+				' * /\n'
 			},
 			dist: {
 				src: [
@@ -146,5 +148,6 @@ module.exports = grunt => {
 		'concat'
 	]);
 	grunt.registerTask('test', ['eslint', 'nodeunit']);
-	grunt.registerTask('default', ['eslint', 'build', 'concat', 'nodeunit']);
+	grunt.registerTask('default', ['eslint', 'build', 'nodeunit']);
 };
+ */
