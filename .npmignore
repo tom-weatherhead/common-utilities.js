@@ -1,6 +1,5 @@
-/deletia/
+/config/
 /insertia/
-/lib/
 /node_modules/
 /scripts/
 /src/
@@ -12,6 +11,8 @@
 bower.json
 composer.json
 Gruntfile.js
+*.sh
+dist/common-utilities-*.js
 # End.
 
 # Logs
@@ -73,6 +74,7 @@ typings/
 # dotenv environment variables file
 .env
 
+# For macOS:
 .DS_Store
 ._.DS_Store
 .Trashes
