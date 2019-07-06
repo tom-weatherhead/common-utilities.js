@@ -1,7 +1,5 @@
-/config/
 /insertia/
 /node_modules/
-/scripts/
 /src/
 /test/
 .editorconfig
@@ -11,7 +9,6 @@
 bower.json
 composer.json
 Gruntfile.js
-*.sh
 dist/common-utilities-*.js
 # End.
 
