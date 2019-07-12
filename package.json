@@ -3,7 +3,7 @@
 	"shortName": "common-utilities",
 	"description": "Common JavaScript utility functions",
 	"private": false,
-	"version": "0.0.20",
+	"version": "0.0.21",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tom-weatherhead/common-utilities.js.git"
