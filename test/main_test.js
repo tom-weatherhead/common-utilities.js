@@ -245,6 +245,7 @@ module.exports = {
 		test.done();
 	},
 
+	/*
 	// Tests for http.js :
 
 	test32: test => {
@@ -289,6 +290,7 @@ module.exports = {
 				throw error;
 			});
 	},
+	 */
 
 	// Tests for json.js :
 

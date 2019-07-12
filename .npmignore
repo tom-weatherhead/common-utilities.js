@@ -9,7 +9,10 @@
 bower.json
 composer.json
 Gruntfile.js
-dist/common-utilities-*.js
+
+# dist/common-utilities-*.js
+# ... or dist/common-utilities-commonjs2.js ?
+
 # End.
 
 # Logs

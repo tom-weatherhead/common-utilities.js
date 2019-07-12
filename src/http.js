@@ -87,6 +87,9 @@ function sendHttpRequest_clientSideVersion (method, urlString, requestData = nul
 	});
 }
 
+/*
+// TODO: Move this to common-utilities-heavy.js ?
+
 function sendHttpRequest_serverSideVersion (method, urlString, requestData = null, verbose = false) {
 	// console.log('sendHttpRequest_serverSideVersion() : Begin');
 	// console.log('sendHttpRequest_serverSideVersion() : urlString is', urlString);
@@ -200,6 +203,7 @@ function sendHttpRequest_serverSideVersion (method, urlString, requestData = nul
 		};
 	});
 }
+ */
 
 /*
 const postRaw = (urlString, requestData, verbose = false) => request('POST', urlString, requestData, verbose);
@@ -210,22 +214,22 @@ const deleteRaw = (urlString, verbose = false) => request('DELETE', urlString, n
 
 export function getJson (urlString, verbose = false) {
 
-	if (typeof XMLHttpRequest !== 'undefined') {
-		return sendHttpRequest_clientSideVersion('GET', urlString, null, verbose);
-	} else {
-		return sendHttpRequest_serverSideVersion('GET', urlString, null, verbose);
+	// if (typeof XMLHttpRequest !== 'undefined') {
+	return sendHttpRequest_clientSideVersion('GET', urlString, null, verbose);
+	// } else {
+	// 	return sendHttpRequest_serverSideVersion('GET', urlString, null, verbose);
 
-		// return Promise.reject('XMLHttpRequest missing but required. Node.js packages such as http cause angular-cli to fail.');
-	}
+	// 	// return Promise.reject('XMLHttpRequest missing but required. Node.js packages such as http cause angular-cli to fail.');
+	// }
 }
 
 export function postJson (urlString, jsonToPost, verbose = false) {
 
-	if (typeof XMLHttpRequest !== 'undefined') {
-		return sendHttpRequest_clientSideVersion('POST', urlString, jsonToPost, verbose);
-	} else {
-		return sendHttpRequest_serverSideVersion('POST', urlString, jsonToPost, verbose);
+	// if (typeof XMLHttpRequest !== 'undefined') {
+	return sendHttpRequest_clientSideVersion('POST', urlString, jsonToPost, verbose);
+	// } else {
+	// 	return sendHttpRequest_serverSideVersion('POST', urlString, jsonToPost, verbose);
 
-		// return Promise.reject('XMLHttpRequest missing but required. Node.js packages such as http cause angular-cli to fail.');
-	}
+	// 	// return Promise.reject('XMLHttpRequest missing but required. Node.js packages such as http cause angular-cli to fail.');
+	// }
 }
