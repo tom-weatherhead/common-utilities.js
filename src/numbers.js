@@ -214,3 +214,56 @@ export function integerDivision (n1, n2) {
 	// 	return undefined;
 	// }
 }
+
+// Covariance: See https://www.investopedia.com/terms/c/covariance.asp
+
+/*
+When an analyst has a set of data, a pair of x and y values, covariance can be calculated using five variables from that data. They are:
+
+    xi = a given x value in the data set
+    xm = the mean, or average, of the x values
+    yi = the y value in the data set that corresponds with xi
+    ym = the mean, or average, of the y values
+    n = the number of data points
+
+Given this information, the formula for covariance is:
+
+Covariance(x, y) = SUM [(xi - xm) * (yi - ym)] / (n - 1)
+ */
+
+export function covariance (x, y) {
+
+	if (!isArrayOfNumbers(x) || !isArrayOfNumbers(y) || x.length !== y.length || x.length <= 1) {
+		return undefined;
+	}
+
+	const mean_x = mean(x);
+	const mean_y = mean(y);
+
+	// Note that if x is a list of numbers, then covariance(x, x) === (standardDeviation(x)) ^ 2
+
+	return sum(x.map((xi, i) => (xi - mean_x) * (y[i] - mean_y))) / (x.length - 1);
+}
+
+// Correlation Coefficient: See https://www.investopedia.com/terms/c/correlationcoefficient.asp
+
+// CorrelationCoefficient(x, y) = ovariance(x, y) / (standardDeviation(x) * standardDeviation(y))
+
+export function correlationCoefficient (x, y) {
+
+	if (!isArrayOfNumbers(x) || !isArrayOfNumbers(y) || x.length !== y.length || x.length <= 1) {
+		return undefined;
+	}
+
+	const numerator = covariance(x, y);
+	const denominator = standardDeviation(x) * standardDeviation(y);
+
+	// console.log('numerator is', numerator);
+	// console.log('denominator is', denominator);
+
+	if (denominator === 0) {
+		return numerator ? Number.NaN : 0;
+	}
+
+	return numerator / denominator;
+}

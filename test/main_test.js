@@ -497,6 +497,22 @@ module.exports = {
 		// test.equal(commonUtilities.integerDivision('abc', 'def'), 3, 'Should be 3');
 		test.done();
 	},
+	test53: test => {
+		const array1 = [8, 6, 7, 5, 3, 0, 9];
+		const array2 = array1.map(x => -x);
+		// const array3 = array1.map(() => 1);
+		const array3 = commonUtilities.createArrayFromElement(1, array1.length);
+		const squared = x => x * x;
+
+		test.expect(6);
+		test.equal(commonUtilities.covariance(array1, array1), squared(commonUtilities.standardDeviation(array1)));
+		test.equal(commonUtilities.covariance(array2, array2), squared(commonUtilities.standardDeviation(array2)));
+		test.equal(commonUtilities.covariance(array3, array3), squared(commonUtilities.standardDeviation(array3)));
+		test.equal(commonUtilities.correlationCoefficient(array1, array1), 1);
+		test.equal(commonUtilities.correlationCoefficient(array1, array2), -1);
+		test.equal(commonUtilities.correlationCoefficient(array1, array3), 0);
+		test.done();
+	},
 
 	// Tests for objects.js :
 

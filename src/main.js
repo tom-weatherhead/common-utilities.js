@@ -71,6 +71,8 @@ import {
 import {
 	additiveIdentity,
 	aToThePowerOfB,
+	correlationCoefficient,
+	covariance,
 	factory_fnRoundToNDigits,
 	fnAddition,
 	fnMultiplication,
@@ -221,6 +223,8 @@ export {
 	// Numbers
 	additiveIdentity,
 	aToThePowerOfB,
+	correlationCoefficient,
+	covariance,
 	factory_fnRoundToNDigits,
 	fnAddition,
 	fnMultiplication,
