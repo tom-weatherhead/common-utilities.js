@@ -3,11 +3,13 @@
 		"Buffer": true,
 		"__dirname": true,
 		"console": true,
+		"describe": true,
 		"global": true,
 		"module": true,
 		"Promise": true,
 		"require": true,
 		"Set": true,
+		"it": true,
 		"window": true,
 		"XMLHttpRequest": true
 	},
