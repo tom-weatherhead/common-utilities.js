@@ -49,3 +49,5 @@ export const isArrayOf = (arg, fn) => isArray(arg) && arg.every(fn);
 
 // export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
 export const isArrayOfNumbers = arg => isArrayOf(arg, isNumber);
+
+export const ifDefinedElse = (arg, dflt) => isDefined(arg) ? arg : dflt;

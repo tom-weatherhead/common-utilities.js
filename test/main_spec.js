@@ -4,22 +4,23 @@
 
 'use strict';
 
-// const commonUtilities = require('..');
+// const chai = require('chai');
+// const chaiHttp = require('chai-http');
 
-const assert = require('assert');
+// chai.use(chaiHttp);
+
+// const expect = chai.expect;
+// const assert = chai.assert;
+
+const assert = require('assert').strict;
+
+// const commonUtilities = require('..');
 
 // const array1Unsorted = [8, 6, 7, 5, 3, 0, 9];
 // const array1SortedNonDecreasing = [0, 3, 5, 6, 7, 8, 9];
 // const array1SortedNonIncreasing = [9, 8, 7, 6, 5, 3, 0];
 
 // const fnGreaterThan = (x, y) => x > y;
-
-// const chai = require('chai');
-// const chaiHttp = require('chai-http');
-
-// const expect = chai.expect;
-
-// chai.use(chaiHttp);
 
 describe('App', function () {
 	describe('test1', () => {
@@ -30,7 +31,8 @@ describe('App', function () {
 
 			// Assert
 			// expect(123).to.be.not.null;				// eslint-disable-line no-unused-expressions
-			assert.deepEqual(123, 123);
+			assert.equal(123, 123);
+			// assert.deepEqual(123, 123);
 
 			done();
 		});

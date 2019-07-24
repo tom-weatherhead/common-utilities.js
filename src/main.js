@@ -122,6 +122,7 @@ import {
 
 import {
 	getTypeString,
+	ifDefinedElse,
 	isArray,
 	isArrayOfNumbers,
 	isDate,
@@ -264,6 +265,7 @@ export {
 
 	// Types
 	getTypeString,
+	ifDefinedElse,
 	isArray,
 	isArrayOfNumbers,
 	isDate,
