@@ -1028,4 +1028,59 @@ describe('App', () => {
 		});
 	});
 
+	describe('integerDivision Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const numerator1 = 22;
+			const numerator2 = 0;
+			const numerator3 = 'abc';
+			const denominator1 = 7;
+			const denominator2 = 0;
+			const denominator3 = 'def';
+			const expectedResult1 = 3;
+
+			// Act
+			const actualResult1 = commonUtilities.integerDivision(numerator1, denominator1);
+			const actualResult2 = commonUtilities.integerDivision(numerator2, denominator2);
+			const actualResult3 = commonUtilities.integerDivision(numerator3, denominator3);
+
+			// Assert
+			assert.equal(actualResult1, expectedResult1);
+			assert.ok(Number.isNaN(actualResult2));
+			assert.ok(Number.isNaN(actualResult3));
+
+			done();
+		});
+	});
+
+	describe('covariance and correlationCoefficient Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const srcArray1 = array1Unsorted;
+			const srcArray2 = srcArray1.map(x => -x);
+			const srcArray3 = commonUtilities.createArrayFromElement(1, srcArray1.length);
+			const expectedResult1 = 1;
+			const expectedResult2 = -1;
+			const expectedResult3 = 0;
+			const squared = x => x * x;
+
+			// Act
+			const actualResult1 = commonUtilities.correlationCoefficient(srcArray1, srcArray1);
+			const actualResult2 = commonUtilities.correlationCoefficient(srcArray1, srcArray2);
+			const actualResult3 = commonUtilities.correlationCoefficient(srcArray1, srcArray3);
+
+			// Assert
+			assert.equal(commonUtilities.covariance(srcArray1, srcArray1), squared(commonUtilities.standardDeviation(srcArray1)));
+			assert.equal(commonUtilities.covariance(srcArray2, srcArray2), squared(commonUtilities.standardDeviation(srcArray2)));
+			assert.equal(commonUtilities.covariance(srcArray3, srcArray3), squared(commonUtilities.standardDeviation(srcArray3)));
+			assert.equal(actualResult1, expectedResult1);
+			assert.equal(actualResult2, expectedResult2);
+			assert.equal(actualResult3, expectedResult3);
+
+			done();
+		});
+	});
+
+	// Tests for objects.js :
+
 });
