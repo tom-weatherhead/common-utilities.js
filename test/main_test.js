@@ -379,8 +379,7 @@ module.exports = {
 				6: 1,
 				7: 1,
 				8: 1
-			},
-			'Should be { element: 5, count: 6 }');
+			});
 		test.done();
 	},
 	test23: test => {
