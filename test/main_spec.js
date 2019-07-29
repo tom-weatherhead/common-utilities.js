@@ -1083,4 +1083,113 @@ describe('App', () => {
 
 	// Tests for objects.js :
 
+	describe('clone Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const original = { a: 3, b: 'c' };
+
+			// Act 1
+			const clone = commonUtilities.clone(original);
+
+			// Assert 1
+			assert.deepEqual(original, clone);
+
+			// Act 2
+			original.a = 4;
+
+			// Assert 2
+			assert.equal(original.a, 4);
+			assert.equal(original.b, 'c');
+			assert.equal(clone.a, 3);
+			assert.equal(clone.b, 'c');
+
+			done();
+		});
+	});
+
+	describe('copySpecifiedObjectProperties Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const original = { a: 1, b: 2, c: 3 };
+
+			// Act
+			const partialClone = commonUtilities.copySpecifiedObjectProperties([ 'a', 'c', 'd' ], original);
+
+			// Assert
+			assert.equal(partialClone.a, original.a);
+			assert.ok(!commonUtilities.isDefined(partialClone.b));
+			assert.equal(partialClone.c, original.c);
+			assert.ok(!commonUtilities.isDefined(partialClone.d));
+
+			done();
+		});
+	});
+
+	describe('getOwnProperties Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const srcObject = { a: 1, c: 3, e: 5 };
+			const expectedResult = [ 'a', 'c', 'e' ];
+
+			// Act
+			const actualResult = commonUtilities.getOwnProperties(srcObject);
+
+			// Assert
+			assert.deepEqual(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('safeJsonParse Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const srcObject = { a: 1, b: 'bee', c: [], d: true };
+
+			// Act
+			const actualResult = commonUtilities.safeJsonParse(JSON.stringify(srcObject));
+
+			// Assert
+			assert.deepEqual(actualResult, srcObject);
+
+			done();
+		});
+	});
+
+	describe('copySpecifiedObjectProperties Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const srcObject = { a: 1, b: 'bee', c: [], d: true };
+
+			// Act
+			const actualResult = commonUtilities.safeJsonParse(JSON.stringify(srcObject));
+
+			// Assert
+			assert.deepEqual(actualResult, srcObject);
+
+			done();
+		});
+	});
+
+	describe('copySpecifiedObjectProperties Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const input = { subObject1a: { subEntity1aa: '1aa', subEntity1ab: '1ab' }, subObject1b: { subEntity1ba: '1ba' } };
+			const defaultValue = 'Foo';
+			const propertyPath1 = 'subObject1a.subEntity1ab';
+			const expectedResult1 = '1ab';
+			const propertyPath2 = 'subObject3a.subEntity1ab';
+			const expectedResult2 = defaultValue;
+
+			// Act
+			const actualResult1 = commonUtilities.getProperty(input, propertyPath1, defaultValue);
+			const actualResult2 = commonUtilities.getProperty(input, propertyPath2, defaultValue);
+
+			// Assert
+			assert.deepEqual(actualResult1, expectedResult1);
+			assert.deepEqual(actualResult2, expectedResult2);
+
+			done();
+		});
+	});
 });

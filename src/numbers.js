@@ -143,6 +143,101 @@ export function histogram (arg) {
 	);
 }
 
+// ThAW 2019-07-29 : ... or create a class ThAWHistogram with a constructor and a getItemCount(key) function.
+
+/*
+export class ThAWHistogram {
+	constructor (arg, fnEqual) {
+
+		if (!isArray(arg)) {
+			throw new error('Error: ThAWHistogram constructor: arg is not an array.');
+		}
+
+		this.fnEqual = fnEqual || ((x, y) => x === y);
+
+		this.arrayOfPairs = []; // Each pair consists of [item, count]
+
+		// We could use arg.reduce() here:
+		arg.forEach(element => {
+			// he is short for 'histogram element'.
+			const i = this.arrayOfPairs.findIndex(he => this.fnEqual(he[0], element));
+
+			if (i < 0) {
+				this.arrayOfPairs.push([element, 1]);
+			} else {
+				this.arrayOfPairs[i][1]++;
+			}
+		}
+	}
+
+	getItemCount (key) {
+		const pair = this.arrayOfPairs.find(he => this.fnEqual(he[0], key));
+
+		if (pair) {
+			return pair[1];
+		} else {
+			return undefined;
+		}
+	}
+}
+ */
+
+export function histogram_version2 (arg, fnEqual) {
+
+	if (!isArray(arg)) {
+		return undefined;
+	}
+
+	fnEqual = fnEqual || ((x, y) => x === y);
+
+	const result = [];
+
+	// We could use arg.reduce() here:
+	arg.forEach(element => {
+		const i = result.findIndex(he => fnEqual(he[0], element));
+
+		if (i < 0) {
+			result.push([element, 1]);
+		} else {
+			result[i][1]++;
+		}
+
+		/*
+		// Or? :
+		const he = result.find(he => fnEqual(he[0], element));
+
+		if (he) {
+			he[1]++;
+		} else {
+			result.push([element, 1]);
+		}
+		 */
+
+		/*
+		// Or? :
+		const he = result.find(he => fnEqual(he[0], element)) || [element, 0];
+
+		if (!he[1]++) { // Postfix increment; applies after the evaluation of !he[1]
+			result.push(he);
+		}
+		 */
+	});
+
+	// result.sort((he1, he2) => he1[1] - he2[1]);
+
+	return result;
+}
+
+export function histogramLookup (hist, key, fnEqual) {
+	const pair = hist.find(he => fnEqual(he[0], key));
+
+	if (pair) {
+		return pair[1];
+	} else {
+		return undefined;
+	}
+}
+
 export function mode (arg) {
 	const hist = histogram(arg);
 
