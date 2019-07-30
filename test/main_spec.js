@@ -1081,6 +1081,7 @@ describe('App', () => {
 		});
 	});
 
+
 	// Tests for objects.js :
 
 	describe('clone Test', () => {
@@ -1171,7 +1172,7 @@ describe('App', () => {
 		});
 	});
 
-	describe('copySpecifiedObjectProperties Test', () => {
+	describe('getProperty Test', () => {
 		it('Rocks!', done => {
 			// Arrange
 			const input = { subObject1a: { subEntity1aa: '1aa', subEntity1ab: '1ab' }, subObject1b: { subEntity1ba: '1ba' } };
@@ -1192,4 +1193,249 @@ describe('App', () => {
 			done();
 		});
 	});
+
+	describe('combineObjects Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const input = [
+				{
+					w: 1,
+					x: 2
+				},
+				{
+					x: 2,
+					y: 3
+				},
+				{
+					w: 7,
+					z: 13
+				}
+			];
+			const expectedResult = {
+				w: 7,
+				x: 2,
+				y: 3,
+				z: 13
+			};
+
+			// Act
+			const actualResult1 = commonUtilities.combineObjects(...input);
+			const actualResult2 = commonUtilities.combineObjects(input[0], input[1], input[2]);
+
+			// Assert
+			assert.deepEqual(actualResult1, expectedResult);
+			assert.deepEqual(actualResult2, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('deleteUndefinedValuesFromObject Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const input = {
+				a: 1,
+				b: undefined,
+				c: null,
+				d: 'Foo'
+			};
+			const expectedResult = {
+				a: 1,
+				c: null,
+				d: 'Foo'
+			};
+
+			// Act
+			const actualResult = commonUtilities.deleteUndefinedValuesFromObject(input);
+
+			// Assert
+			assert.deepEqual(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
+	/*
+	// Tests for sets.js :
+
+	test24: test => {
+		test.expect(2);
+		test.deepEqual(
+			commonUtilities.getAllSubsets([1, 2, 3]),
+			[[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]],
+			'Should be [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]]');
+		test.deepEqual(
+			commonUtilities.getAllSubsets([1, 2, 3], true),
+			[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
+			'Should be [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]');
+		test.done();
+	},
+	test25: test => {
+		test.expect(1);
+		test.equal(
+			commonUtilities.areSetsEqual([1, 2, 3], [3, 1, 2]), true, 'Should be true');
+		test.done();
+	},
+	test35: test => {
+		const input = [
+			['a', 'b', 'c'],
+			['a', 'c', 'e'],
+			['c', 'e', 'z']
+		];
+		const expectedResult = ['a', 'b', 'c', 'e', 'z'];
+
+		test.expect(2);
+		// From https://github.com/caolan/nodeunit :
+		// deepEqual(actual, expected, [message]) - Tests for deep equality.
+		test.deepEqual(
+			commonUtilities.union(...input),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.deepEqual(
+			commonUtilities.union(input[0], input[1], input[2]),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
+	},
+	test_intersection: test => {
+		const input = [
+			['a', 'b', 'c', 'd', 'e', 'f'],
+			['b', 'c', 'd', 'e'],
+			['b', 'd', 'f']
+		];
+		const expectedResult = ['b', 'd'];
+
+		test.expect(2);
+		test.deepEqual(
+			commonUtilities.intersection(...input),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.deepEqual(
+			commonUtilities.intersection(input[0], input[1], input[2]),
+			expectedResult,
+			`Should be ${expectedResult}`);
+		test.done();
+	},
+
+	// Tests for strings.js :
+
+	test5: function (test) {
+		test.expect(1);
+		test.deepEqual(commonUtilities.replicateString('abc', 4), 'abcabcabcabc', 'Should be \'abcabcabcabc\'');
+		test.done();
+	},
+
+	// Tests for types.js :
+
+	test2: function (test) {
+		const arrayOfNumbers = [2, 3, 5, 7];
+
+		test.expect(30);
+		test.equal(commonUtilities.getTypeString(undefined), '[object Undefined]', 'Should be \'[object Undefined]\'');
+
+		// The six 'falsy' values in JavaScript:
+		// console.log(`commonUtilities.getTypeString(undefined) is ${commonUtilities.getTypeString(undefined)}`);
+		test.equal(commonUtilities.isDefined(undefined), false, 'Should be false');
+		test.equal(commonUtilities.isDefined(null), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(0), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(NaN), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(''), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(false), true, 'Should be true');
+
+		test.equal(commonUtilities.isDefined([]), true, 'Should be true');
+		test.equal(commonUtilities.isDefined({}), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(/abc/), true, 'Should be true');
+
+		//
+
+		let foo;
+
+		test.equal(commonUtilities.isDefined(foo), false, 'Should be false');
+		foo = 0;
+		test.equal(commonUtilities.isDefined(foo), true, 'Should be true');
+
+		foo = { key1: 'value1' };
+		test.equal(commonUtilities.isDefined(foo.key1), true, 'Should be true');
+		// test.equal(commonUtilities.isDefined(foo['key1']), true, 'Should be true');
+		test.equal(commonUtilities.isDefined(foo.key2), false, 'Should be false');
+		// test.equal(commonUtilities.isDefined(foo['key2']), false, 'Should be false');
+
+		//
+
+		test.equal(commonUtilities.getTypeString(new Date()), '[object Date]', 'Should be \'[object Date]\'');
+		test.equal(commonUtilities.isDate(new Date()), true, 'Should be true');
+		test.equal(commonUtilities.getTypeString(arrayOfNumbers), '[object Array]', 'Should be \'[object Array]\'');
+		test.equal(commonUtilities.isArray(arrayOfNumbers), true, 'Should be true');
+		test.equal(commonUtilities.getTypeString(arrayOfNumbers[0]), '[object Number]', 'Should be \'[object Number]\'');
+		test.equal(commonUtilities.isNumber(arrayOfNumbers[0]), true, 'Should be true');
+		test.equal(commonUtilities.isNumber(NaN), false, 'Should be false');
+		test.equal(commonUtilities.isNumber(Infinity), true, 'Should be true');
+		// test.equal(commonUtilities.isNumber(Epsilon), true, 'Should be true');
+		test.equal(commonUtilities.getTypeString((a, b) => a + b), '[object Function]', 'Should be \'[object Function]\'');
+		test.equal(commonUtilities.isFunction((a, b) => a + b), true, 'Should be true');
+		test.equal(commonUtilities.getTypeString({ a: 1, b: 'two' }), '[object Object]', 'Should be \'[object Object]\'');
+		test.equal(commonUtilities.isObject({ a: 1, b: 'two' }), true, 'Should be true');
+		test.equal(commonUtilities.getTypeString(/^[0-9]+$/), '[object RegExp]', 'Should be \'[object RegExp]\'');
+		test.equal(commonUtilities.isRegularExpression(/^[0-9]+$/), true, 'Should be true');
+		test.equal(commonUtilities.getTypeString('Hello world!'), '[object String]', 'Should be \'[object String]\'');
+		test.equal(commonUtilities.isString('Hello world!'), true, 'Should be true');
+		test.done();
+	},
+	test17: test => {
+		test.expect(9);
+		test.equal(commonUtilities.isArray([]), true, 'Should be true');
+		test.equal(commonUtilities.isArray([1, 2, 3]), true, 'Should be true');
+		test.equal(commonUtilities.isArray(undefined), false, 'Should be false');
+		test.equal(commonUtilities.isArray(null), false, 'Should be false');
+		test.equal(commonUtilities.isArray(true), false, 'Should be false');
+		test.equal(commonUtilities.isArray(0), false, 'Should be false');
+		test.equal(commonUtilities.isArray(/abc/), false, 'Should be false');
+		test.equal(commonUtilities.isArray({}), false, 'Should be false');
+		test.equal(commonUtilities.isArray('abc'), false, 'Should be false');
+		test.done();
+	},
+	test18: test => {
+		test.expect(4);
+		test.equal(commonUtilities.isArrayOfNumbers([]), true, 'Should be true');
+		test.equal(commonUtilities.isArrayOfNumbers([1, 2.5, -3]), true, 'Should be true');
+		test.equal(commonUtilities.isArrayOfNumbers(['abc']), false, 'Should be false');
+		test.equal(commonUtilities.isArrayOfNumbers([1, 2, 3, false]), false, 'Should be false');
+		test.done();
+	}
+	 */
 });
+
+// TODO: Tests to write:
+
+// categorizeArrayElementsByFunction
+// categorizeArrayElementsByProperty
+// cloneArray
+// createArrayFromElement
+// findSuperlativeElement
+// getLastElementOfArray
+// getRandomArrayElement
+// isArrayInDecreasingOrder
+// isArrayInIncreasingOrder
+// isArrayInNonIncreasingOrder
+
+// asyncForEach
+// asyncMap
+
+// getDateString
+// getDateUTCString
+// getDateTimeUTCString
+
+// booleanInvertFunction
+// compositeFunctions
+// identityFunction
+
+// additiveIdentity,
+// aToThePowerOfB,
+// factory_fnRoundToNDigits,
+// fnAddition,
+// fnMultiplication,
+// multiplicativeIdentity,
+// standardDeviation,
+// tenToThePowerOfN,
+
+// isSubset
