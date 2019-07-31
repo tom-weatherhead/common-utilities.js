@@ -1255,154 +1255,186 @@ describe('App', () => {
 		});
 	});
 
-	/*
 	// Tests for sets.js :
 
-	test24: test => {
-		test.expect(2);
-		test.deepEqual(
-			commonUtilities.getAllSubsets([1, 2, 3]),
-			[[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]],
-			'Should be [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]]');
-		test.deepEqual(
-			commonUtilities.getAllSubsets([1, 2, 3], true),
-			[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
-			'Should be [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]');
-		test.done();
-	},
-	test25: test => {
-		test.expect(1);
-		test.equal(
-			commonUtilities.areSetsEqual([1, 2, 3], [3, 1, 2]), true, 'Should be true');
-		test.done();
-	},
-	test35: test => {
-		const input = [
-			['a', 'b', 'c'],
-			['a', 'c', 'e'],
-			['c', 'e', 'z']
-		];
-		const expectedResult = ['a', 'b', 'c', 'e', 'z'];
+	describe('getAllSubsets Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const inputArray = [1, 2, 3];
+			const expectedResult1 = [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]];
+			const expectedResult2 = [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]];
 
-		test.expect(2);
-		// From https://github.com/caolan/nodeunit :
-		// deepEqual(actual, expected, [message]) - Tests for deep equality.
-		test.deepEqual(
-			commonUtilities.union(...input),
-			expectedResult,
-			`Should be ${expectedResult}`);
-		test.deepEqual(
-			commonUtilities.union(input[0], input[1], input[2]),
-			expectedResult,
-			`Should be ${expectedResult}`);
-		test.done();
-	},
-	test_intersection: test => {
-		const input = [
-			['a', 'b', 'c', 'd', 'e', 'f'],
-			['b', 'c', 'd', 'e'],
-			['b', 'd', 'f']
-		];
-		const expectedResult = ['b', 'd'];
+			// Act
+			const actualResult1 = commonUtilities.getAllSubsets(inputArray);
+			const actualResult2 = commonUtilities.getAllSubsets(inputArray, true);
 
-		test.expect(2);
-		test.deepEqual(
-			commonUtilities.intersection(...input),
-			expectedResult,
-			`Should be ${expectedResult}`);
-		test.deepEqual(
-			commonUtilities.intersection(input[0], input[1], input[2]),
-			expectedResult,
-			`Should be ${expectedResult}`);
-		test.done();
-	},
+			// Assert
+			assert.deepEqual(actualResult1, expectedResult1);
+			assert.deepEqual(actualResult2, expectedResult2);
+
+			done();
+		});
+	});
+
+	describe('areSetsEqual Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const inputArray1 = [1, 2, 3];
+			const inputArray2 = [3, 1, 2];
+			const expectedResult = true;
+
+			// Act
+			const actualResult = commonUtilities.areSetsEqual(inputArray1, inputArray2);
+
+			// Assert
+			assert.equal(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('union Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const inputArray = [
+				['a', 'b', 'c'],
+				['a', 'c', 'e'],
+				['c', 'e', 'z']
+			];
+			const expectedResult = ['a', 'b', 'c', 'e', 'z'];
+
+			// Act
+			const actualResult1 = commonUtilities.union(...inputArray);
+			const actualResult2 = commonUtilities.union(inputArray[0], inputArray[1], inputArray[2]);
+
+			// Assert
+			assert.deepEqual(actualResult1, expectedResult);
+			assert.deepEqual(actualResult2, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('intersection Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const inputArray = [
+				['a', 'b', 'c', 'd', 'e', 'f'],
+				['b', 'c', 'd', 'e'],
+				['b', 'd', 'f']
+			];
+			const expectedResult = ['b', 'd'];
+
+			// Act
+			const actualResult1 = commonUtilities.intersection(...inputArray);
+			const actualResult2 = commonUtilities.intersection(inputArray[0], inputArray[1], inputArray[2]);
+
+			// Assert
+			assert.deepEqual(actualResult1, expectedResult);
+			assert.deepEqual(actualResult2, expectedResult);
+
+			done();
+		});
+	});
 
 	// Tests for strings.js :
 
-	test5: function (test) {
-		test.expect(1);
-		test.deepEqual(commonUtilities.replicateString('abc', 4), 'abcabcabcabc', 'Should be \'abcabcabcabc\'');
-		test.done();
-	},
+	describe('replicateString Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const inputString = 'abc';
+			const inputNumber = 4;
+			const expectedResult = 'abcabcabcabc';
+
+			// Act
+			const actualResult = commonUtilities.replicateString(inputString, inputNumber);
+
+			// Assert
+			assert.equal(actualResult, expectedResult);
+
+			done();
+		});
+	});
 
 	// Tests for types.js :
 
-	test2: function (test) {
-		const arrayOfNumbers = [2, 3, 5, 7];
+	describe('Type Tests', () => {
+		it('Rocks!', done => {
+			let undefinedVar;
+			const definedVar = 0;
+			const testDate = new Date();
+			const testArrayOfNumbers = [2, 3, 5, 7];
+			const testObject = { key1: 'value1', key3: 3 };
+			const testFunction = (a, b) => a + b;
+			const testRegularExpression = /^[0-9]+$/;
+			const testString = 'Hello world!';
 
-		test.expect(30);
-		test.equal(commonUtilities.getTypeString(undefined), '[object Undefined]', 'Should be \'[object Undefined]\'');
+			assert.equal(commonUtilities.getTypeString(undefined), '[object Undefined]');
 
-		// The six 'falsy' values in JavaScript:
-		// console.log(`commonUtilities.getTypeString(undefined) is ${commonUtilities.getTypeString(undefined)}`);
-		test.equal(commonUtilities.isDefined(undefined), false, 'Should be false');
-		test.equal(commonUtilities.isDefined(null), true, 'Should be true');
-		test.equal(commonUtilities.isDefined(0), true, 'Should be true');
-		test.equal(commonUtilities.isDefined(NaN), true, 'Should be true');
-		test.equal(commonUtilities.isDefined(''), true, 'Should be true');
-		test.equal(commonUtilities.isDefined(false), true, 'Should be true');
+			// The six 'falsy' values in JavaScript:
+			assert.equal(commonUtilities.isDefined(undefined), false);
+			assert.equal(commonUtilities.isDefined(null), true);
+			assert.equal(commonUtilities.isDefined(0), true);
+			assert.equal(commonUtilities.isDefined(NaN), true);
+			assert.equal(commonUtilities.isDefined(''), true);
+			assert.equal(commonUtilities.isDefined(false), true);
 
-		test.equal(commonUtilities.isDefined([]), true, 'Should be true');
-		test.equal(commonUtilities.isDefined({}), true, 'Should be true');
-		test.equal(commonUtilities.isDefined(/abc/), true, 'Should be true');
+			assert.equal(commonUtilities.isDefined([]), true);
+			assert.equal(commonUtilities.isDefined({}), true);
+			assert.equal(commonUtilities.isDefined(/abc/), true);
+			assert.equal(commonUtilities.isDefined(undefinedVar), false);
+			assert.equal(commonUtilities.isDefined(definedVar), true);
+			assert.equal(commonUtilities.isDefined(testObject.key1), true);
+			assert.equal(commonUtilities.isDefined(testObject.key2), false);
 
-		//
+			assert.equal(commonUtilities.getTypeString(testDate), '[object Date]');
+			assert.equal(commonUtilities.isDate(testDate), true);
+			assert.equal(commonUtilities.getTypeString(testArrayOfNumbers), '[object Array]');
+			assert.equal(commonUtilities.isArray(testArrayOfNumbers), true);
+			assert.equal(commonUtilities.getTypeString(testArrayOfNumbers[0]), '[object Number]');
+			assert.equal(commonUtilities.isNumber(testArrayOfNumbers[0]), true);
+			assert.equal(commonUtilities.isNumber(NaN), false);
+			assert.equal(commonUtilities.isNumber(Infinity), true);
+			assert.equal(commonUtilities.isNumber(Number.EPSILON), true);
+			assert.equal(commonUtilities.getTypeString(testFunction), '[object Function]');
+			assert.equal(commonUtilities.isFunction(testFunction), true);
+			assert.equal(commonUtilities.getTypeString(testObject), '[object Object]');
+			assert.equal(commonUtilities.isObject(testObject), true);
+			assert.equal(commonUtilities.getTypeString(testRegularExpression), '[object RegExp]');
+			assert.equal(commonUtilities.isRegularExpression(testRegularExpression), true);
+			assert.equal(commonUtilities.getTypeString(testString), '[object String]');
+			assert.equal(commonUtilities.isString(testString), true);
 
-		let foo;
+			done();
+		});
+	});
 
-		test.equal(commonUtilities.isDefined(foo), false, 'Should be false');
-		foo = 0;
-		test.equal(commonUtilities.isDefined(foo), true, 'Should be true');
+	describe('isArray Tests', () => {
+		it('Rocks!', done => {
+			assert.equal(commonUtilities.isArray([]), true);
+			assert.equal(commonUtilities.isArray([1, 2, 3]), true);
+			assert.equal(commonUtilities.isArray(undefined), false);
+			assert.equal(commonUtilities.isArray(null), false);
+			assert.equal(commonUtilities.isArray(true), false);
+			assert.equal(commonUtilities.isArray(0), false);
+			assert.equal(commonUtilities.isArray(/abc/), false);
+			assert.equal(commonUtilities.isArray({}), false);
+			assert.equal(commonUtilities.isArray('abc'), false);
 
-		foo = { key1: 'value1' };
-		test.equal(commonUtilities.isDefined(foo.key1), true, 'Should be true');
-		// test.equal(commonUtilities.isDefined(foo['key1']), true, 'Should be true');
-		test.equal(commonUtilities.isDefined(foo.key2), false, 'Should be false');
-		// test.equal(commonUtilities.isDefined(foo['key2']), false, 'Should be false');
+			done();
+		});
+	});
 
-		//
+	describe('isArrayOfNumbers Tests', () => {
+		it('Rocks!', done => {
+			assert.equal(commonUtilities.isArrayOfNumbers([]), true);
+			assert.equal(commonUtilities.isArrayOfNumbers([1, 2.5, -3]), true);
+			assert.equal(commonUtilities.isArrayOfNumbers(['abc']), false);
+			assert.equal(commonUtilities.isArrayOfNumbers([1, 2, 3, false]), false);
 
-		test.equal(commonUtilities.getTypeString(new Date()), '[object Date]', 'Should be \'[object Date]\'');
-		test.equal(commonUtilities.isDate(new Date()), true, 'Should be true');
-		test.equal(commonUtilities.getTypeString(arrayOfNumbers), '[object Array]', 'Should be \'[object Array]\'');
-		test.equal(commonUtilities.isArray(arrayOfNumbers), true, 'Should be true');
-		test.equal(commonUtilities.getTypeString(arrayOfNumbers[0]), '[object Number]', 'Should be \'[object Number]\'');
-		test.equal(commonUtilities.isNumber(arrayOfNumbers[0]), true, 'Should be true');
-		test.equal(commonUtilities.isNumber(NaN), false, 'Should be false');
-		test.equal(commonUtilities.isNumber(Infinity), true, 'Should be true');
-		// test.equal(commonUtilities.isNumber(Epsilon), true, 'Should be true');
-		test.equal(commonUtilities.getTypeString((a, b) => a + b), '[object Function]', 'Should be \'[object Function]\'');
-		test.equal(commonUtilities.isFunction((a, b) => a + b), true, 'Should be true');
-		test.equal(commonUtilities.getTypeString({ a: 1, b: 'two' }), '[object Object]', 'Should be \'[object Object]\'');
-		test.equal(commonUtilities.isObject({ a: 1, b: 'two' }), true, 'Should be true');
-		test.equal(commonUtilities.getTypeString(/^[0-9]+$/), '[object RegExp]', 'Should be \'[object RegExp]\'');
-		test.equal(commonUtilities.isRegularExpression(/^[0-9]+$/), true, 'Should be true');
-		test.equal(commonUtilities.getTypeString('Hello world!'), '[object String]', 'Should be \'[object String]\'');
-		test.equal(commonUtilities.isString('Hello world!'), true, 'Should be true');
-		test.done();
-	},
-	test17: test => {
-		test.expect(9);
-		test.equal(commonUtilities.isArray([]), true, 'Should be true');
-		test.equal(commonUtilities.isArray([1, 2, 3]), true, 'Should be true');
-		test.equal(commonUtilities.isArray(undefined), false, 'Should be false');
-		test.equal(commonUtilities.isArray(null), false, 'Should be false');
-		test.equal(commonUtilities.isArray(true), false, 'Should be false');
-		test.equal(commonUtilities.isArray(0), false, 'Should be false');
-		test.equal(commonUtilities.isArray(/abc/), false, 'Should be false');
-		test.equal(commonUtilities.isArray({}), false, 'Should be false');
-		test.equal(commonUtilities.isArray('abc'), false, 'Should be false');
-		test.done();
-	},
-	test18: test => {
-		test.expect(4);
-		test.equal(commonUtilities.isArrayOfNumbers([]), true, 'Should be true');
-		test.equal(commonUtilities.isArrayOfNumbers([1, 2.5, -3]), true, 'Should be true');
-		test.equal(commonUtilities.isArrayOfNumbers(['abc']), false, 'Should be false');
-		test.equal(commonUtilities.isArrayOfNumbers([1, 2, 3, false]), false, 'Should be false');
-		test.done();
-	}
-	 */
+			done();
+		});
+	});
 });
 
 // TODO: Tests to write:
