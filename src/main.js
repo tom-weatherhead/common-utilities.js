@@ -105,7 +105,8 @@ import {
 	copySpecifiedObjectProperties,
 	deleteUndefinedValuesFromObject,
 	getOwnProperties,
-	getProperty
+	getProperty,
+	overwriteSomeProperties
 } from './objects.js';
 
 import {
@@ -121,10 +122,13 @@ import {
 } from './strings.js';
 
 import {
+	areTypesEqual,
 	getTypeString,
 	ifDefinedElse,
+	isAggregateEntity,
 	isArray,
 	isArrayOfNumbers,
+	isBoolean,
 	isDate,
 	isDefined,
 	isFunction,
@@ -252,6 +256,7 @@ export {
 	deleteUndefinedValuesFromObject,
 	getOwnProperties,
 	getProperty,
+	overwriteSomeProperties,
 
 	// Sets
 	areSetsEqual,
@@ -264,10 +269,13 @@ export {
 	replicateString,
 
 	// Types
+	areTypesEqual,
 	getTypeString,
 	ifDefinedElse,
+	isAggregateEntity,
 	isArray,
 	isArrayOfNumbers,
+	isBoolean,
 	isDate,
 	isDefined,
 	isFunction,

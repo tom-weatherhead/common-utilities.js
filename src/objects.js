@@ -3,7 +3,11 @@
 'use strict';
 
 import {
-	isDefined
+	areTypesEqual,
+	isAggregateEntity,
+	isDefined,
+	isNumber,
+	isObject
 } from './types.js';
 
 export function clone (arg) {
@@ -94,3 +98,65 @@ export function deleteUndefinedValuesFromObject (obj) {
 
 	return obj;
 }
+
+export function followPropertyNamePath (obj = {}, propertyNames = [], defaultValue) {
+
+	for (var i = 0; i < propertyNames.length; i++) {
+
+		if (!isObject(obj)) {
+			return defaultValue;
+		}
+
+		obj = obj[propertyNames[i]];
+	}
+
+	if (!isDefined(obj)) {
+		return defaultValue;
+	}
+
+	return obj;
+}
+
+export function overwriteSomeProperties (obj1, obj2) {
+	let result = clone(obj1);
+	const obj2OwnProperties = getOwnProperties(obj2);
+
+	obj2OwnProperties.forEach(prop => {
+
+		if (!isAggregateEntity(obj2[prop])) {
+			// If result and obj2 are both arrays, do not allow result to be shortened.
+
+			if (prop !== 'length' || !isNumber(result.length) || !isNumber(obj2.length) || result.length < obj2.length) {
+				result[prop] = obj2[prop];
+			}
+		} else if (!areTypesEqual(result[prop], obj2[prop])) {
+			result[prop] = clone(obj2[prop]);
+		} else {
+			result[prop] = overwriteSomeProperties(result[prop], obj2[prop]);
+		}
+	});
+
+	return result;
+}
+
+/*
+export function overwriteSomePropertiesAlt1 (obj1, obj2) {
+	return getOwnProperties(obj2).reduce(
+		(accumulator, element) => { // element is the name of a property in obj2
+
+			if (!isAggregateEntity(obj2[element])) {
+				// If accumulator and obj2 are both arrays, do not allow accumulator to be shortened.
+
+				if (element !== 'length' || !isNumber(accumulator.length) || !isNumber(obj2.length) || result.length < obj2.length) {
+					accumulator[element] = obj2[element];
+				}
+			} else if (!areTypesEqual(accumulator[element], obj2[element])) {
+				accumulator[element] = clone(obj2[element]);
+			} else {
+				accumulator[element] = overwriteSomeProperties(accumulator[element], obj2[element]);
+			}
+		},
+		clone(obj1)
+	);
+}
+ */

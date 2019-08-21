@@ -11,6 +11,10 @@ export function getTypeString (obj) {
 	return Object.prototype.toString.call(obj);
 }
 
+export function areTypesEqual (obj1, obj2) {
+	return getTypeString(obj1) === getTypeString(obj2);
+}
+
 function factory_fnIsType (typeName) {
 	return arg => getTypeString(arg) === `[object ${typeName}]`;
 }
@@ -31,6 +35,8 @@ export const isDefined = compositeFunctions([isUndefined, booleanInvertFunction]
 
 export const isArray = factory_fnIsType('Array');
 
+export const isBoolean = factory_fnIsType('Boolean');
+
 export const isDate = factory_fnIsType('Date');
 
 export const isFunction = factory_fnIsType('Function');
@@ -49,5 +55,7 @@ export const isArrayOf = (arg, fn) => isArray(arg) && arg.every(fn);
 
 // export const isArrayOfNumbers = arg => isArray(arg) && arg.every(isNumber);
 export const isArrayOfNumbers = arg => isArrayOf(arg, isNumber);
+
+export const isAggregateEntity = arg => isArray(arg) || isObject(arg);
 
 export const ifDefinedElse = (arg, dflt) => isDefined(arg) ? arg : dflt;

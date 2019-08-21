@@ -1,4 +1,4 @@
-// tom-weatherhead/common-utilities.js/test/main_test.js
+// tom-weatherhead/common-utilities.js/test/main_spec.js
 
 // Unit test specifications for Mocha
 
@@ -1255,6 +1255,82 @@ describe('App', () => {
 		});
 	});
 
+	describe('overwriteSomeProperties Test 1', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const input1 = {
+				a: 1,
+				b: 2
+			};
+			const input2 = {
+				a: 4,
+				c: 3
+			};
+			const expectedResult = {
+				a: 4,
+				b: 2,
+				c: 3
+			};
+
+			// Act
+			const actualResult = commonUtilities.overwriteSomeProperties(input1, input2);
+
+			// Assert
+			assert.deepEqual(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('overwriteSomeProperties Test 2', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const input1 = {
+				a: 1,
+				b: 2,
+				d: [2, 3, 5],
+				e: [23, 29, 31, 37, 41],
+				f: /abc/,
+				g: {
+					foo1: 'bar1',
+					foo2: 'bar2',
+					foo3: 'bar3'
+				}
+			};
+			const input2 = {
+				a: 4,
+				c: 3,
+				d: [12, 13, 15, 17, 21],
+				e: [123, 129, 131],
+				f: [1, 1, 2, 3],
+				g: {
+					foo2: 'abc2'
+				}
+			};
+			const expectedResult = {
+				a: 4,
+				b: 2,
+				c: 3,
+				d: [12, 13, 15, 17, 21],
+				e: [123, 129, 131, 37, 41],
+				f: [1, 1, 2, 3],
+				g: {
+					foo1: 'bar1',
+					foo2: 'abc2',
+					foo3: 'bar3'
+				}
+			};
+
+			// Act
+			const actualResult = commonUtilities.overwriteSomeProperties(input1, input2);
+
+			// Assert
+			assert.deepEqual(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
 	// Tests for sets.js :
 
 	describe('getAllSubsets Test', () => {
@@ -1391,11 +1467,21 @@ describe('App', () => {
 			assert.equal(commonUtilities.isDate(testDate), true);
 			assert.equal(commonUtilities.getTypeString(testArrayOfNumbers), '[object Array]');
 			assert.equal(commonUtilities.isArray(testArrayOfNumbers), true);
+			assert.equal(commonUtilities.isArrayOfNumbers(testArrayOfNumbers), true);
 			assert.equal(commonUtilities.getTypeString(testArrayOfNumbers[0]), '[object Number]');
 			assert.equal(commonUtilities.isNumber(testArrayOfNumbers[0]), true);
 			assert.equal(commonUtilities.isNumber(NaN), false);
 			assert.equal(commonUtilities.isNumber(Infinity), true);
 			assert.equal(commonUtilities.isNumber(Number.EPSILON), true);
+			assert.equal(commonUtilities.getTypeString(false), '[object Boolean]');
+			assert.equal(commonUtilities.getTypeString(true), '[object Boolean]');
+			assert.equal(commonUtilities.isBoolean(false), true);
+			assert.equal(commonUtilities.isBoolean(true), true);
+			assert.equal(commonUtilities.isBoolean(null), false);
+			assert.equal(commonUtilities.isBoolean(undefined), false);
+			assert.equal(commonUtilities.isBoolean(0), false);
+			assert.equal(commonUtilities.isBoolean(1), false);
+			assert.equal(commonUtilities.isBoolean(NaN), false);
 			assert.equal(commonUtilities.getTypeString(testFunction), '[object Function]');
 			assert.equal(commonUtilities.isFunction(testFunction), true);
 			assert.equal(commonUtilities.getTypeString(testObject), '[object Object]');

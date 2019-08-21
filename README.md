@@ -1,11 +1,10 @@
-# common-utilities.js
+# thaw-common-utilities.js
 Common JavaScript utility functions
 
 [![Build Status](https://secure.travis-ci.org/tom-weatherhead/common-utilities.js.svg)](https://travis-ci.org/tom-weatherhead/common-utilities.js)
 [![npm](https://img.shields.io/npm/v/thaw-common-utilities.js.svg)](https://www.npmjs.com/package/thaw-common-utilities.js)
-[![npm](https://img.shields.io/npm/dm/thaw-common-utilities.js.svg)](https://www.npmjs.com/package/thaw-common-utilities.js)
+[![npm](https://img.shields.io/npm/dt/thaw-common-utilities.js.svg)](https://www.npmjs.com/package/thaw-common-utilities.js)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tom-weatherhead/common-utilities.js/blob/master/LICENSE)
-[![Coverage Status](https://coveralls.io/repos/github/tom-weatherhead/common-utilities.js/badge.svg)](https://coveralls.io/github/tom-weatherhead/common-utilities.js)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b3552ee42819a985d7a7/maintainability)](https://codeclimate.com/github/tom-weatherhead/common-utilities.js/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/tom-weatherhead/common-utilities.js/badge.svg?targetFile=package.json&package-lock.json)](https://snyk.io/test/github/tom-weatherhead/common-utilities.js?targetFile=package.json&package-lock.json)
 
@@ -22,25 +21,26 @@ npm install --save thaw-common-utilities.js
 bubbleSort(array: number[]) : number[]
 categorizeArrayElementsByFunction
 categorizeArrayElementsByProperty
-cloneArray
-createArrayFromElement(element: any, length: number = 1, accumulator: any[] = []): any[]
-findSuperlativeElement
+cloneArray(a: T[]): T[]
+createArrayFromElement(element: T, length: number = 1, accumulator: T[] = []): T[]
+doesConsecutiveElementsConditionHold(a: T[], fn: (T, T) -> boolean, defaultResult: boolean = true) : boolean
+findSuperlativeElement(a: T[], fn: (T, T) -> T) : T
 flattenAllLevels(a: any[], b: any[] = []): any[]
 flattenOneLevel(a: any[], b: any[] = []): any[]
 generateHierarchyOfLocalMaximaAndMinima
-getLastElementOfArray
-getRandomArrayElement
+getLastElementOfArray(a: T[]) : T
+getRandomArrayElement(a: T[]) : T
 heapSort(array: number[]) : number[]
 insertionSort(array: number[]) : number[]
 insertNumberIntoArray(n: number, array: number[]) : number[]
-isArrayInDecreasingOrder
-isArrayInIncreasingOrder
-isArrayInNonDecreasingOrder
-isArrayInNonIncreasingOrder
-max
+isArrayInDecreasingOrder(a: T[]) : boolean
+isArrayInIncreasingOrder(a: T[]) : boolean
+isArrayInNonDecreasingOrder(a: T[]) : boolean
+isArrayInNonIncreasingOrder(a: T[]) : boolean
+max(a: T[]) : T
 mergeSort(array: number[]) : number[]
-mergeTwoSortedArrays
-min
+mergeTwoSortedArrays(a: T[], b: T[]) : T[]
+min(a: T[]) : T
 quickSort(array: number[]) : number[]
 removeDuplicatesFromArray(array: any[]) : any[]
 ```
@@ -124,6 +124,7 @@ copySpecifiedObjectProperties(propertyList: string[], src: object, dst: object =
 deleteUndefinedValuesFromObject(obj: object) : object
 getOwnProperties(obj: object = {}) : string[]
 getProperty(obj: object, propertyPath: string, defaultValue: any) : any
+overwriteSomeProperties (obj1: object, obj2: object) : object
 ```
 
 ### Sets
@@ -142,8 +143,10 @@ replicateString(str: string, n: number) : string
 
 ### Types
 ```
+areTypesEqual (arg1: any, arg2: any) : boolean
 getTypeString(arg: any) : string
 ifDefinedElse(arg: any, dflt: any) : any
+isAggregateEntity(arg: any) : boolean
 isArray(arg: any) : boolean
 isArrayOfNumbers(arg: any) : boolean
 isDate(arg: any) : boolean
@@ -156,4 +159,4 @@ isString(arg: any) : boolean
 ```
 
 ## License
-MIT
+[MIT](https://choosealicense.com/licenses/mit/)
