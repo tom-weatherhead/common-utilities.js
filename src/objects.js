@@ -122,6 +122,7 @@ export function overwriteSomeProperties (obj1, obj2) {
 	const obj2OwnProperties = getOwnProperties(obj2);
 
 	obj2OwnProperties.forEach(prop => {
+		// TODO: Do nothing here if obj2[prop] is undefined.
 
 		if (!isAggregateEntity(obj2[prop])) {
 			// If result and obj2 are both arrays, do not allow result to be shortened.
@@ -143,6 +144,7 @@ export function overwriteSomeProperties (obj1, obj2) {
 export function overwriteSomePropertiesAlt1 (obj1, obj2) {
 	return getOwnProperties(obj2).reduce(
 		(accumulator, element) => { // element is the name of a property in obj2
+			// TODO: Do nothing here if obj2[prop] is undefined.
 
 			if (!isAggregateEntity(obj2[element])) {
 				// If accumulator and obj2 are both arrays, do not allow accumulator to be shortened.
@@ -155,6 +157,8 @@ export function overwriteSomePropertiesAlt1 (obj1, obj2) {
 			} else {
 				accumulator[element] = overwriteSomeProperties(accumulator[element], obj2[element]);
 			}
+
+			return accumulator;
 		},
 		clone(obj1)
 	);
