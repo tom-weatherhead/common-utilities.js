@@ -354,6 +354,28 @@ describe('App', () => {
 		});
 	});
 
+	describe('createArrayFromElement Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const obj = 'A';
+			const length = 7;
+			const expectedResult = ['A', 'A', 'A', 'A', 'A', 'A', 'A'];
+
+			// Act
+			const actualResult = commonUtilities.createArrayFromElement(obj, length);
+
+			// Assert
+			assert.deepEqual(actualResult, expectedResult);
+
+			assert.equal(commonUtilities.createArrayFromElement('B'), null);
+			assert.equal(commonUtilities.createArrayFromElement('C', -1), null);
+			assert.deepEqual(commonUtilities.createArrayFromElement('D', 0), []);
+
+			done();
+		});
+	});
+
+
 	describe('createAndFillArray Test', () => {
 		it('Rocks!', done => {
 			// Arrange
@@ -379,6 +401,9 @@ describe('App', () => {
 
 			// Assert
 			assert.deepEqual(actualResult, expectedResult);
+
+			assert.equal(commonUtilities.createAndFillArray('B'), 'B');
+			assert.deepEqual(commonUtilities.createAndFillArray('C', 0), []);
 
 			done();
 		});
@@ -1566,7 +1591,6 @@ describe('App', () => {
 // categorizeArrayElementsByFunction
 // categorizeArrayElementsByProperty
 // cloneArray
-// createArrayFromElement
 // findSuperlativeElement
 // getLastElementOfArray
 // getRandomArrayElement

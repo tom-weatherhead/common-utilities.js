@@ -13,7 +13,8 @@ import {
 import {
 	isArray,
 	isArrayOfNumbers,
-	isFunction
+	isFunction,
+	isNumber
 } from './types.js';
 
 const fnIsLessThan = (x, y) => x < y;
@@ -32,15 +33,6 @@ export function cloneArray (array) {
 
 	// How about: return isArray(array) && array.slice(0); // ?
 	// Would undefined be returned if isArray(array) is falsy?
-}
-
-export function createArrayFromElement (element, length = 1, accumulator = []) {
-
-	if (length <= 0) {
-		return accumulator;
-	}
-
-	return createArrayFromElement(element, length - 1, [element, ...accumulator]);
 }
 
 function getSafeComparatorFunction (fnComparator) {
@@ -555,10 +547,25 @@ export function createAndFillArray (obj, ...dimensions) {
 	return result;
 }
 
+export function createArrayFromElement (element, length /* = 1, accumulator = [] */) {
+
+	// if (length <= 0) {
+	// 	return accumulator;
+	// }
+
+	// return createArrayFromElement(element, length - 1, [element, ...accumulator]);
+
+	if (!isNumber(length) || length < 0) {
+		return null;
+	}
+
+	return createAndFillArray(element, length);
+}
+
 export function normalizeArrayOfNumbers (array) {
 
 	if (!isArrayOfNumbers(array) || !array.length) {
-		return undefined;
+		return null;
 	}
 
 	const minValue = min(array);
@@ -566,7 +573,7 @@ export function normalizeArrayOfNumbers (array) {
 	const range = maxValue - minValue;
 
 	if (!range) {
-		return undefined;
+		return null;
 	}
 
 	return array.map(n => (n - minValue) / (maxValue - minValue));

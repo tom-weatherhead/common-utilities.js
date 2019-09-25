@@ -21,12 +21,13 @@ npm install --save thaw-common-utilities.js
 bubbleSort(array: number[]) : number[]
 categorizeArrayElementsByFunction
 categorizeArrayElementsByProperty
-cloneArray(a: T[]): T[]
-createArrayFromElement(element: T, length: number = 1, accumulator: T[] = []): T[]
+cloneArray(a: T[]) : T[]
+createAndFillArray(obj: T, ...dimensions: number[]) : T[]
+createArrayFromElement(element: T, length: number = 1, accumulator: T[] = []) : T[]
 doesConsecutiveElementsConditionHold(a: T[], fn: (T, T) -> boolean, defaultResult: boolean = true) : boolean
 findSuperlativeElement(a: T[], fn: (T, T) -> T) : T
-flattenAllLevels(a: any[], b: any[] = []): any[]
-flattenOneLevel(a: any[], b: any[] = []): any[]
+flattenAllLevels(a: any[], b: any[] = []) : any[]
+flattenOneLevel(a: any[], b: any[] = []) : any[]
 generateHierarchyOfLocalMaximaAndMinima
 getLastElementOfArray(a: T[]) : T
 getRandomArrayElement(a: T[]) : T
@@ -40,6 +41,7 @@ isArrayInNonIncreasingOrder(a: T[]) : boolean
 max(a: T[]) : T
 mergeSort(array: number[]) : number[]
 mergeTwoSortedArrays(a: T[], b: T[]) : T[]
+normalizeArrayOfNumbers(array: T[]) : T[]
 min(a: T[]) : T
 quickSort(array: number[]) : number[]
 removeDuplicatesFromArray(array: any[]) : any[]
