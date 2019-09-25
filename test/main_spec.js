@@ -4,14 +4,6 @@
 
 'use strict';
 
-// const chai = require('chai');
-// const chaiHttp = require('chai-http');
-
-// chai.use(chaiHttp);
-
-// const expect = chai.expect;
-// const assert = chai.assert;
-
 const assert = require('assert').strict;
 
 const commonUtilities = require('..');
@@ -357,6 +349,52 @@ describe('App', () => {
 
 			// Assert
 			assert.deepEqual(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('createAndFillArray Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const obj = 'A';
+			const dimension1 = 2;
+			const dimension2 = 3;
+			const dimension3 = 5;
+			const expectedResult = [
+				[
+					['A', 'A', 'A', 'A', 'A'],
+					['A', 'A', 'A', 'A', 'A'],
+					['A', 'A', 'A', 'A', 'A']
+				],
+				[
+					['A', 'A', 'A', 'A', 'A'],
+					['A', 'A', 'A', 'A', 'A'],
+					['A', 'A', 'A', 'A', 'A']
+				]
+			];
+
+			// Act
+			const actualResult = commonUtilities.createAndFillArray(obj, dimension1, dimension2, dimension3);
+
+			// Assert
+			assert.deepEqual(actualResult, expectedResult);
+
+			done();
+		});
+	});
+
+	describe('normalizeArrayOfNumbers Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const array1 = [4, 6, 8, 7, 5];
+			const expectedResult1 = [0, 0.5, 1, 0.75, 0.25];
+
+			// Act
+			const actualResult1 = commonUtilities.normalizeArrayOfNumbers(array1);
+
+			// Assert
+			assert.deepEqual(actualResult1, expectedResult1);
 
 			done();
 		});

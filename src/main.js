@@ -31,6 +31,7 @@ import {
 	mergeSort,
 	mergeTwoSortedArrays,
 	min,
+	normalizeArrayOfNumbers,
 	quickSort,
 	removeDuplicatesFromArray
 } from './arrays.js';
@@ -189,6 +190,7 @@ export {
 	mergeSort,
 	mergeTwoSortedArrays,
 	min,
+	normalizeArrayOfNumbers,
 	quickSort,
 	removeDuplicatesFromArray,
 

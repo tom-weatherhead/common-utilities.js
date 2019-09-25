@@ -12,6 +12,7 @@ import {
 
 import {
 	isArray,
+	isArrayOfNumbers,
 	isFunction
 } from './types.js';
 
@@ -533,25 +534,8 @@ export function generateHierarchyOfLocalMaximaAndMinima (array) {
 	return result;
 }
 
-// TODO: createAndFillArray(obj, d1, d2, d3, ... dn) :
-// - Create an n-dimensional array of size d1 x d2 x ... x dn, with all elements set to obj
-/*
-function createAndFillArray(obj, d1, d2, d3, ... dn) {
-	const result = [];
-
-	for (let i = 0; i < d1; i++) {
-
-		if (n > 1) {
-			result.push(createAndFillArray(obj, d2, d3, ... dn));
-		} else {
-			result.push(obj);
-		}
-	}
-
-	return result;
-}
-// Then use it to construct the initial board in othello-a-b-e
- */
+//  createAndFillArray(obj, d1, d2, d3, ... dn) :
+// Create an n-dimensional array of size d1 x d2 x ... x dn, with all elements set to obj
 
 export function createAndFillArray (obj, ...dimensions) {
 
@@ -569,4 +553,21 @@ export function createAndFillArray (obj, ...dimensions) {
 	dimensions.unshift(d1);
 
 	return result;
+}
+
+export function normalizeArrayOfNumbers (array) {
+
+	if (!isArrayOfNumbers(array) || !array.length) {
+		return undefined;
+	}
+
+	const minValue = min(array);
+	const maxValue = max(array);
+	const range = maxValue - minValue;
+
+	if (!range) {
+		return undefined;
+	}
+
+	return array.map(n => (n - minValue) / (maxValue - minValue));
 }
