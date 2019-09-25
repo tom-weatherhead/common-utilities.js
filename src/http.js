@@ -7,8 +7,8 @@
 
 'use strict';
 
-function sendHttpRequest_clientSideVersion (method, urlString, requestData = null, verbose = false) {
-	console.log(`verbose is ${verbose}`);
+function sendHttpRequest_clientSideVersion (method, urlString, requestData = null /* , verbose = false */) {
+	// console.log(`verbose is ${verbose}`);
 
 	return new Promise((resolve, reject) => {
 		const xmlhttp = new XMLHttpRequest();

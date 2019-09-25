@@ -25,7 +25,6 @@
 		POST Result: <span id="httpPostRequest_ResultID">Foo</span>
 		<br />
 
-		<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 		<script type="text/javascript" src="../dist/common-utilities.js"></script>
 
 		<script type="text/javascript">
@@ -33,7 +32,6 @@
 			const dateTimeString = thawCommonUtilities.getDateTimeString();
 
 			console.log('moduleTest() : getDateTimeString() : ', dateTimeString);
-			// $("#dateTimeStringID").html("dateTimeString: " + dateTimeString);
 			document.getElementById("dateTimeStringID").innerHTML = "dateTimeString: " + dateTimeString;
 
 			function sendHttpGetRequest() {
