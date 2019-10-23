@@ -1293,6 +1293,33 @@ describe('App', () => {
 		});
 	});
 
+	describe('containsCircularReference Test', () => {
+		it('Rocks!', done => {
+			// Arrange
+			const input1 = {};
+			const expectedResult1 = false;
+
+			const input2 = {};
+			input2.child = input2;
+			const expectedResult2 = true;
+
+			const input3 = /abc/;
+			const expectedResult3 = false;
+
+			// Act
+			const actualResult1 = commonUtilities.containsCircularReference(input1);
+			const actualResult2 = commonUtilities.containsCircularReference(input2);
+			const actualResult3 = commonUtilities.containsCircularReference(input3);
+
+			// Assert
+			assert.equal(actualResult1, expectedResult1);
+			assert.equal(actualResult2, expectedResult2);
+			assert.equal(actualResult3, expectedResult3);
+
+			done();
+		});
+	});
+
 	describe('deleteUndefinedValuesFromObject Test', () => {
 		it('Rocks!', done => {
 			// Arrange

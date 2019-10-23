@@ -164,3 +164,18 @@ export function overwriteSomePropertiesAlt1 (obj1, obj2) {
 	);
 }
  */
+
+export function containsCircularReference (obj, objsSeen = []) {
+
+	if (objsSeen.find(o => o === obj)) {
+		return true;
+	}
+
+	objsSeen.push(obj);
+
+	const result = Object.values(obj).some(subobj => containsCircularReference(subobj, objsSeen));
+
+	objsSeen.pop();
+
+	return result;
+}

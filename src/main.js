@@ -104,6 +104,7 @@ import {
 import {
 	clone,
 	combineObjects,
+	containsCircularReference,
 	copySpecifiedObjectProperties,
 	deleteUndefinedValuesFromObject,
 	getOwnProperties,
@@ -256,6 +257,7 @@ export {
 	// Objects
 	clone,
 	combineObjects,
+	containsCircularReference,
 	copySpecifiedObjectProperties,
 	deleteUndefinedValuesFromObject,
 	getOwnProperties,

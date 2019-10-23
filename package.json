@@ -3,7 +3,7 @@
 	"shortName": "common-utilities",
 	"description": "Common JavaScript utility functions",
 	"private": false,
-	"version": "0.0.25",
+	"version": "0.0.26",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tom-weatherhead/common-utilities.js.git"
@@ -25,7 +25,7 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"babel-mixin": "^0.0.6"
+		"babel-mixin": "^0.0.7"
 	},
 	"engineStrict": true,
 	"engines": {
