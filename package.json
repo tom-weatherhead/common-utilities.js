@@ -3,7 +3,7 @@
 	"shortName": "common-utilities",
 	"description": "Common JavaScript utility functions",
 	"private": false,
-	"version": "0.0.26",
+	"version": "0.0.27",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tom-weatherhead/common-utilities.js.git"
@@ -13,12 +13,16 @@
 		"url": "https://github.com/tom-weatherhead/common-utilities.js/issues"
 	},
 	"main": "dist/common-utilities",
+	"files": [
+		"dist/**/*"
+	],
 	"scripts": {
-		"build": "npm i && grunt && npm pack",
-		"buildw": "npm i & grunt & npm pack",
+		"all": "npm run rebuild",
+		"build": "npm i && grunt",
+		"buildw": "npm i & grunt",
 		"clean": "rm -rf node_modules && rm -f dist/* && rm -f package-lock.json",
 		"cleanw": "rmdir /Q /S node_modules & del /Q dist\\* & del package-lock.json",
-		"rebuild": "npm run clean & npm run build",
+		"rebuild": "npm run clean && npm run build",
 		"rebuildw": "npm run cleanw & npm run buildw",
 		"start": "grunt",
 		"test": "grunt test"
