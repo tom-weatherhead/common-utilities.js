@@ -29,7 +29,7 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"babel-mixin": "^0.0.7"
+		"babel-mixin": "^0.0.8"
 	},
 	"engineStrict": true,
 	"engines": {
