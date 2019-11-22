@@ -1,5 +1,5 @@
 {
-	"testRegex": "(/test/test\\.js$)",
+	"testRegex": "(/test/main_spec\\.js$)",
 	"moduleFileExtensions": ["js", "json"],
 	"coverageDirectory": "./coverage/",
 	"collectCoverage": true

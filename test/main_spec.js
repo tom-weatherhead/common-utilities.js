@@ -4,6 +4,10 @@
 
 'use strict';
 
+require('babel-mixin')({
+	includeRegeneratorRuntime: true
+});
+
 const assert = require('assert').strict;
 
 // const commonUtilities = require('..');
