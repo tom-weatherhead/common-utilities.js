@@ -4,7 +4,7 @@
 
 module.exports = require('thaw-config').grunt({
 	eslint: true,
-	mocha: true,
+	mocha: false,
 	webpack: true,
 	forClient: true,
 	forServer: true,

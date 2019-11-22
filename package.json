@@ -18,14 +18,16 @@
 	],
 	"scripts": {
 		"all": "npm run rebuild",
-		"build": "npm i && grunt",
+		"travis": "npm run all",
+		"build": "npm i && grunt && npm test",
 		"buildw": "npm i & grunt",
-		"clean": "rm -rf node_modules && rm -f dist/* && rm -f package-lock.json",
+		"clean": "rm -rf coverage && rm -rf node_modules && rm -f dist/* && rm -f package-lock.json",
 		"cleanw": "rmdir /Q /S node_modules & del /Q dist\\* & del package-lock.json",
 		"rebuild": "npm run clean && npm run build",
 		"rebuildw": "npm run cleanw & npm run buildw",
 		"start": "grunt",
-		"test": "grunt test"
+		"test": "jest --config jestconfig.json",
+		"test-grunt": "grunt test"
 	},
 	"dependencies": {},
 	"devDependencies": {
