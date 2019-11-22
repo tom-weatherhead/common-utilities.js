@@ -6,7 +6,8 @@
 
 const assert = require('assert').strict;
 
-const commonUtilities = require('..');
+// const commonUtilities = require('..');
+import * as commonUtilities from '../src/main';
 
 const array1Unsorted = [8, 6, 7, 5, 3, 0, 9];
 const array1SortedNonDecreasing = [0, 3, 5, 6, 7, 8, 9];

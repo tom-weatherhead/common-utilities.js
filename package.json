@@ -19,7 +19,7 @@
 	"scripts": {
 		"all": "npm run rebuild",
 		"travis": "npm run all",
-		"build": "npm i && grunt && npm test",
+		"build": "npm i && npm test && grunt",
 		"buildw": "npm i & grunt",
 		"clean": "rm -rf coverage && rm -rf node_modules && rm -f dist/* && rm -f package-lock.json",
 		"cleanw": "rmdir /Q /S node_modules & del /Q dist\\* & del package-lock.json",
