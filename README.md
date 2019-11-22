@@ -5,6 +5,7 @@ Common JavaScript utility functions
 [![npm](https://img.shields.io/npm/v/thaw-common-utilities.js.svg)](https://www.npmjs.com/package/thaw-common-utilities.js)
 [![npm](https://img.shields.io/npm/dt/thaw-common-utilities.js.svg)](https://www.npmjs.com/package/thaw-common-utilities.js)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b3552ee42819a985d7a7/maintainability)](https://codeclimate.com/github/tom-weatherhead/common-utilities.js/maintainability)
+[![test coverage](https://api.codeclimate.com/v1/badges/b3552ee42819a985d7a7/test_coverage)](https://codeclimate.com/github/tom-weatherhead/othello-angular-electron/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/tom-weatherhead/common-utilities.js/badge.svg?targetFile=package.json&package-lock.json)](https://snyk.io/test/github/tom-weatherhead/common-utilities.js?targetFile=package.json&package-lock.json)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tom-weatherhead/common-utilities.js/blob/master/LICENSE)
 
