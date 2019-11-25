@@ -31,7 +31,7 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"babel-mixin": "^0.0.8",
+		"babel-mixin": "^0.0.9",
 		"jest": "^24.9.0"
 	},
 	"engineStrict": true,
